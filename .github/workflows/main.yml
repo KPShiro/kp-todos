@@ -1,4 +1,4 @@
-name: CI
+name: Default CI
 
 on:
   push:
@@ -34,3 +34,29 @@ jobs:
         run: |
           npm i
           npm run build:prod
+  test:
+    if: success()
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm install and npm run build
+        run: npm run test:prod

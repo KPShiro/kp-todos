@@ -41,6 +41,52 @@
         "indent": [
           "error",
           4
+        ],
+        "no-duplicate-imports": "error",
+        "no-dupe-class-members": "error",
+        "no-dupe-args": "error",
+        "no-dupe-keys": "error",
+        "no-duplicate-case": "error",
+        "no-unused-expressions": "warn",
+        "no-unused-labels": "warn",
+        "no-unused-vars": "warn",
+        "no-debugger": "error",
+        "no-empty": "error",
+        "no-irregular-whitespace": "error",
+        "no-unexpected-multiline": "error",
+        "no-unsafe-finally": "error",
+        "use-isnan": "error",
+        "complexity": [
+          "error",
+          8
+        ],
+        "curly": [
+          "error",
+          "multi"
+        ],
+        "default-case": "error",
+        "eqeqeq": [
+          "error",
+          "always"
+        ],
+        "array-bracket-spacing": [
+          "error",
+          "always"
+        ],
+        "block-spacing": [
+          "error",
+          "always"
+        ],
+        "eol-last": [
+          "error",
+          "always"
+        ],
+        "camelcase": [
+          "error",
+          {
+            "ignoreImports": true,
+            "ignoreGlobals": true
+          }
         ]
       }
     },

@@ -13,7 +13,7 @@ import { CoreModule } from './core/core.module';
         BrowserModule,
         AppRoutingModule,
         NgbModule,
-        CoreModule.forRoot(),
+        CoreModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ]

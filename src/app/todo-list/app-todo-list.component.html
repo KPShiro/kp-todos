@@ -1,1 +1,11 @@
-<p>app-todo-list works!</p>
+<div class="p-3">
+  <h1>ToDo list</h1>
+
+  <button class="btn btn-primary" (click)="addTodo()">Add todo</button>
+
+  <ul class="pt-3">
+    <li *ngFor="let todo of (todos$ | async)">
+      {{ todo }}
+    </li>
+  </ul>
+</div>

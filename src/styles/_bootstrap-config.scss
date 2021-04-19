@@ -1,0 +1,34 @@
+@use 'src/styles/variables';
+
+// Color system
+
+$white: variables.$color-neutral-0;
+$gray-100: variables.$color-neutral-100;
+$gray-200: variables.$color-neutral-200;
+$gray-300: variables.$color-neutral-300;
+$gray-400: variables.$color-neutral-400;
+$gray-500: variables.$color-neutral-500;
+$gray-600: variables.$color-neutral-600;
+$gray-700: variables.$color-neutral-700;
+$gray-800: variables.$color-neutral-800;
+$gray-900: variables.$color-neutral-900;
+$black: variables.$color-neutral-900;
+
+$primary: variables.$color-blue-300;
+$success: variables.$color-green-400;
+$warning: variables.$color-yellow-400;
+$danger: variables.$color-red-400;
+$light: variables.$color-neutral-30;
+
+$yiq-contrasted-threshold: 170;
+
+// Typography
+
+$font-family-sans-serif: 'Lato', sans-serif;
+$font-size-base: 0.875rem;
+$line-height-base: 1;
+
+// Buttons
+
+$btn-padding-y: 0.688rem;
+$btn-padding-x: 1rem;

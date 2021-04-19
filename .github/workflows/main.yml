@@ -17,47 +17,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache node modules
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
-      - name: Node ${{ matrix.node-version }}
+      - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: npm install and npm run build
-        run: |
-          npm i
-          npm run build:prod
-  test:
-    runs-on: ubuntu-latest
+      - name: Install packages
+        run: npm install
 
-    strategy:
-      matrix:
-        node-version: [12.x]
+      - name: Run lint
+        run: npm run lint
 
-    steps:
-      - uses: actions/checkout@v2
+      - name: Run tests
+        run: npm run test:prod
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: npm install and npm run tests
-        run: |
-          npm i
-          npm run test:prod
+      - name: Build
+        run: npm run build:prod

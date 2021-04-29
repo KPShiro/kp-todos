@@ -1,9 +1,10 @@
-import * as actions from './state/todo-list.actions';
-import * as fromTodosList from './state/todo-list.selectors';
+import * as actions from './ngrx/todo-list.actions';
+import * as fromTodosList from './ngrx/todo-list.selectors';
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AppState } from '../core/ngrx/app-state.interface';
 
 @Component({
     selector: 'app-todo-list',
@@ -14,7 +15,7 @@ export class AppTodoListComponent implements OnInit {
     public todos$: Observable<any[]> = new Observable();
 
     public constructor(
-      private readonly _store: Store,
+      private readonly _store: Store<AppState>,
     ) {}
 
     public ngOnInit(): void {

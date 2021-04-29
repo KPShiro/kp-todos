@@ -1,3 +1,9 @@
+import { environmentCommon } from "./environment.common";
+
 export const environment = {
-    production: true
+    ...environmentCommon,
+    production: true,
+    storeDevtools: {
+        maxAge: 25,
+    }
 };

@@ -1,15 +1,27 @@
-import { NgModule } from "@angular/core";
-import { NGRXModule } from "./ngrx/ngrx.module";
-import { AppInitializer } from "./services/app-initializer/app-initializer";
-import { AppInitializerProvider } from "./services/app-initializer/app-initializer-provider";
+import { ModuleWithProviders, NgModule } from "@angular/core";
+import { AppInitializer } from "./app-initializer/app-initializer";
+import { AppInitializerProvider } from "./app-initializer/app-initializer-provider";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     imports: [
-        NGRXModule,
+        NgbModule,
+        CommonModule,
     ],
-    providers: [
-        AppInitializer,
-        AppInitializerProvider,
-    ]
+    exports: [
+        NgbModule,
+        CommonModule,
+    ],
 })
-export class CoreModule { }
+export class CoreModule {
+    public static forRoot(): ModuleWithProviders<CoreModule> {
+        return {
+            ngModule: CoreModule,
+            providers: [
+                AppInitializer,
+                AppInitializerProvider,
+            ],
+        };
+    }
+}

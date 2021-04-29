@@ -1,5 +1,5 @@
-import { TodoListState } from "src/app/todo-list/state/todo-list.state";
+import { TodoListState } from "src/app/todo-list/ngrx/todo-list.state";
 
 export interface AppState {
-  todos?: TodoListState;
+  todosList?: TodoListState;
 }

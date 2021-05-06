@@ -6,6 +6,8 @@ import { FEATURE_KEY } from './state/dashboard.selectors';
 import { featureReducer } from './state/dashboard.reducer';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 
+const ngbBootstrapModules: any = [];
+
 @NgModule({
     declarations: [
         TodoListComponent,
@@ -14,6 +16,7 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
         CommonModule,
         DashboardRoutingModule,
         StoreModule.forFeature(FEATURE_KEY, featureReducer),
+        ...ngbBootstrapModules,
     ],
     exports: [],
     providers: [],

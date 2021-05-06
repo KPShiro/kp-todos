@@ -5,7 +5,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState } from '@app/core/state/app.state';
 import { CoreModule } from '@app/core/core.module';
 
-describe('AppTodoListComponent', () => {
+describe('TodoListComponent', () => {
     let fixture: ComponentFixture<TodoListComponent>;
     let component: TodoListComponent;
     let store: MockStore;

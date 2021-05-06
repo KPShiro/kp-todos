@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CoreModule } from '../core/core.module';
-import { AppState } from '../core/ngrx/app-state.interface';
-import { AppTodoListComponent } from './app-todo-list.component';
+import { TodoListComponent } from './todo-list.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { AppState } from '@app/core/state/app.state';
+import { CoreModule } from '@app/core/core.module';
 
 describe('AppTodoListComponent', () => {
-    let fixture: ComponentFixture<AppTodoListComponent>;
-    let component: AppTodoListComponent;
+    let fixture: ComponentFixture<TodoListComponent>;
+    let component: TodoListComponent;
     let store: MockStore;
 
     const initialState: AppState = {
-        todosList: {
+        dashboard: {
             todos: [],
         },
     };
@@ -23,7 +23,7 @@ describe('AppTodoListComponent', () => {
                 CoreModule.forRoot(),
             ],
             declarations: [
-                AppTodoListComponent,
+                TodoListComponent,
             ],
             providers: [
                 provideMockStore({ initialState }),
@@ -32,7 +32,7 @@ describe('AppTodoListComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(AppTodoListComponent);
+        fixture = TestBed.createComponent(TodoListComponent);
         store = TestBed.inject(MockStore);
         component = fixture.componentInstance;
         fixture.detectChanges();

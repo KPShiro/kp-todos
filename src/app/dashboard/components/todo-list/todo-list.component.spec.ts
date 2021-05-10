@@ -1,9 +1,12 @@
+import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TodoListComponent } from './todo-list.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState } from '@app/core/state/app.state';
 import { CoreModule } from '@app/core/core.module';
+import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
 
 describe('TodoListComponent', () => {
     let fixture: ComponentFixture<TodoListComponent>;
@@ -12,7 +15,13 @@ describe('TodoListComponent', () => {
 
     const initialState: AppState = {
         dashboard: {
-            todos: [],
+            todos: [
+                {
+                    id: '0',
+                    isDone: false,
+                    text: 'Lorem ipsum',
+                }
+            ],
         },
     };
 
@@ -24,6 +33,7 @@ describe('TodoListComponent', () => {
             ],
             declarations: [
                 TodoListComponent,
+                TodoListItemComponent,
             ],
             providers: [
                 provideMockStore({ initialState }),
@@ -40,5 +50,37 @@ describe('TodoListComponent', () => {
 
     it('should be created', () => {
         expect(component).toBeTruthy();
+    });
+
+    describe('ngOnInit()', () => {
+        beforeEach(() => {
+            jest.spyOn(store, 'dispatch');
+        });
+
+        it('should select todos from the store', (done: jest.DoneCallback) => {
+            component.todos$.subscribe((todos) => {
+                done();
+                expect(todos.length).toEqual(1);
+            });
+        });
+    });
+
+    describe('addTodo()', () => {
+        beforeEach(() => {
+            jest.spyOn(store, 'dispatch');
+            component.addTodo();
+        });
+
+        it('should dispatch add action', () => {
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardActions.add.type });
+        });
+
+        it('should add new todo to the list', (done: jest.DoneCallback) => {
+            component.todos$.subscribe((todos) => {
+                done();
+                expect(todos.length).toEqual(2);
+            });
+        });
     });
 });

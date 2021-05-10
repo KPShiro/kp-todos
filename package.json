@@ -23,6 +23,7 @@
         "@angular/platform-browser": "~11.2.9",
         "@angular/platform-browser-dynamic": "~11.2.9",
         "@angular/router": "~11.2.9",
+        "@iconscout/unicons": "^3.0.6",
         "@ng-bootstrap/ng-bootstrap": "^9.1.0",
         "@ngrx/effects": "^11.1.0",
         "@ngrx/store": "^11.1.0",

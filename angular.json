@@ -31,6 +31,9 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "node_modules/@iconscout/unicons/css/animation.css",
+                            "node_modules/@iconscout/unicons/css/before.css",
+                            "node_modules/@iconscout/unicons/css/line.css",
                             "src/styles/styles.scss"
                         ],
                         "stylePreprocessorOptions": {

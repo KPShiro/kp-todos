@@ -1,0 +1,14 @@
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
+
+.todo-list {
+    $border: 1px solid $input-border-color;
+
+    border-top: $border;
+    border-bottom: $border;
+}
+
+.app-todo-list-item + .app-todo-list-item {
+    border-top: 1px solid $input-border-color;
+}

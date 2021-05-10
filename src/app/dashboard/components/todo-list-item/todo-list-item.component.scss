@@ -1,0 +1,44 @@
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
+
+:host {
+    & {
+        display: block;
+        padding: 1rem;
+    }
+
+    .todo-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .todo-text {
+        flex: 1;
+    }
+
+    .todo-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 1.5rem;
+        width: 1.5rem;
+
+        border: 0.125rem solid $input-border-color;
+        border-radius: 50%;
+    }
+
+    .todo-status-icon {
+        font-style: 2rem;
+    }
+}
+
+:host.done {
+    .todo-header {
+        opacity: 0.24;
+    }
+
+    .todo-text {
+        text-decoration: line-through;
+    }
+}

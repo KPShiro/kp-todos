@@ -1,18 +1,11 @@
-<div class="p-3">
-    <h1>Lorem ipsum</h1>
-    <p class="text-muted mb-0">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi ipsum non ducimus.
-    </p>
+<div class="p-3 d-flex align-items-center">
+    <h3 class="mb-0 flex-fill">Release</h3>
 </div>
 
-<hr>
-
-<div class="px-3 py-2" *ngFor="let todo of (todos$ | async); let i = index">
-    <input type="text" class="form-control" placeholder="What do you have to do?" [value]="todo">
+<div class="todo-list" *ngIf="(todos$ | async); let todos">
+    <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"></app-todo-list-item>
 </div>
 
-<div class="p-3">
-    <button type="button" class="btn btn-block btn-primary" (click)="addTodo()">
-        New list element
-    </button>
-</div>
+<button type="button" class="btn btn-block text-left text-muted mt-3" (click)="addTodo()">
+    <i class="uil uil-plus mr-2"></i> Add task
+</button>

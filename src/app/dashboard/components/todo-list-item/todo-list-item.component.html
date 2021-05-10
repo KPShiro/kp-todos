@@ -1,0 +1,6 @@
+<div class="todo-header">
+    <span class="todo-status mr-3" (click)="onCheckClick()">
+        <i class="uil uil-check" *ngIf="todo.isDone"></i>
+    </span>
+    <span class="todo-text">{{ todo.text }}</span>
+</div>

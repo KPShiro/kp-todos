@@ -5,12 +5,14 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { FEATURE_KEY } from './state/dashboard.selectors';
 import { featureReducer } from './state/dashboard.reducer';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodoListItemComponent } from './components/todo-list-item/todo-list-item.component';
 
 const ngbBootstrapModules: any = [];
 
 @NgModule({
     declarations: [
         TodoListComponent,
+        TodoListItemComponent,
     ],
     imports: [
         CommonModule,

@@ -1,5 +1,5 @@
 import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
-import * as dashboardSelectors from '@app/dashboard/state/dashboard.selectors';
+import * as fromDashboard from '@app/dashboard/state/dashboard.selectors';
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -19,10 +19,10 @@ export class TodoListComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.todos$ = this._store.select(dashboardSelectors.selectAllTodos);
+        this.todos$ = this._store.select(fromDashboard.selectAllTodos);
     }
 
     public addTodo(): void {
-        this._store.dispatch(dashboardActions.create({ text: 'Lorem ipsum' }));
+        this._store.dispatch(dashboardActions.add());
     }
 }

@@ -2,8 +2,8 @@ import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
 
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AppState } from '@app/core/state/app.state';
-import { Todo } from '@app/shared/models/todo.model';
 import { Store } from '@ngrx/store';
+import { ITodo } from '@app/shared/interfaces/todo.interface';
 
 @Component({
     selector: 'app-todo-list-item',
@@ -18,11 +18,11 @@ export class TodoListItemComponent implements OnInit {
     private _doneClass: boolean = false;
 
     @Input()
-    public todo!: Todo;
+    public todo!: ITodo;
 
     public constructor(
         public store: Store<AppState>,
-    ) {}
+    ) { }
 
     public ngOnInit(): void {
         this._doneClass = this.todo.isDone;

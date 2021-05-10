@@ -4,6 +4,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AppState } from '@app/core/state/app.state';
 import { Store } from '@ngrx/store';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-todo-list-item',
@@ -19,6 +20,7 @@ export class TodoListItemComponent implements OnInit {
 
     @Input()
     public todo!: ITodo;
+    public todoTextControl!: FormControl;
 
     public constructor(
         public store: Store<AppState>,
@@ -26,6 +28,7 @@ export class TodoListItemComponent implements OnInit {
 
     public ngOnInit(): void {
         this._doneClass = this.todo.isDone;
+        this.todoTextControl = new FormControl(this.todo.text);
     }
 
     public onCheckClick(): void {
@@ -35,5 +38,9 @@ export class TodoListItemComponent implements OnInit {
                 isDone: !this.todo.isDone,
             }
         }));
+    }
+
+    public onRemoveBtnClick(): void {
+        this.store.dispatch(dashboardActions.remove({ id: this.todo.id }));
     }
 }

@@ -5,16 +5,12 @@
 :host {
     & {
         display: block;
-        padding: 1rem;
+        padding-left: 1rem;
     }
 
     .todo-header {
         display: flex;
         align-items: center;
-    }
-
-    .todo-text {
-        flex: 1;
     }
 
     .todo-status {
@@ -31,14 +27,29 @@
     .todo-status-icon {
         font-style: 2rem;
     }
+
+    .todo-form {
+        flex: 1;
+        display: flex;
+    }
+
+    .todo-input {
+        flex: 1;
+        padding: 1rem 1rem 1rem 0;
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        outline: none;
+    }
 }
 
 :host.done {
-    .todo-header {
+    .todo-status,
+    .todo-input {
         opacity: 0.24;
     }
 
-    .todo-text {
+    .todo-input {
         text-decoration: line-through;
     }
 }

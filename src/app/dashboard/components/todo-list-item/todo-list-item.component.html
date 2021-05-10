@@ -1,0 +1,9 @@
+<div class="todo-header">
+    <span class="todo-status mr-3" (click)="onCheckClick()">
+        <i class="uil uil-check" *ngIf="todo.isDone"></i>
+    </span>
+    <input type="text" class="todo-input" placeholder="What needs to be done?" [formControl]="todoTextControl" (blur)="onInputBlur()">
+    <button type="button" class="btn btn-remove-todo" (click)="onRemoveBtnClick()">
+        <i class="uil uil-times"></i>
+    </button>
+</div>

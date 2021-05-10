@@ -1,0 +1,13 @@
+@use 'variables';
+
+.kp-error-page {
+    @extend .p-4;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+}

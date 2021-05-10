@@ -1,0 +1,55 @@
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
+
+:host {
+    & {
+        display: block;
+        padding-left: 1rem;
+    }
+
+    .todo-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .todo-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 1.5rem;
+        width: 1.5rem;
+
+        border: 0.125rem solid $input-border-color;
+        border-radius: 50%;
+    }
+
+    .todo-status-icon {
+        font-style: 2rem;
+    }
+
+    .todo-form {
+        flex: 1;
+        display: flex;
+    }
+
+    .todo-input {
+        flex: 1;
+        padding: 1rem 1rem 1rem 0;
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        outline: none;
+    }
+}
+
+:host.done {
+    .todo-status,
+    .todo-input {
+        opacity: 0.24;
+    }
+
+    .todo-input {
+        text-decoration: line-through;
+    }
+}

@@ -7,6 +7,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState } from '@app/core/state/app.state';
 import { CoreModule } from '@app/core/core.module';
 import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('TodoListComponent', () => {
     let fixture: ComponentFixture<TodoListComponent>;
@@ -28,6 +29,7 @@ describe('TodoListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
+                ReactiveFormsModule,
                 RouterTestingModule,
                 CoreModule.forRoot(),
             ],

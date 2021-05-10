@@ -7,6 +7,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { CoreModule } from '@app/core/core.module';
 import { AppState } from '@app/core/state/app.state';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('TodoListItemComponent', () => {
     let fixture: ComponentFixture<TodoListItemComponent>;
@@ -28,6 +29,7 @@ describe('TodoListItemComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
+                ReactiveFormsModule,
                 RouterTestingModule,
                 CoreModule.forRoot(),
             ],
@@ -52,7 +54,7 @@ describe('TodoListItemComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should dispatch todo update action', () => {
+    it('should dispatch update todo action', () => {
         jest.spyOn(store, 'dispatch');
 
         component.onCheckClick();
@@ -61,6 +63,18 @@ describe('TodoListItemComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith({
             todo: { ...initialTodo, isDone: !initialTodo.isDone },
             type: dashboardActions.update.type
+        });
+    });
+
+    it('should dispatch remove todo action', () => {
+        jest.spyOn(store, 'dispatch');
+
+        component.onRemoveBtnClick();
+
+        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledWith({
+            id: component.todo.id,
+            type: dashboardActions.remove.type
         });
     });
 });

@@ -31,6 +31,15 @@ export class TodoListItemComponent implements OnInit {
         this.todoTextControl = new FormControl(this.todo.text);
     }
 
+    public onInputBlur(): void {
+        this.store.dispatch(dashboardActions.update({
+            todo: {
+                ...this.todo,
+                text: this.todoTextControl.value,
+            }
+        }));
+    }
+
     public onCheckClick(): void {
         this.store.dispatch(dashboardActions.update({
             todo: {

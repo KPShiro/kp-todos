@@ -54,27 +54,48 @@ describe('TodoListItemComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should dispatch update todo action', () => {
-        jest.spyOn(store, 'dispatch');
+    describe('onCheckClick()', () => {
+        beforeEach(() => {
+            jest.spyOn(store, 'dispatch');
+            component.onCheckClick();
+        });
 
-        component.onCheckClick();
-
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            todo: { ...initialTodo, isDone: !initialTodo.isDone },
-            type: dashboardActions.update.type
+        it('should dispatch update todo action', () => {
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                todo: { ...initialTodo, isDone: !initialTodo.isDone },
+                type: dashboardActions.update.type
+            });
         });
     });
 
-    it('should dispatch remove todo action', () => {
-        jest.spyOn(store, 'dispatch');
+    describe('onRemoveBtnClick()', () => {
+        beforeEach(() => {
+            jest.spyOn(store, 'dispatch');
+            component.onRemoveBtnClick();
+        });
 
-        component.onRemoveBtnClick();
+        it('should dispatch remove todo action', () => {
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                id: component.todo.id,
+                type: dashboardActions.remove.type
+            });
+        });
+    });
 
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            id: component.todo.id,
-            type: dashboardActions.remove.type
+    describe('onInputBlur()', () => {
+        beforeEach(() => {
+            jest.spyOn(store, 'dispatch');
+            component.onInputBlur();
+        });
+
+        it('should dispatch update todo action', () => {
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                todo: { ...initialTodo, text: initialTodo.text },
+                type: dashboardActions.update.type
+            });
         });
     });
 });

@@ -1,4 +1,3 @@
-import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
 import * as fromDashboard from '@app/dashboard/state/dashboard.selectors';
 
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +22,7 @@ export class TodoListComponent implements OnInit {
         this.todos$ = this._store.select(fromDashboard.selectAllTodos);
     }
 
-    public addTodo(): void {
-        this._store.dispatch(dashboardActions.add());
+    public onAddTodoClick(): void {
+        throw new Error('Method not implemented.');
     }
 }

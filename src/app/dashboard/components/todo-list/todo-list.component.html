@@ -1,6 +1,6 @@
 <div class="todo-list-header">
     <h5 class="mb-0 flex-fill">
-        Release: June 2021
+        My first release
     </h5>
 </div>
 
@@ -10,7 +10,7 @@
             <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"></app-todo-list-item>
         </div>
         <div class="p-3">
-            <button type="button" class="btn btn-light text-left text-muted" (click)="addTodo()">
+            <button type="button" class="btn btn-light text-left text-muted" (click)="onAddTodoClick()">
                 <i class="uil uil-plus mr-2"></i> Add task
             </button>
         </div>

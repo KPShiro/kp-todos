@@ -24,6 +24,7 @@ describe('TodoListItemComponent', () => {
         id: '0',
         isDone: false,
         text: 'Lorem ipsum',
+        children: [],
     };
 
     beforeEach(async () => {
@@ -57,43 +58,13 @@ describe('TodoListItemComponent', () => {
     describe('onCheckClick()', () => {
         beforeEach(() => {
             jest.spyOn(store, 'dispatch');
-            component.onCheckClick();
+            component.onCheckClick(new Event('click'));
         });
 
         it('should dispatch update todo action', () => {
             expect(store.dispatch).toHaveBeenCalledTimes(1);
             expect(store.dispatch).toHaveBeenCalledWith({
                 todo: { ...initialTodo, isDone: !initialTodo.isDone },
-                type: dashboardActions.update.type
-            });
-        });
-    });
-
-    describe('onRemoveBtnClick()', () => {
-        beforeEach(() => {
-            jest.spyOn(store, 'dispatch');
-            component.onRemoveBtnClick();
-        });
-
-        it('should dispatch remove todo action', () => {
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({
-                id: component.todo.id,
-                type: dashboardActions.remove.type
-            });
-        });
-    });
-
-    describe('onInputBlur()', () => {
-        beforeEach(() => {
-            jest.spyOn(store, 'dispatch');
-            component.onInputBlur();
-        });
-
-        it('should dispatch update todo action', () => {
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({
-                todo: { ...initialTodo, text: initialTodo.text },
                 type: dashboardActions.update.type
             });
         });

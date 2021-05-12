@@ -35,7 +35,8 @@ export class TodoListItemComponent implements OnInit {
 
     public async onCheckClick(event: Event): Promise<void> {
         event.stopPropagation();
-        window.navigator.vibrate(5);
+
+        if(window.navigator.vibrate) window.navigator.vibrate(5);
 
         this.store.dispatch(dashboardActions.update({
             todo: {

@@ -8,6 +8,7 @@ import { AppState } from '@app/core/state/app.state';
 import { CoreModule } from '@app/core/core.module';
 import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EmptyStateComponent } from '../empty-state/empty-state.component';
 
 describe('TodoListComponent', () => {
     let fixture: ComponentFixture<TodoListComponent>;
@@ -21,6 +22,7 @@ describe('TodoListComponent', () => {
                     id: '0',
                     isDone: false,
                     text: 'Lorem ipsum',
+                    children: [],
                 }
             ],
         },
@@ -36,6 +38,7 @@ describe('TodoListComponent', () => {
             declarations: [
                 TodoListComponent,
                 TodoListItemComponent,
+                EmptyStateComponent,
             ],
             providers: [
                 provideMockStore({ initialState }),
@@ -67,10 +70,10 @@ describe('TodoListComponent', () => {
         });
     });
 
-    describe('addTodo()', () => {
+    describe('onAddTodoClick()', () => {
         beforeEach(() => {
             jest.spyOn(store, 'dispatch');
-            component.addTodo();
+            component.onAddTodoClick();
         });
 
         it('should dispatch add action', () => {

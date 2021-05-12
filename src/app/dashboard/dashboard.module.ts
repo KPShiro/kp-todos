@@ -7,6 +7,7 @@ import { featureReducer } from './state/dashboard.reducer';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoListItemComponent } from './components/todo-list-item/todo-list-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 
 const ngbBootstrapModules: any = [];
 
@@ -14,6 +15,7 @@ const ngbBootstrapModules: any = [];
     declarations: [
         TodoListComponent,
         TodoListItemComponent,
+        EmptyStateComponent,
     ],
     imports: [
         CommonModule,

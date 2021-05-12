@@ -1,0 +1,29 @@
+@import 'core/theming';
+
+:host.app-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: map-get($spacers, 4);
+}
+
+.app-empty-state {
+    &-image {
+        width: 256px;
+        margin-bottom: map-get($spacers, 4);
+    }
+
+    &-title {
+        margin-bottom: map-get($spacers, 1);
+    }
+
+    &-description {
+        color: color-neutral('80');
+    }
+
+    &-actions {
+        margin-top: map-get($spacers, 4);
+    }
+}

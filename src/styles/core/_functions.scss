@@ -1,0 +1,19 @@
+@function color-neutral($key: '30') {
+    @return map-get($neutrals, $key);
+}
+
+@function color-blue($key: '300') {
+    @return map-get($blues, $key);
+}
+
+@function color-green($key: '300') {
+    @return map-get($greens, $key);
+}
+
+@function color-red($key: '300') {
+    @return map-get($reds, $key);
+}
+
+@function color-yellow($key: '300') {
+    @return map-get($yellows, $key);
+}

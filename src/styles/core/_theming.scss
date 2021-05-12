@@ -1,0 +1,172 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@import 'functions';
+@import 'colors';
+
+// Color system
+
+$primary: color-blue();
+$success: color-green();
+$warning: color-yellow();
+$danger: color-red();
+$light: color-neutral();
+$dark: color-neutral('800');
+
+$theme-colors: (
+    'primary': $primary,
+    'success': $success,
+    'warning': $warning,
+    'danger': $danger,
+    'light': $light,
+    'dark': $dark,
+);
+
+$yiq-contrasted-threshold: 180;
+
+$yiq-text-dark: $body-color;
+
+// Options
+
+$enable-responsive-font-sizes: true;
+
+// Body
+
+$body-bg: color-neutral('10');
+$body-color: $dark;
+
+// Components
+
+$border-color: color-neutral('40');
+
+// Typography
+
+$font-family-sans-serif: 'Lato', sans-serif;
+
+$font-size-base: 1rem;
+$line-height-base: 1.5;
+
+$h1-font-size: $font-size-base * 2;
+$h2-font-size: $font-size-base * 1.75;
+$h3-font-size: $font-size-base * 1.5;
+$h4-font-size: $font-size-base * 1.25;
+$h5-font-size: $font-size-base * 1.125;
+
+$headings-line-height: 1.75;
+
+$text-muted: color-neutral('80');
+
+$blockquote-small-color: color-neutral('80');
+
+$hr-border-color: color-neutral();
+
+// Tables
+
+$table-hover-bg: color-neutral('20');
+
+$table-dark-bg: theme-color('dark');
+$table-dark-hover-bg: lighten($table-dark-bg, 4%);
+$table-dark-border-color: lighten($table-dark-bg, 8%);
+
+// Buttons + Forms
+
+$input-btn-padding-y: 0.5rem;
+$input-btn-padding-x: 1.125rem;
+
+$input-btn-padding-y-sm: 0.407rem;
+$input-btn-padding-x-sm: 0.875rem;
+
+// Buttons
+
+$btn-padding-y: $input-btn-padding-y;
+$btn-padding-x: $input-btn-padding-x;
+
+$btn-padding-y-sm: $input-btn-padding-y-sm;
+$btn-padding-x-sm: $input-btn-padding-x-sm;
+
+$btn-disabled-opacity: 0.24;
+
+$btn-link-disabled-color: color-neutral('500');
+
+// Forms
+
+$label-margin-bottom: 0.25rem;
+
+$input-disabled-bg: color-neutral('20');
+
+$input-color: $body-color;
+$input-border-color: $border-color;
+
+$input-focus-border-color: theme-color('primary');
+$input-focus-color: theme-color('primary');
+
+$input-placeholder-color: color-neutral('50');
+
+$input-group-addon-bg: $input-bg;
+$input-group-addon-color: $input-placeholder-color;
+
+$custom-control-indicator-border-color: $border-color;
+
+$custom-control-label-disabled-color: color-neutral('80');
+
+$custom-control-indicator-checked-border-color: transparent;
+
+$custom-select-disabled-color: $text-muted;
+$custom-select-disabled-bg: $input-disabled-bg;
+
+$custom-range-track-bg: color-neutral();
+
+$custom-range-thumb-disabled-bg: color-neutral('50');
+
+// Navs
+
+$nav-link-disabled-color: color-neutral('50');
+
+$nav-tabs-border-color: $border-color;
+$nav-tabs-border-radius: 0;
+$nav-tabs-link-hover-border-color: transparent;
+$nav-tabs-link-active-color: theme-color('primary');
+$nav-tabs-link-active-bg: transparent;
+$nav-tabs-link-active-border-color: transparent transparent theme-color('primary');
+
+// Dropdowns
+
+$dropdown-spacer: 0.25rem;
+$dropdown-border-color: $border-color;
+$dropdown-divider-bg: $dropdown-border-color;
+
+$dropdown-link-color: $body-color;
+$dropdown-link-hover-color: $dropdown-link-color;
+$dropdown-link-hover-bg: color-neutral('20');
+
+$dropdown-link-active-color: $dropdown-link-color;
+$dropdown-link-active-bg: color-neutral();
+
+$dropdown-link-disabled-color: color-neutral('50');
+
+$dropdown-item-padding-y: $input-btn-padding-y;
+$dropdown-item-padding-x: $input-btn-padding-x;
+
+$dropdown-header-color: color-neutral('80');
+$dropdown-header-padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+
+// Tooltips
+
+$tooltip-max-width: 256px;
+$tooltip-bg: $dark;
+$tooltip-padding-y: 0.5rem;
+$tooltip-padding-x: 1.125rem;
+
+$tooltip-arrow-color: $tooltip-bg;
+
+// List group
+
+$list-group-bg: transparent;
+$list-group-border-color: $border-color;
+
+$list-group-hover-bg: color-neutral('20');
+$list-group-active-bg: theme-color('primary');
+
+$list-group-disabled-color: color-neutral('50');
+$list-group-disabled-bg: $list-group-bg;

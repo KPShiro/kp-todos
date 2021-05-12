@@ -1,7 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import 'bootstrap-config';
+// Bootstrap
+@import 'core/theming';
 @import '~bootstrap/scss/bootstrap';
 
-@import 'fonts';
+// Others
+@import 'core/fonts';
 @import 'error-pages';

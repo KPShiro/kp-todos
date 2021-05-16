@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { KpDialogModule } from './kp-dialog/kp-dialog.module';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { CoreModule } from './core/core.module';
             maxAge: environment.storeDevtools.maxAge,
             logOnly: environment.production,
         }),
+        KpDialogModule.forRoot(),
     ],
     providers: [],
     bootstrap: [ AppComponent ]

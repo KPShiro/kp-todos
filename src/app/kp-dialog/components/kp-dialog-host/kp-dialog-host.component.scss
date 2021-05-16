@@ -1,0 +1,89 @@
+@import 'core/theming';
+@import './kp-dialog-host-animations.component.scss';
+
+$z-index-dialog-backdrop: 1040;
+$z-index-dialog: 1050;
+$border-radius-dialog: 0.25rem;
+$animation-length: 0.5s;
+
+:host(.kp-dialog) {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.kp-dialog-backdrop {
+    position: relative;
+    z-index: $z-index-dialog-backdrop;
+    width: 100%;
+    height: 100%;
+    background-color: transparentize(color-neutral('900'), 0.76);
+
+    animation: backdropIn $animation-length;
+}
+
+.kp-dialog-content {
+    position: fixed;
+    overflow: auto;
+    z-index: $z-index-dialog;
+    border-radius: $border-radius-dialog;
+    background-color: color-neutral('0');
+
+    @each $key, $value in $container-max-widths {
+        @include media-breakpoint-only($key) {
+            max-width: $value;
+        }
+    }
+}
+
+:host(.kp-dialog--dialog) {
+    & {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .kp-dialog-content {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+
+        animation: dialogIn $animation-length;
+
+        @include media-breakpoint-only('xs') {
+            max-width: 90vw;
+        }
+    }
+}
+
+:host(.kp-dialog--bottomsheet) {
+    & {
+        display: flex;
+        justify-content: center;
+    }
+
+    .kp-dialog-content {
+        bottom: 0;
+        max-height: 60vh;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        animation: bottomsheetIn $animation-length;
+    }
+}
+
+:host(.kp-dialog--sidepanel) {
+    .kp-dialog-content {
+        right: 0;
+        height: 100vh;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        animation: sidepanelIn $animation-length;
+
+        @include media-breakpoint-only('xs') {
+            max-width: 90vw;
+        }
+    }
+}

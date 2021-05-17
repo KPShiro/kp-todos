@@ -70,6 +70,10 @@ $animation-length: 0.5s;
         border-bottom-right-radius: 0;
 
         animation: bottomsheetIn $animation-length;
+
+        @include media-breakpoint-only('xs') {
+            width: 100vw;
+        }
     }
 }
 

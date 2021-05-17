@@ -1,16 +1,11 @@
 import { ApplicationRef, ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, Injector, Type } from '@angular/core';
 import { KpDialogHostComponent } from '@app/kp-dialog/components/kp-dialog-host/kp-dialog-host.component';
-import { KpDialogType } from '@app/kp-dialog/enums/dialog-type.enum';
-import { IKpDialogConfig } from '@app/kp-dialog/interfaces/dialog-configuration.interface';
-import { KpDialogHost } from '@app/kp-dialog/models/kp-dialog-host/kp-dialog-host';
-import { KpDialogRef } from '@app/kp-dialog/models/kp-dialog-ref/kp-dialog-ref';
+import { DEFAULT_KP_DIALOG_CONFIG, IKpDialogConfig } from '@app/kp-dialog/interfaces/dialog-configuration.interface';
+import { KpDialogHost } from '@app/kp-dialog/models/kp-dialog-host';
+import { KpDialogRef } from '@app/kp-dialog/models/kp-dialog-ref';
 
 @Injectable()
 export class KpDialogService {
-
-    private CONFIG: IKpDialogConfig = {
-        type: KpDialogType.DIALOG,
-    };
 
     private dialogRefs: KpDialogRef[] = [];
 
@@ -20,7 +15,7 @@ export class KpDialogService {
         private readonly _injector: Injector,
     ) { }
 
-    public open<DataType = any, ComponentType = any>(componentType: Type<ComponentType>, config: IKpDialogConfig<DataType> = this.CONFIG): KpDialogRef {
+    public open<DataType = any, ComponentType = any>(componentType: Type<ComponentType>, config: IKpDialogConfig<DataType> = DEFAULT_KP_DIALOG_CONFIG): KpDialogRef {
         const dialogHost: KpDialogHost = new KpDialogHost<DataType>(config.data);
         const dialogComponent: ComponentRef<ComponentType> = this._createDialogComponent(componentType, dialogHost);
         const dialogRef: KpDialogRef = this._spawnDialog(dialogComponent, config);

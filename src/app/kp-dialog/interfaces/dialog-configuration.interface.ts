@@ -6,3 +6,7 @@ export interface IKpDialogConfig<T = any> {
     dialogClass?: string[];
     data?: T | undefined;
 }
+
+export const DEFAULT_KP_DIALOG_CONFIG: IKpDialogConfig = {
+    type: KpDialogType.DIALOG,
+};

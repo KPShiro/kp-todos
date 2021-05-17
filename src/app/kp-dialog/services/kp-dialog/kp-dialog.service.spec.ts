@@ -5,7 +5,11 @@ describe('KpDialogService', () => {
     let service: KpDialogService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            providers: [
+                KpDialogService,
+            ]
+        });
         service = TestBed.inject(KpDialogService);
     });
 

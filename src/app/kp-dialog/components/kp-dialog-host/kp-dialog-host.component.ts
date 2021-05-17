@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input, ElementRef, OnInit } from '@angular/core';
-import { IKpDialogConfig } from '@app/kp-dialog/interfaces/dialog-configuration.interface';
+import { DEFAULT_KP_DIALOG_CONFIG, IKpDialogConfig } from '@app/kp-dialog/interfaces/dialog-configuration.interface';
 
 @Component({
     selector: 'kp-dialog',
@@ -10,26 +10,26 @@ import { IKpDialogConfig } from '@app/kp-dialog/interfaces/dialog-configuration.
 export class KpDialogHostComponent implements OnInit {
 
     private get _dialogContentElement(): HTMLElement {
-        return this.elementRef.nativeElement.querySelector('.kp-dialog-content') as HTMLElement;
+        return this._elementRef.nativeElement.querySelector('.kp-dialog-content') as HTMLElement;
     }
 
     private get _dialogBackdropElement(): HTMLElement {
-        return this.elementRef.nativeElement.querySelector('.kp-dialog-backdrop') as HTMLElement;
+        return this._elementRef.nativeElement.querySelector('.kp-dialog-backdrop') as HTMLElement;
     }
 
     @Input()
-    public config!: IKpDialogConfig;
+    public config: IKpDialogConfig = DEFAULT_KP_DIALOG_CONFIG;
 
     @Output()
     public afterClosed: EventEmitter<void> = new EventEmitter();
 
     public constructor(
-        private elementRef: ElementRef<HTMLElement>,
+        private readonly _elementRef: ElementRef<HTMLElement>,
     ) { }
 
     public ngOnInit(): void {
-        this.elementRef.nativeElement.classList.add('kp-dialog');
-        this.elementRef.nativeElement.classList.add(`kp-dialog--${this.config.type}`);
+        this._elementRef.nativeElement.classList.add('kp-dialog');
+        this._elementRef.nativeElement.classList.add(`kp-dialog--${this.config.type}`);
 
         this.config.dialogClass?.forEach((cssClass) => {
             this._dialogContentElement.classList.add(cssClass);

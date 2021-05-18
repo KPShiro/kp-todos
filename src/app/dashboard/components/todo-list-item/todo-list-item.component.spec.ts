@@ -64,8 +64,8 @@ describe('TodoListItemComponent', () => {
         it('should dispatch update todo action', () => {
             expect(store.dispatch).toHaveBeenCalledTimes(1);
             expect(store.dispatch).toHaveBeenCalledWith({
-                todo: { ...initialTodo, isDone: !initialTodo.isDone },
-                type: dashboardActions.update.type
+                todo: initialTodo,
+                type: dashboardActions.toggleTodoIsDone.type,
             });
         });
     });

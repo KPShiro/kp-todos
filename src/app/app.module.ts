@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -24,6 +25,7 @@ import { KpDialogModule } from './kp-dialog/kp-dialog.module';
             logOnly: environment.production,
         }),
         KpDialogModule.forRoot(),
+        ReactiveFormsModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ]

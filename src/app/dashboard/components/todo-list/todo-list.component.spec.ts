@@ -5,9 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TodoListComponent } from './todo-list.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState } from '@app/core/state/app.state';
-import { CoreModule } from '@app/core/core.module';
 import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { EmptyStateComponent } from '../empty-state/empty-state.component';
 
 describe('TodoListComponent', () => {
@@ -31,9 +29,7 @@ describe('TodoListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                ReactiveFormsModule,
                 RouterTestingModule,
-                CoreModule.forRoot(),
             ],
             declarations: [
                 TodoListComponent,
@@ -76,9 +72,9 @@ describe('TodoListComponent', () => {
             component.onAddTodoClick();
         });
 
-        it('should dispatch add action', () => {
+        it('should dispatch openTodoForm action', () => {
             expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardActions.add.type });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardActions.openTodoForm.type });
         });
 
         it('should add new todo to the list', (done: jest.DoneCallback) => {

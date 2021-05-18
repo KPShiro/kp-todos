@@ -1,0 +1,19 @@
+<ng-container *ngIf="isInEditMode">
+    <div class="todo-form-header">
+        <h5 class="m-0">Edit task</h5>
+        <div class="todo-form-header-actions">
+            <button type="button" class="btn" (click)="onRemoveActionClick()">
+                <i class="uil uil-trash"></i>
+            </button>
+        </div>
+    </div>
+</ng-container>
+<form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onFormSubmit()">
+    <ng-container *ngIf="isInEditMode">
+        <div class="todo-form-checkbox" (click)="onCheckboxClick()">
+            <input type="checkbox" id="isDone" class="form-check-input" formControlName="isDone" hidden>
+            <i class="uil uil-check" *ngIf="todoIsDoneControl.value"></i>
+        </div>
+    </ng-container>
+    <input #todoTextHTMLElement type="text" class="form-control" placeholder="e.g. do the shopping" formControlName="text">
+</form>

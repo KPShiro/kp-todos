@@ -1,0 +1,38 @@
+@import 'core/theming';
+
+:host {
+    display: block;
+
+    @each $key, $value in $container-max-widths {
+        @include media-breakpoint-only($key) {
+            width: $value;
+        }
+    }
+}
+
+.todo-form {
+    & {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    &-checkbox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-right: map-get($spacers, 3);
+        border: 1px solid $body-color;
+        border-radius: 50%;
+    }
+}
+
+.todo-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: map-get($spacers, 3);
+    border-bottom: 1px solid $border-color;
+}

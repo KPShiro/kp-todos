@@ -2,6 +2,9 @@
     <h5 class="mb-0 flex-fill">
         My first release
     </h5>
+    <span>
+        {{ doneTodosCount$ | async }} of {{ todosCount$ | async }}
+    </span>
 </div>
 
 <ng-container *ngIf="(todos$ | async); let todos">

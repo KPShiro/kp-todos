@@ -17,32 +17,26 @@ export class TodoListItemComponent implements OnInit {
     @HostBinding('class.done')
     private _doneClass: boolean = false;
 
-    @HostListener('click')
-    public onClick(): void {
-        throw new Error('Method not implemented.');
-    }
-
     @Input()
-    public todo!: ITodo;
+    public todo?: ITodo;
 
     public constructor(
-        public store: Store<AppState>,
+        private readonly _store: Store<AppState>,
     ) { }
 
     public ngOnInit(): void {
-        this._doneClass = this.todo.isDone;
+        this._doneClass = this.todo?.isDone ?? false;
     }
 
-    public async onCheckClick(event: Event): Promise<void> {
+    @HostListener('click')
+    public onItemClick(): void {
+        if(!this.todo) return;
+        this._store.dispatch(dashboardActions.openTodoForm({ todo: this.todo }));
+    }
+
+    public onCheckClick(event: Event): void {
+        if(!this.todo) return;
         event.stopPropagation();
-
-        if(window.navigator.vibrate) window.navigator.vibrate(5);
-
-        this.store.dispatch(dashboardActions.update({
-            todo: {
-                ...this.todo,
-                isDone: !this.todo.isDone,
-            }
-        }));
+        this._store.dispatch(dashboardActions.toggleTodoIsDone({ todo: this.todo }));
     }
 }

@@ -23,7 +23,7 @@
         height: map-get($spacers, 4);
         width: map-get($spacers, 4);
 
-        border: 1px solid color-neutral('80');
+        border: 1px solid $body-color;
         border-radius: 50%;
     }
 

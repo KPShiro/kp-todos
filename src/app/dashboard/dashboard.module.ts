@@ -7,11 +7,11 @@ import { featureReducer } from './state/dashboard.reducer';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoListItemComponent } from './components/todo-list-item/todo-list-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 import { TodoEditFormComponent } from './components/todo-edit-form/todo-edit-form.component';
 import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './state/dashboard.effects';
 import { TodoCreateFormComponent } from './components/todo-create-form/todo-create-form.component';
+import { CoreModule } from '@app/core/core.module';
 
 const ngbBootstrapModules: any = [];
 
@@ -24,11 +24,11 @@ const ngrxModules: any = [
     declarations: [
         TodoListComponent,
         TodoListItemComponent,
-        EmptyStateComponent,
         TodoEditFormComponent,
         TodoCreateFormComponent,
     ],
     imports: [
+        CoreModule,
         CommonModule,
         DashboardRoutingModule,
         ReactiveFormsModule,

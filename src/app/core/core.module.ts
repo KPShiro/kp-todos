@@ -4,6 +4,11 @@ import { AppInitializerProvider } from "./app-initializer/app-initializer-provid
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
 import { VibrationService } from "./services/vibration.service";
+import { EmptyStateComponent } from "./components/empty-state/empty-state.component";
+
+const coreComponents = [
+    EmptyStateComponent,
+];
 
 @NgModule({
     imports: [
@@ -13,6 +18,10 @@ import { VibrationService } from "./services/vibration.service";
     exports: [
         NgbModule,
         CommonModule,
+        ...coreComponents,
+    ],
+    declarations: [
+        ...coreComponents,
     ],
 })
 export class CoreModule {

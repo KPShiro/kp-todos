@@ -7,7 +7,7 @@ import { TodoListComponent } from './todo-list.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState } from '@app/core/state/app.state';
 import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
-import { EmptyStateComponent } from '../empty-state/empty-state.component';
+import { EmptyStateComponent } from '../../../core/components/empty-state/empty-state.component';
 
 describe('TodoListComponent', () => {
     let fixture: ComponentFixture<TodoListComponent>;

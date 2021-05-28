@@ -4,10 +4,11 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, tap } from "rxjs/operators";
 import { KpDialogService } from '@app/kp-dialog/services/kp-dialog/kp-dialog.service';
-import { TodoFormComponent } from '../components/todo-form/todo-form.component';
 import { KpDialogType } from '@app/kp-dialog/enums/dialog-type.enum';
 import { VibrationService } from '@app/core/services/vibration.service';
 import { IKpDialogConfig } from '@app/kp-dialog/interfaces/dialog-configuration.interface';
+import { TodoEditFormComponent } from '../components/todo-edit-form/todo-edit-form.component';
+import { TodoCreateFormComponent } from '../components/todo-create-form/todo-create-form.component';
 
 @Injectable()
 export class DashboardEffects {
@@ -33,22 +34,33 @@ export class DashboardEffects {
         tap(() => this._vibrationService.vibrate(25)),
     ), { dispatch: false });
 
-    openTodoForm$ = createEffect(() => this._actions$.pipe(
-        ofType(dashboardActions.openTodoForm),
-        map((action) => action.todo),
-        tap((todo) => {
+    openTodoCreateForm$ = createEffect(() => this._actions$.pipe(
+        ofType(dashboardActions.openTodoCreateForm),
+        tap((action) => {
             let dialogConfig: IKpDialogConfig = {
                 type: KpDialogType.BOTTOMSHEET,
             };
 
-            if(todo) {
+            this._dialogService.open(TodoCreateFormComponent, dialogConfig);
+            this._vibrationService.vibrate(5);
+        }),
+    ), { dispatch: false });
+
+    openTodoEditForm$ = createEffect(() => this._actions$.pipe(
+        ofType(dashboardActions.openTodoEditForm),
+        tap((action) => {
+            let dialogConfig: IKpDialogConfig = {
+                type: KpDialogType.BOTTOMSHEET,
+            };
+
+            if(action.data) {
                 dialogConfig = {
                     ...dialogConfig,
-                    data: todo,
+                    data: action.data,
                 };
             }
 
-            this._dialogService.open(TodoFormComponent, dialogConfig);
+            this._dialogService.open(TodoEditFormComponent, dialogConfig);
             this._vibrationService.vibrate(5);
         }),
     ), { dispatch: false });

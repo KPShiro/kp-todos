@@ -10,7 +10,7 @@
     }
 }
 
-.todo-form {
+.todo-edit-form {
     & {
         display: flex;
         align-items: center;
@@ -22,14 +22,16 @@
         align-items: center;
         justify-content: center;
         height: 1.5rem;
+        min-height: 1.5rem;
         width: 1.5rem;
+        min-width: 1.5rem;
         margin-right: map-get($spacers, 3);
         border: 1px solid $body-color;
         border-radius: 50%;
     }
 }
 
-.todo-form-header {
+.todo-edit-form-header {
     display: flex;
     align-items: center;
     justify-content: space-between;

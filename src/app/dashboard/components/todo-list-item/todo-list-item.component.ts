@@ -31,7 +31,7 @@ export class TodoListItemComponent implements OnInit {
     @HostListener('click')
     public onItemClick(): void {
         if(!this.todo) return;
-        this._store.dispatch(dashboardActions.openTodoForm({ todo: this.todo }));
+        this._store.dispatch(dashboardActions.openTodoEditForm({ data: this.todo }));
     }
 
     public onCheckClick(event: Event): void {

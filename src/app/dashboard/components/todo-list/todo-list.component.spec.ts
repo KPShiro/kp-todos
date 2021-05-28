@@ -1,3 +1,4 @@
+import * as dashboardSelectors from '@app/dashboard/state/dashboard.selectors';
 import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -20,6 +21,12 @@ describe('TodoListComponent', () => {
                     id: '0',
                     isDone: false,
                     text: 'Lorem ipsum',
+                    children: [],
+                },
+                {
+                    id: '1',
+                    isDone: true,
+                    text: 'Dolor sit amet',
                     children: [],
                 }
             ],
@@ -55,13 +62,27 @@ describe('TodoListComponent', () => {
 
     describe('ngOnInit()', () => {
         beforeEach(() => {
-            jest.spyOn(store, 'dispatch');
+            jest.spyOn(store, 'select');
+            component.ngOnInit();
         });
 
         it('should select todos from the store', (done: jest.DoneCallback) => {
-            component.todos$.subscribe((todos) => {
+            expect(store.select).toHaveBeenCalledTimes(1);
+            expect(store.select).toHaveBeenCalledWith(dashboardSelectors.selectTodos);
+            done();
+        });
+
+        it('should calculate todos count', (done: jest.DoneCallback) => {
+            component.todosCount$.subscribe((count) => {
+                expect(count).toEqual(2);
                 done();
-                expect(todos.length).toEqual(1);
+            });
+        });
+
+        it('should calculate done todos count', (done: jest.DoneCallback) => {
+            component.doneTodosCount$.subscribe((count) => {
+                expect(count).toEqual(1);
+                done();
             });
         });
     });
@@ -72,9 +93,9 @@ describe('TodoListComponent', () => {
             component.onAddTodoClick();
         });
 
-        it('should dispatch openTodoForm action', () => {
+        it('should dispatch openTodoCreateForm action', () => {
             expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardActions.openTodoForm.type });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardActions.openTodoCreateForm.type });
         });
 
         it('should add new todo to the list', (done: jest.DoneCallback) => {

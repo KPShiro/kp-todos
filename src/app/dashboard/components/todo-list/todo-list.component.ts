@@ -32,6 +32,6 @@ export class TodoListComponent implements OnInit {
     }
 
     public onAddTodoClick(): void {
-        this._store.dispatch(dashboardAction.openTodoForm({}));
+        this._store.dispatch(dashboardAction.openTodoCreateForm());
     }
 }

@@ -8,9 +8,10 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoListItemComponent } from './components/todo-list-item/todo-list-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmptyStateComponent } from './components/empty-state/empty-state.component';
-import { TodoFormComponent } from './components/todo-form/todo-form.component';
+import { TodoEditFormComponent } from './components/todo-edit-form/todo-edit-form.component';
 import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './state/dashboard.effects';
+import { TodoCreateFormComponent } from './components/todo-create-form/todo-create-form.component';
 
 const ngbBootstrapModules: any = [];
 
@@ -24,7 +25,8 @@ const ngrxModules: any = [
         TodoListComponent,
         TodoListItemComponent,
         EmptyStateComponent,
-        TodoFormComponent,
+        TodoEditFormComponent,
+        TodoCreateFormComponent,
     ],
     imports: [
         CommonModule,

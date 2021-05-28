@@ -3,18 +3,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppState } from '@app/core/state/app.state';
 import { KpDialogHost } from '@app/kp-dialog/models/kp-dialog-host';
 import { provideMockStore } from '@ngrx/store/testing';
-import { TodoFormComponent } from './todo-form.component';
+import { TodoEditFormComponent } from './todo-edit-form.component';
 
-describe('TodoFormComponent', () => {
-    let component: TodoFormComponent;
-    let fixture: ComponentFixture<TodoFormComponent>;
+describe('TodoEditFormComponent', () => {
+    let component: TodoEditFormComponent;
+    let fixture: ComponentFixture<TodoEditFormComponent>;
 
     let initialState: AppState = {};
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ ReactiveFormsModule ],
-            declarations: [ TodoFormComponent ],
+            declarations: [ TodoEditFormComponent ],
             providers: [
                 provideMockStore({ initialState }),
                 {
@@ -26,7 +26,7 @@ describe('TodoFormComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TodoFormComponent);
+        fixture = TestBed.createComponent(TodoEditFormComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

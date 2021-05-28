@@ -3,6 +3,7 @@ import { AppInitializer } from "./app-initializer/app-initializer";
 import { AppInitializerProvider } from "./app-initializer/app-initializer-provider";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
+import { VibrationService } from "./services/vibration.service";
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ export class CoreModule {
             providers: [
                 AppInitializer,
                 AppInitializerProvider,
+                VibrationService,
             ],
         };
     }

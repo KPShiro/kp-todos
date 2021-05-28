@@ -1,11 +1,38 @@
-<div class="p-3 d-flex align-items-center">
-    <h3 class="mb-0 flex-fill">Release</h3>
+<div class="todo-list-header">
+    <h5 class="mb-0 flex-fill">
+        My first release
+    </h5>
+    <span>
+        {{ doneTodosCount$ | async }} of {{ todosCount$ | async }}
+    </span>
 </div>
 
-<div class="todo-list" *ngIf="(todos$ | async); let todos">
-    <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"></app-todo-list-item>
-</div>
+<ng-container *ngIf="(todos$ | async); let todos">
+    <ng-container *ngIf="todos.length > 0; else emptyState">
+        <div class="mt-3">
+            <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"></app-todo-list-item>
+        </div>
+        <div class="p-3">
+            <button type="button" class="btn btn-light text-left text-muted" (click)="onAddTodoClick()">
+                <i class="uil uil-plus mr-2"></i> Add new task
+            </button>
+        </div>
+    </ng-container>
+</ng-container>
 
-<button type="button" class="btn btn-block text-left text-muted mt-3" (click)="addTodo()">
-    <i class="uil uil-plus mr-2"></i> Add task
-</button>
+<ng-template #emptyState>
+    <app-empty-state>
+        <ng-container title>
+            Lorem ipsum dolor sit amet
+        </ng-container>
+        <ng-container description>
+            Consectetur adipisicing elit. Maxime doloremque facilis alias magnam, voluptates
+            quod nihil? Nesciunt rerum unde dignissimos ad facere, vel nostrum qui. Nostrum fugit earum cum! Ipsam!
+        </ng-container>
+        <ng-container actions>
+            <button type="button" class="btn btn-outline-primary" (click)="onAddTodoClick()">
+                <i class="uil uil-plus"></i> Add new task
+            </button>
+        </ng-container>
+    </app-empty-state>
+</ng-template>

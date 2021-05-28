@@ -8,7 +8,7 @@ import { Todo } from '@app/shared/models/todo.model';
 
 const reducer = createReducer(
     FEATURE_INITIAL_STATE,
-    on(dashboardActions.add, (state) => ({ ...state, todos: [ ...state.todos, new Todo() ] })),
+    on(dashboardActions.create, (state, { text }) => ({ ...state, todos: [ ...state.todos, new Todo(text) ] })),
     on(dashboardActions.update, (state, { todo }) => ({ ...state, todos: updateTodo(todo, state.todos) })),
     on(dashboardActions.remove, (state, { id }) => ({ ...state, todos: state.todos.filter((t) => t.id !== id) })),
 );

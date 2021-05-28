@@ -1,6 +1,6 @@
-export interface ITodo {
+export interface ITodoDto {
     id: string;
+    parentId: string | undefined;
     isDone: boolean;
     text: string | undefined;
-    children: ITodo[];
 }

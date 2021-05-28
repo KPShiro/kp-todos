@@ -1,10 +1,9 @@
 import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
 
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
 import { AppState } from '@app/core/state/app.state';
 import { Store } from '@ngrx/store';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-todo-list-item',
@@ -19,37 +18,25 @@ export class TodoListItemComponent implements OnInit {
     private _doneClass: boolean = false;
 
     @Input()
-    public todo!: ITodo;
-    public todoTextControl!: FormControl;
+    public todo?: ITodo;
 
     public constructor(
-        public store: Store<AppState>,
+        private readonly _store: Store<AppState>,
     ) { }
 
     public ngOnInit(): void {
-        this._doneClass = this.todo.isDone;
-        this.todoTextControl = new FormControl(this.todo.text);
+        this._doneClass = this.todo?.isDone ?? false;
     }
 
-    public onInputBlur(): void {
-        this.store.dispatch(dashboardActions.update({
-            todo: {
-                ...this.todo,
-                text: this.todoTextControl.value,
-            }
-        }));
+    @HostListener('click')
+    public onItemClick(): void {
+        if(!this.todo) return;
+        this._store.dispatch(dashboardActions.openTodoEditForm({ data: this.todo }));
     }
 
-    public onCheckClick(): void {
-        this.store.dispatch(dashboardActions.update({
-            todo: {
-                ...this.todo,
-                isDone: !this.todo.isDone,
-            }
-        }));
-    }
-
-    public onRemoveBtnClick(): void {
-        this.store.dispatch(dashboardActions.remove({ id: this.todo.id }));
+    public onCheckClick(event: Event): void {
+        if(!this.todo) return;
+        event.stopPropagation();
+        this._store.dispatch(dashboardActions.toggleTodoIsDone({ todo: this.todo }));
     }
 }

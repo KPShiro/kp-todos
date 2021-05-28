@@ -1,12 +1,10 @@
-@import 'node_modules/bootstrap/scss/functions';
-@import 'node_modules/bootstrap/scss/variables';
-@import 'node_modules/bootstrap/scss/mixins';
+@import 'core/theming';
 
-.todo-list {
-    $border: 1px solid $input-border-color;
-
-    border-top: $border;
-    border-bottom: $border;
+.todo-list-header {
+    display: flex;
+    align-items: center;
+    padding: map-get($spacers, 3);
+    border-bottom: 1px solid $input-border-color;
 }
 
 .app-todo-list-item + .app-todo-list-item {

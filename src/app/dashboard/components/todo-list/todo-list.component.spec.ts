@@ -1,4 +1,4 @@
-import * as dashboardSelectors from '@app/dashboard/state/dashboard.selectors';
+import * as dashboardSelectors from '@app/dashboard/state/selectors';
 import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';

@@ -1,7 +1,7 @@
 import * as dashboardEvents from './events';
 
 import { Action, createReducer, on } from "@ngrx/store";
-import { DashboardState, FEATURE_INITIAL_STATE } from "./dashboard.state";
+import { DashboardState, FEATURE_INITIAL_STATE } from "./state";
 import { replaceItem } from '@app/shared/functions/array-helpers';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 
@@ -21,6 +21,6 @@ function updateTodo(todo: ITodo, todos: ITodo[]): ITodo[] {
     return replaceItem(todo, index, todos);
 }
 
-export function featureReducer(state: DashboardState | undefined, action: Action) {
+export function dashboardStateReducer(state: DashboardState | undefined, action: Action) {
     return reducer(state, action);
 }

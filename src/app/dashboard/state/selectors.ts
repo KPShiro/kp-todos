@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "src/app/core/state/app.state";
-import { DashboardState } from "./dashboard.state";
+import { DashboardState } from "./state";
 
 export const FEATURE_KEY = 'dashboard';
 

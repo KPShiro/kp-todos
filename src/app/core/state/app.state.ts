@@ -1,4 +1,4 @@
-import { DashboardState } from "src/app/dashboard/state/dashboard.state";
+import { DashboardState } from "@app/dashboard/state/state";
 
 export interface AppState {
   dashboard?: DashboardState;

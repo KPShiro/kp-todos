@@ -1,4 +1,4 @@
-import * as fromDashboard from '@app/dashboard/state/dashboard.selectors';
+import * as fromDashboard from '@app/dashboard/state/selectors';
 import * as dashboardCommands from '@app/dashboard/state/commands';
 
 import { Component, OnInit } from '@angular/core';

@@ -1,4 +1,5 @@
 import * as dashboardActions from './dashboard.actions';
+import * as dashboardEvents from './events';
 
 import { Action, createReducer, on } from "@ngrx/store";
 import { DashboardState, FEATURE_INITIAL_STATE } from "./dashboard.state";
@@ -11,6 +12,7 @@ const reducer = createReducer(
     on(dashboardActions.create, (state, { text }) => ({ ...state, todos: [ ...state.todos, new Todo(text) ] })),
     on(dashboardActions.update, (state, { todo }) => ({ ...state, todos: updateTodo(todo, state.todos) })),
     on(dashboardActions.remove, (state, { id }) => ({ ...state, todos: state.todos.filter((t) => t.id !== id) })),
+    on(dashboardEvents.fetchTodosSuccessEvent, (state, { payload }) => ({ ...state, todos: [ ...payload.todos ] })),
 );
 
 function updateTodo(todo: ITodo, todos: ITodo[]): ITodo[] {

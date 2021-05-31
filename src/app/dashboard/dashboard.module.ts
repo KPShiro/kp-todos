@@ -12,12 +12,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './state/dashboard.effects';
 import { TodoCreateFormComponent } from './components/todo-create-form/todo-create-form.component';
 import { CoreModule } from '@app/core/core.module';
+import { DashboardCommandsEffects } from './state/commands/effects';
 
 const ngbBootstrapModules: any = [];
 
 const ngrxModules: any = [
     StoreModule.forFeature(FEATURE_KEY, featureReducer),
-    EffectsModule.forFeature([ DashboardEffects ]),
+    EffectsModule.forFeature([ DashboardEffects, DashboardCommandsEffects ]),
 ];
 
 @NgModule({

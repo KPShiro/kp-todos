@@ -1,5 +1,6 @@
 import * as fromDashboard from '@app/dashboard/state/dashboard.selectors';
 import * as dashboardAction from '@app/dashboard/state/dashboard.actions';
+import * as dashboardCommands from '@app/dashboard/state/commands';
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -29,6 +30,8 @@ export class TodoListComponent implements OnInit {
             if (todo.isDone) sum++;
             return sum;
         }, 0)))
+
+        this._store.dispatch(dashboardCommands.fetchTodosCommand());
     }
 
     public onAddTodoClick(): void {

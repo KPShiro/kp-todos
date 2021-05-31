@@ -17,7 +17,7 @@ export class DashboardCommandsEffects {
 
     fetchTodosCommandEffect$ = createEffect(() => this._actions$.pipe(
         ofType(dashboardCommands.fetchTodosCommand),
-        delay(1000),
+        delay(2000),
         map(() => [
             {
                 id: '1',

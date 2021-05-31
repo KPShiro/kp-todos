@@ -9,16 +9,15 @@ import { TodoListItemComponent } from './components/todo-list-item/todo-list-ite
 import { ReactiveFormsModule } from '@angular/forms';
 import { TodoEditFormComponent } from './components/todo-edit-form/todo-edit-form.component';
 import { EffectsModule } from '@ngrx/effects';
-import { DashboardEffects } from './state/dashboard.effects';
+import { DashboardCommandsEffects } from './state/commands/effects';
 import { TodoCreateFormComponent } from './components/todo-create-form/todo-create-form.component';
 import { CoreModule } from '@app/core/core.module';
-import { DashboardCommandsEffects } from './state/commands/effects';
 
 const ngbBootstrapModules: any = [];
 
 const ngrxModules: any = [
     StoreModule.forFeature(FEATURE_KEY, featureReducer),
-    EffectsModule.forFeature([ DashboardEffects, DashboardCommandsEffects ]),
+    EffectsModule.forFeature([ DashboardCommandsEffects ]),
 ];
 
 @NgModule({

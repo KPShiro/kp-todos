@@ -1,4 +1,4 @@
-import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
+import * as dashboardCommands from '@app/dashboard/state/commands';
 
 import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
 import { AppState } from '@app/core/state/app.state';
@@ -31,12 +31,17 @@ export class TodoListItemComponent implements OnInit {
     @HostListener('click')
     public onItemClick(): void {
         if(!this.todo) return;
-        this._store.dispatch(dashboardActions.openTodoEditForm({ data: this.todo }));
+        this._store.dispatch(dashboardCommands.openTodoFormCommand({ todo: this.todo }));
     }
 
     public onCheckClick(event: Event): void {
         if(!this.todo) return;
         event.stopPropagation();
-        this._store.dispatch(dashboardActions.toggleTodoIsDone({ todo: this.todo }));
+        this._store.dispatch(dashboardCommands.updateTodoCommand({
+            todo: {
+                ...this.todo,
+                isDone: !this.todo.isDone,
+            }
+        }));
     }
 }

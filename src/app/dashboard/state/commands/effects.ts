@@ -3,8 +3,14 @@ import * as dashboardEvents from '@app/dashboard/state/events';
 
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, delay, map } from "rxjs/operators";
+import { catchError, delay, map, tap } from "rxjs/operators";
 import { of } from 'rxjs';
+import { KpDialogService } from '@app/kp-dialog/services/kp-dialog/kp-dialog.service';
+import { KpDialogType } from '@app/kp-dialog/enums/dialog-type.enum';
+import { TodoCreateFormComponent } from '@app/dashboard/components/todo-create-form/todo-create-form.component';
+import { TodoEditFormComponent } from '@app/dashboard/components/todo-edit-form/todo-edit-form.component';
+import { VibrationService } from '@app/core/services/vibration.service';
+import { Todo } from '@app/shared/models/todo.model';
 
 @Injectable()
 export class DashboardCommandsEffects {
@@ -61,8 +67,54 @@ export class DashboardCommandsEffects {
         catchError((error) => of(dashboardEvents.fetchTodosErrorEvent({ error }))),
     ));
 
+    openTodoFormCommandEffect$ = createEffect(() => this._actions$.pipe(
+        ofType(dashboardCommands.openTodoFormCommand),
+        map((action) => action.payload),
+        tap((payload) => {
+            if(payload === undefined || payload === null) {
+                this._dialogService.open(TodoCreateFormComponent, {
+                    type: KpDialogType.BOTTOMSHEET,
+                });
+            } else {
+                this._dialogService.open(TodoEditFormComponent, {
+                    type: KpDialogType.BOTTOMSHEET,
+                    data: payload.todo,
+                });
+            }
+        }),
+        tap(() => this._vibrationService.vibrate(5)),
+    ), { dispatch: false });
+
+    updateTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
+        ofType(dashboardCommands.updateTodoCommand),
+        map((action) => action.payload),
+        delay(500),
+        map((payload) => dashboardEvents.updateTodoSuccessEvent({ todo: payload.todo })),
+        tap(() => this._vibrationService.vibrate(5)),
+        catchError((error) => of(dashboardEvents.updateTodoErrorEvent({ error }))),
+    ));
+
+    deleteTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
+        ofType(dashboardCommands.deleteTodoCommand),
+        map((action) => action.payload),
+        delay(500),
+        map((payload) => dashboardEvents.deleteTodoSuccessEvent({ id: payload.id })),
+        catchError((error) => of(dashboardEvents.deleteTodoErrorEvent({ error }))),
+    ));
+
+    createTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
+        ofType(dashboardCommands.createTodoCommand),
+        map((action) => action.payload),
+        delay(500),
+        map((payload) => new Todo(payload.text)),
+        map((todo) => dashboardEvents.createTodoSuccessEvent({ todo })),
+        catchError((error) => of(dashboardEvents.createTodoErrorEvent({ error }))),
+    ));
+
     public constructor(
         private readonly _actions$: Actions,
+        private readonly _dialogService: KpDialogService,
+        private readonly _vibrationService: VibrationService,
     ) {}
 
 }

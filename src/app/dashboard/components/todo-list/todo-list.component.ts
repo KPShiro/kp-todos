@@ -23,7 +23,7 @@ export class TodoListComponent implements OnInit {
 
     public ngOnInit(): void {
         this.todos$ = this._store.select(fromDashboard.selectTodos);
-        this.fetchTodosCommand.execute();
+        this.onFetchTodosClick();
     }
 
     public onAddTodoClick(): void {

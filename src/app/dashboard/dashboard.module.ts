@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DashboardCommandsEffects } from './state/commands-effects';
 import { TodoCreateFormComponent } from './components/todo-create-form/todo-create-form.component';
 import { CoreModule } from '@app/core/core.module';
+import { DashboardComponent } from './dashboard.component';
 
 const ngbBootstrapModules: any = [];
 
@@ -26,6 +27,7 @@ const ngrxModules: any = [
         TodoListItemComponent,
         TodoEditFormComponent,
         TodoCreateFormComponent,
+        DashboardComponent,
     ],
     imports: [
         CoreModule,

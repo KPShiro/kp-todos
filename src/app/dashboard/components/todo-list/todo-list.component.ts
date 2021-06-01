@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/app.state';
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { FetchTodosCommand } from '@app/dashboard/facades/fetch-todos.facade';
 
 @Component({
     selector: 'app-todo-list',
@@ -18,7 +17,6 @@ export class TodoListComponent implements OnInit {
 
     public constructor(
       private readonly _store: Store<AppState>,
-      public readonly fetchTodosCommand: FetchTodosCommand,
     ) { }
 
     public ngOnInit(): void {

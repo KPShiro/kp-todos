@@ -1,5 +1,5 @@
 import * as dashboardSelectors from '@app/dashboard/state/selectors';
-import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
+import * as dashboardCommands from '@app/dashboard/state/commands';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -71,20 +71,6 @@ describe('TodoListComponent', () => {
             expect(store.select).toHaveBeenCalledWith(dashboardSelectors.selectTodos);
             done();
         });
-
-        it('should calculate todos count', (done: jest.DoneCallback) => {
-            component.todosCount$.subscribe((count) => {
-                expect(count).toEqual(2);
-                done();
-            });
-        });
-
-        it('should calculate done todos count', (done: jest.DoneCallback) => {
-            component.doneTodosCount$.subscribe((count) => {
-                expect(count).toEqual(1);
-                done();
-            });
-        });
     });
 
     describe('onAddTodoClick()', () => {
@@ -93,9 +79,9 @@ describe('TodoListComponent', () => {
             component.onAddTodoClick();
         });
 
-        it('should dispatch openTodoCreateForm action', () => {
+        it('should dispatch openTodoCreateForm command', () => {
             expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardActions.openTodoCreateForm.type });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardCommands.openTodoFormCommand.type });
         });
 
         it('should add new todo to the list', (done: jest.DoneCallback) => {

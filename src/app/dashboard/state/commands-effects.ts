@@ -11,58 +11,48 @@ import { TodoCreateFormComponent } from '@app/dashboard/components/todo-create-f
 import { TodoEditFormComponent } from '@app/dashboard/components/todo-edit-form/todo-edit-form.component';
 import { VibrationService } from '@app/core/services/vibration.service';
 import { Todo } from '@app/shared/models/todo.model';
+import { ITodo } from '@app/shared/interfaces/todo.interface';
 
 @Injectable()
 export class DashboardCommandsEffects {
 
+    private readonly MOCKED_DATA: ITodo[] = [
+        {
+            id: '1',
+            isDone: false,
+            text: 'Clean the code',
+            children: [],
+        },
+        {
+            id: '2',
+            isDone: false,
+            text: 'Update documentation',
+            children: [],
+        },
+        {
+            id: '3',
+            isDone: false,
+            text: 'Send updates',
+            children: [],
+        },
+        {
+            id: '4',
+            isDone: true,
+            text: 'Prepare release notes',
+            children: [],
+        },
+        {
+            id: '5',
+            isDone: false,
+            text: 'Create production PullRequest',
+            children: [],
+        }
+    ];
+
     fetchTodosCommandEffect$ = createEffect(() => this._actions$.pipe(
         ofType(dashboardCommands.fetchTodosCommand),
         delay(2000),
-        map(() => [
-            {
-                id: '1',
-                isDone: false,
-                text: 'Clean the code',
-                children: [
-                    {
-                        id: '6',
-                        isDone: false,
-                        text: 'Clean FE code',
-                        children: [],
-                    },
-                    {
-                        id: '7',
-                        isDone: false,
-                        text: 'Clean BE code',
-                        children: [],
-                    },
-                ],
-            },
-            {
-                id: '2',
-                isDone: false,
-                text: 'Update documentation',
-                children: [],
-            },
-            {
-                id: '3',
-                isDone: false,
-                text: 'Send updates',
-                children: [],
-            },
-            {
-                id: '4',
-                isDone: true,
-                text: 'Prepare release notes',
-                children: [],
-            },
-            {
-                id: '5',
-                isDone: false,
-                text: 'Create production PullRequest',
-                children: [],
-            }
-        ]),
+        map(() => this.MOCKED_DATA),
         map((todos) => dashboardEvents.fetchTodosSuccessEvent({ todos })),
         catchError((error) => of(dashboardEvents.fetchTodosErrorEvent({ error }))),
     ));

@@ -50,7 +50,7 @@ export class TodoEditFormComponent implements OnInit {
     public onFormSubmit(): void {
         if (!this._todo) return;
 
-        this._store.dispatch(dashboardCommands.updateTodoCommand({ todo: {
+        this._store.dispatch(dashboardCommands.updateTodo({ todo: {
             ...this._todo,
             text: this.todoTextControl.value,
             isDone: this.todoIsDoneControl.value,
@@ -64,7 +64,7 @@ export class TodoEditFormComponent implements OnInit {
             isDone: !this.form.value.isDone,
         });
 
-        this._store.dispatch(dashboardCommands.updateTodoCommand({ todo: {
+        this._store.dispatch(dashboardCommands.updateTodo({ todo: {
             ...this._todo,
             isDone: !this._todo.isDone,
         } }));
@@ -77,7 +77,7 @@ export class TodoEditFormComponent implements OnInit {
     public onRemoveActionClick(): void {
         if (!this._todo) return;
 
-        this._store.dispatch(dashboardCommands.deleteTodoCommand({ id: this._todo.id }));
+        this._store.dispatch(dashboardCommands.deleteTodo({ id: this._todo.id }));
         this._hostDialog.close();
     }
 }

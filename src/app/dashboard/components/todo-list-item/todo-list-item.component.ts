@@ -31,13 +31,13 @@ export class TodoListItemComponent implements OnInit {
     @HostListener('click')
     public onItemClick(): void {
         if(!this.todo) return;
-        this._store.dispatch(dashboardCommands.openTodoFormCommand({ todo: this.todo }));
+        this._store.dispatch(dashboardCommands.openTodoForm({ todo: this.todo }));
     }
 
     public onCheckClick(event: Event): void {
         if(!this.todo) return;
         event.stopPropagation();
-        this._store.dispatch(dashboardCommands.updateTodoCommand({
+        this._store.dispatch(dashboardCommands.updateTodo({
             todo: {
                 ...this.todo,
                 isDone: !this.todo.isDone,

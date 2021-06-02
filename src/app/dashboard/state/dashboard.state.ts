@@ -4,6 +4,6 @@ export interface DashboardState {
   todos: ITodo[];
 }
 
-export const FEATURE_INITIAL_STATE: DashboardState = {
+export const DASHBOARD_INITIAL_STATE: DashboardState = {
     todos: [],
 };

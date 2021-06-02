@@ -22,7 +22,7 @@ export class TodoCreateFormComponent {
     ) { }
 
     public onFormSubmit(): void {
-        this._store.dispatch(dashboardCommands.createTodoCommand({ text: this.form.value.text }));
+        this._store.dispatch(dashboardCommands.createTodo({ text: this.form.value.text }));
         this.form.reset();
     }
 }

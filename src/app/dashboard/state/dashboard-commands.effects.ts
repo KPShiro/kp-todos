@@ -50,15 +50,15 @@ export class DashboardCommandsEffects {
     ];
 
     fetchTodosCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(dashboardCommands.fetchTodosCommand),
+        ofType(dashboardCommands.fetchTodos),
         delay(2000),
         map(() => this.MOCKED_DATA),
-        map((todos) => dashboardEvents.fetchTodosSuccessEvent({ todos })),
-        catchError((error) => of(dashboardEvents.fetchTodosErrorEvent({ error }))),
+        map((todos) => dashboardEvents.fetchTodosSuccess({ todos })),
+        catchError((error) => of(dashboardEvents.fetchTodosError({ error }))),
     ));
 
     openTodoFormCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(dashboardCommands.openTodoFormCommand),
+        ofType(dashboardCommands.openTodoForm),
         map((action) => action.payload),
         tap((payload) => {
             if(payload === undefined || payload === null) {
@@ -76,29 +76,29 @@ export class DashboardCommandsEffects {
     ), { dispatch: false });
 
     updateTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(dashboardCommands.updateTodoCommand),
+        ofType(dashboardCommands.updateTodo),
         map((action) => action.payload),
         delay(500),
-        map((payload) => dashboardEvents.updateTodoSuccessEvent({ todo: payload.todo })),
+        map((payload) => dashboardEvents.updateTodoSuccess({ todo: payload.todo })),
         tap(() => this._vibrationService.vibrate(5)),
-        catchError((error) => of(dashboardEvents.updateTodoErrorEvent({ error }))),
+        catchError((error) => of(dashboardEvents.updateTodoError({ error }))),
     ));
 
     deleteTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(dashboardCommands.deleteTodoCommand),
+        ofType(dashboardCommands.deleteTodo),
         map((action) => action.payload),
         delay(500),
-        map((payload) => dashboardEvents.deleteTodoSuccessEvent({ id: payload.id })),
-        catchError((error) => of(dashboardEvents.deleteTodoErrorEvent({ error }))),
+        map((payload) => dashboardEvents.deleteTodoSuccess({ id: payload.id })),
+        catchError((error) => of(dashboardEvents.deleteTodoError({ error }))),
     ));
 
     createTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(dashboardCommands.createTodoCommand),
+        ofType(dashboardCommands.createTodo),
         map((action) => action.payload),
         delay(500),
         map((payload) => new Todo(payload.text)),
-        map((todo) => dashboardEvents.createTodoSuccessEvent({ todo })),
-        catchError((error) => of(dashboardEvents.createTodoErrorEvent({ error }))),
+        map((todo) => dashboardEvents.createTodoSuccess({ todo })),
+        catchError((error) => of(dashboardEvents.createTodoError({ error }))),
     ));
 
     public constructor(

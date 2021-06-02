@@ -1,4 +1,4 @@
-import * as dashboardSelectors from '@app/dashboard/state/selectors';
+import * as dashboardSelectors from '@app/dashboard/state/dashboard.selectors';
 import * as dashboardCommands from '@app/dashboard/state/commands';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -81,7 +81,7 @@ describe('TodoListComponent', () => {
 
         it('should dispatch openTodoCreateForm command', () => {
             expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardCommands.openTodoFormCommand.type });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardCommands.openTodoForm.type });
         });
 
         it('should add new todo to the list', (done: jest.DoneCallback) => {

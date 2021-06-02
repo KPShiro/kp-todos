@@ -1,4 +1,4 @@
-import * as fromDashboard from '@app/dashboard/state/selectors';
+import * as fromDashboard from '@app/dashboard/state/dashboard.selectors';
 import * as dashboardCommands from '@app/dashboard/state/commands';
 
 import { Component, OnInit } from '@angular/core';
@@ -25,10 +25,10 @@ export class TodoListComponent implements OnInit {
     }
 
     public onAddTodoClick(): void {
-        this._store.dispatch(dashboardCommands.openTodoFormCommand());
+        this._store.dispatch(dashboardCommands.openTodoForm());
     }
 
     public onFetchTodosClick(): void {
-        this._store.dispatch(dashboardCommands.fetchTodosCommand());
+        this._store.dispatch(dashboardCommands.fetchTodos());
     }
 }

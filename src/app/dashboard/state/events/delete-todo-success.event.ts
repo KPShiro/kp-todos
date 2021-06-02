@@ -1,8 +1,8 @@
 import { createActionName } from "@app/shared/functions/state-helpers";
 import { createAction } from "@ngrx/store";
-import { FEATURE_KEY } from "../selectors";
+import { FEATURE_KEY } from "../dashboard.selectors";
 
-export const deleteTodoSuccessEvent = createAction(
+export const deleteTodoSuccess = createAction(
     createActionName(FEATURE_KEY, 'Delete todo success'),
     (payload: IDeleteTodoSucessEventParams) => ({ payload }),
 );

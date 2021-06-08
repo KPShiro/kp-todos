@@ -3,58 +3,25 @@ import * as dashboardEvents from '@app/dashboard/state/events';
 
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, delay, map, tap } from "rxjs/operators";
+import { catchError, delay, map, switchMap, tap } from "rxjs/operators";
 import { of } from 'rxjs';
 import { KpDialogService } from '@app/kp-dialog/services/kp-dialog/kp-dialog.service';
 import { KpDialogType } from '@app/kp-dialog/enums/dialog-type.enum';
 import { TodoCreateFormComponent } from '@app/dashboard/components/todo-create-form/todo-create-form.component';
 import { TodoEditFormComponent } from '@app/dashboard/components/todo-edit-form/todo-edit-form.component';
-import { VibrationService } from '@app/core/services/vibration.service';
+import { VibrationService } from '@app/core/services/vibration/vibration.service';
 import { Todo } from '@app/shared/models/todo.model';
-import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { TodoService } from '@app/core/services/todo/todo.service';
 
 @Injectable()
 export class DashboardCommandsEffects {
 
-    private readonly MOCKED_DATA: ITodo[] = [
-        {
-            id: '1',
-            isDone: false,
-            text: 'Clean the code',
-            children: [],
-        },
-        {
-            id: '2',
-            isDone: false,
-            text: 'Update documentation',
-            children: [],
-        },
-        {
-            id: '3',
-            isDone: false,
-            text: 'Send updates',
-            children: [],
-        },
-        {
-            id: '4',
-            isDone: true,
-            text: 'Prepare release notes',
-            children: [],
-        },
-        {
-            id: '5',
-            isDone: false,
-            text: 'Create production PullRequest',
-            children: [],
-        }
-    ];
-
     fetchTodosCommandEffect$ = createEffect(() => this._actions$.pipe(
         ofType(dashboardCommands.fetchTodos),
-        delay(2000),
-        map(() => this.MOCKED_DATA),
-        map((todos) => dashboardEvents.fetchTodosSuccess({ todos })),
-        catchError((error) => of(dashboardEvents.fetchTodosError({ error }))),
+        switchMap(() => this._todoService.getTodos().pipe(
+            map((todos) => dashboardEvents.fetchTodosSuccess({ todos })),
+            catchError((error) => of(dashboardEvents.fetchTodosError({ error: error.message }))),
+        )),
     ));
 
     openTodoFormCommandEffect$ = createEffect(() => this._actions$.pipe(
@@ -105,6 +72,7 @@ export class DashboardCommandsEffects {
         private readonly _actions$: Actions,
         private readonly _dialogService: KpDialogService,
         private readonly _vibrationService: VibrationService,
+        private readonly _todoService: TodoService,
     ) {}
 
 }

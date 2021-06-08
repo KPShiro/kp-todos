@@ -30,6 +30,8 @@ describe('TodoListComponent', () => {
                     children: [],
                 }
             ],
+            error: null,
+            loading: false,
         },
     };
 
@@ -68,7 +70,7 @@ describe('TodoListComponent', () => {
 
         it('should select todos from the store', (done: jest.DoneCallback) => {
             expect(store.select).toHaveBeenCalledTimes(1);
-            expect(store.select).toHaveBeenCalledWith(dashboardSelectors.selectTodos);
+            expect(store.select).toHaveBeenCalledWith(dashboardSelectors.getTodos);
             done();
         });
     });

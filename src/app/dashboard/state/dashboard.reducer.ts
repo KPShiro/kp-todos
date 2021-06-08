@@ -1,4 +1,5 @@
 import * as dashboardEvents from './events';
+import * as dashboardCommands from './commands';
 
 import { Action, createReducer, on } from "@ngrx/store";
 import { DashboardState, DASHBOARD_INITIAL_STATE } from "./dashboard.state";
@@ -7,7 +8,20 @@ import { ITodo } from '@app/shared/interfaces/todo.interface';
 
 const _dashboardReducer = createReducer(
     DASHBOARD_INITIAL_STATE,
-    on(dashboardEvents.fetchTodosSuccess, (state, { payload }) => ({ ...state, todos: [ ...payload.todos ] })),
+    on(dashboardCommands.fetchTodos, (state) => ({
+        ...state,
+        loading: true,
+    })),
+    on(dashboardEvents.fetchTodosSuccess, (state, { payload }) => ({
+        ...state,
+        todos: [ ...payload.todos ],
+        loading: false,
+    })),
+    on(dashboardEvents.fetchTodosError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        error: payload.error,
+    })),
     on(dashboardEvents.updateTodoSuccess, (state, { payload }) => ({ ...state, todos: updateTodo(payload.todo, state.todos) })),
     on(dashboardEvents.deleteTodoSuccess, (state, { payload }) => ({ ...state, todos: state.todos.filter((t) => t.id !== payload.id) })),
     on(dashboardEvents.createTodoSuccess, (state, { payload }) => ({ ...state, todos: [ ...state.todos, payload.todo ] })),

@@ -1,11 +1,7 @@
-import * as fromDashboard from '@app/dashboard/state/dashboard.selectors';
-import * as dashboardCommands from '@app/dashboard/state/commands';
-
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '@app/core/state/app.state';
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { TodoFacade } from '@app/dashboard/todo.facade';
 
 @Component({
     selector: 'app-todo-list',
@@ -13,22 +9,22 @@ import { ITodo } from '@app/shared/interfaces/todo.interface';
     styleUrls: [ './todo-list.component.scss' ]
 })
 export class TodoListComponent implements OnInit {
-    public todos$: Observable<ITodo[]> = new Observable();
+    public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
+    public loading$: Observable<boolean> = this._todoFacade.loading$;
 
     public constructor(
-      private readonly _store: Store<AppState>,
+      private readonly _todoFacade: TodoFacade,
     ) { }
 
     public ngOnInit(): void {
-        this.todos$ = this._store.select(fromDashboard.selectTodos);
-        this.onFetchTodosClick();
+        this._todoFacade.fetchTodos();
     }
 
     public onAddTodoClick(): void {
-        this._store.dispatch(dashboardCommands.openTodoForm());
+        // this._store.dispatch(dashboardCommands.openTodoForm());
     }
 
     public onFetchTodosClick(): void {
-        this._store.dispatch(dashboardCommands.fetchTodos());
+        this._todoFacade.fetchTodos();
     }
 }

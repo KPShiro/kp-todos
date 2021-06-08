@@ -1,3 +1,10 @@
+<ng-container *ngIf="loading$ | async">
+    <ngb-alert class="mx-2" [dismissible]="false">
+        Loading your todos...
+    </ngb-alert>
+</ng-container>
+
+
 <ng-container *ngIf="(todos$ | async); let todos">
     <ng-container *ngIf="todos.length > 0; else emptyState">
         <div class="mt-3">

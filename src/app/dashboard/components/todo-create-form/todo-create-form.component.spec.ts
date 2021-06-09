@@ -1,5 +1,3 @@
-import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppState } from '@app/core/state/app.state';
@@ -39,14 +37,6 @@ describe('TodoCreateFormComponent', () => {
             jest.spyOn(store, 'dispatch');
             jest.spyOn(component.form, 'reset');
             component.onFormSubmit();
-        });
-
-        it('should dispatch create dashboardAction', () => {
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: dashboardActions.create.type,
-                text: '',
-            });
         });
 
         it('should reset form', () => {

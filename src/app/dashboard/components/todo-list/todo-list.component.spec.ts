@@ -1,39 +1,23 @@
-import * as dashboardSelectors from '@app/dashboard/state/dashboard.selectors';
-import * as dashboardCommands from '@app/dashboard/state/commands';
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TodoListComponent } from './todo-list.component';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { AppState } from '@app/core/state/app.state';
 import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
-import { EmptyStateComponent } from '../../../core/components/empty-state/empty-state.component';
+import { EmptyStateComponent } from '@core/components/empty-state/empty-state.component';
+import { TodoFacade } from '@app/dashboard/todo.facade';
+import { Observable, of } from 'rxjs';
+import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { Update } from '@ngrx/entity';
+
+class TodoFacadeMock {
+    public readonly todos$: Observable<ITodo[]> = of([]);
+    public fetchTodos(): void { }
+    public updateTodo(update: Update<ITodo>): void { }
+}
 
 describe('TodoListComponent', () => {
     let fixture: ComponentFixture<TodoListComponent>;
     let component: TodoListComponent;
-    let store: MockStore;
-
-    const initialState: AppState = {
-        dashboard: {
-            todos: [
-                {
-                    id: '0',
-                    isDone: false,
-                    text: 'Lorem ipsum',
-                    children: [],
-                },
-                {
-                    id: '1',
-                    isDone: true,
-                    text: 'Dolor sit amet',
-                    children: [],
-                }
-            ],
-            error: null,
-            loading: false,
-        },
-    };
+    let todoFacade: TodoFacadeMock;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -46,51 +30,54 @@ describe('TodoListComponent', () => {
                 EmptyStateComponent,
             ],
             providers: [
-                provideMockStore({ initialState }),
+                {
+                    provide: TodoFacade,
+                    useClass: TodoFacadeMock,
+                },
             ]
         }).compileComponents();
     });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TodoListComponent);
-        store = TestBed.inject(MockStore);
+        todoFacade = TestBed.inject(TodoFacade);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should be created', () => {
+        expect(todoFacade).toBeTruthy();
         expect(component).toBeTruthy();
     });
 
-    describe('ngOnInit()', () => {
-        beforeEach(() => {
-            jest.spyOn(store, 'select');
-            component.ngOnInit();
-        });
-
-        it('should select todos from the store', (done: jest.DoneCallback) => {
-            expect(store.select).toHaveBeenCalledTimes(1);
-            expect(store.select).toHaveBeenCalledWith(dashboardSelectors.getTodos);
+    it('should have empty todo list', (done: jest.DoneCallback) => {
+        component.todos$.subscribe((todos) => {
+            expect(todos.length).toEqual(0);
             done();
         });
     });
 
-    describe('onAddTodoClick()', () => {
-        beforeEach(() => {
-            jest.spyOn(store, 'dispatch');
-            component.onAddTodoClick();
+    describe('ngOnInit()', () => {
+        it('should call todoFacade.fetchTodos()', () => {
+            jest.spyOn(todoFacade, 'fetchTodos');
+            component.ngOnInit();
+            expect(todoFacade.fetchTodos).toHaveBeenCalledTimes(1);
         });
+    });
 
-        it('should dispatch openTodoCreateForm command', () => {
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({ type: dashboardCommands.openTodoForm.type });
+    describe('onFetchTodosClick()', () => {
+        it('should call todoFacade.fetchTodos()', () => {
+            jest.spyOn(todoFacade, 'fetchTodos');
+            component.onFetchTodosClick();
+            expect(todoFacade.fetchTodos).toHaveBeenCalledTimes(1);
         });
+    });
 
-        it('should add new todo to the list', (done: jest.DoneCallback) => {
-            component.todos$.subscribe((todos) => {
-                done();
-                expect(todos.length).toEqual(2);
-            });
+    describe('onTodoItemCheckboxClick()', () => {
+        it('should call todoFacade.fetchTodos()', () => {
+            jest.spyOn(todoFacade, 'updateTodo');
+            component.onTodoItemCheckboxClick({} as ITodo, true);
+            expect(todoFacade.updateTodo).toHaveBeenCalledTimes(1);
         });
     });
 });

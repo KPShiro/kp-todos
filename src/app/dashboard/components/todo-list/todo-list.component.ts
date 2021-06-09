@@ -9,8 +9,8 @@ import { TodoFacade } from '@app/dashboard/todo.facade';
     styleUrls: [ './todo-list.component.scss' ]
 })
 export class TodoListComponent implements OnInit {
+
     public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
-    public loading$: Observable<boolean> = this._todoFacade.loading$;
 
     public constructor(
       private readonly _todoFacade: TodoFacade,
@@ -20,11 +20,15 @@ export class TodoListComponent implements OnInit {
         this._todoFacade.fetchTodos();
     }
 
-    public onAddTodoClick(): void {
-        // this._store.dispatch(dashboardCommands.openTodoForm());
-    }
-
     public onFetchTodosClick(): void {
         this._todoFacade.fetchTodos();
     }
+
+    public onTodoItemCheckboxClick(todo: ITodo, isDone: boolean): void {
+        this._todoFacade.updateTodo({
+            id: todo.id,
+            changes: { isDone }
+        });
+    }
+
 }

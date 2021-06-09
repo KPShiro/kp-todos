@@ -1,5 +1,5 @@
-import { DashboardState } from "@app/dashboard/state/dashboard.state";
+import { TodoState } from "@app/dashboard/state/todo.state";
 
 export interface AppState {
-  dashboard?: DashboardState;
+  todo: TodoState;
 }

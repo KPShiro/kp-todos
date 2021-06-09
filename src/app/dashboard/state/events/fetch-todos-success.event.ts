@@ -1,7 +1,7 @@
 import { createActionName } from "@app/shared/functions/state-helpers";
 import { ITodo } from "@app/shared/interfaces/todo.interface";
 import { createAction } from "@ngrx/store";
-import { FEATURE_KEY } from "../dashboard.selectors";
+import { FEATURE_KEY } from "../todo.selectors";
 
 export const fetchTodosSuccess = createAction(
     createActionName(FEATURE_KEY, 'Fetch todos success'),

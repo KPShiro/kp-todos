@@ -5,15 +5,15 @@
                 (checkboxClick)="onTodoItemCheckboxClick(todo, $event)"></app-todo-list-item>
         </div>
         <div class="p-3">
-            <ng-container *ngIf="!(isPendingFetchTodos$ | async); else disabledFetchTodos">
-                <button type="button" class="btn btn-light text-muted" (click)="onFetchTodosClick()">
-                    <i class="uil uil-cloud-download mr-2"></i> Fetch todos
-                </button>
-            </ng-container>
-            <ng-template #disabledFetchTodos>
+            <ng-container *ngIf="(isPendingFetchTodos$ | async); else enabledFetchTodos">
                 <button type="button" class="btn btn-light text-muted" disabled>
                     <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
                     Fetch todos
+                </button>
+            </ng-container>
+            <ng-template #enabledFetchTodos>
+                <button type="button" class="btn btn-light text-muted" (click)="onFetchTodosClick()">
+                    <i class="uil uil-cloud-download mr-2"></i> Fetch todos
                 </button>
             </ng-template>
         </div>

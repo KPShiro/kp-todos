@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/app.state';
+import { Update } from '@ngrx/entity';
 
 @Injectable({
     providedIn: 'root',
@@ -32,8 +33,8 @@ export class TodoFacade {
         this._store.dispatch(dashboardCommands.deleteTodo({ id }));
     }
 
-    public updateTodo(todo: ITodo): void {
-        this._store.dispatch(dashboardCommands.updateTodo({ todo }));
+    public updateTodo(update: Update<ITodo>): void {
+        this._store.dispatch(dashboardCommands.updateTodo({ update }));
     }
 
 }

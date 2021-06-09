@@ -1,6 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "src/app/core/state/app.state";
-import { DashboardState } from "./dashboard.state";
+import { DashboardState, adapter } from "./dashboard.state";
+
+const entitiySelectors = adapter.getSelectors();
 
 export const FEATURE_KEY = 'dashboard';
 
@@ -8,7 +10,7 @@ export const selectFeature = createFeatureSelector<AppState, DashboardState>(FEA
 
 export const getTodos = createSelector(
     selectFeature,
-    (state: DashboardState) => state.todos,
+    entitiySelectors.selectAll,
 );
 
 export const getLoading = createSelector(

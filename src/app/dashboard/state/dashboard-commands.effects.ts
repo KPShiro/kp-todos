@@ -1,3 +1,4 @@
+import * as uuid from 'uuid';
 import * as dashboardCommands from '@app/dashboard/state/commands';
 import * as dashboardEvents from '@app/dashboard/state/events';
 
@@ -10,8 +11,8 @@ import { KpDialogType } from '@app/kp-dialog/enums/dialog-type.enum';
 import { TodoCreateFormComponent } from '@app/dashboard/components/todo-create-form/todo-create-form.component';
 import { TodoEditFormComponent } from '@app/dashboard/components/todo-edit-form/todo-edit-form.component';
 import { VibrationService } from '@app/core/services/vibration/vibration.service';
-import { Todo } from '@app/shared/models/todo.model';
 import { TodoService } from '@app/core/services/todo/todo.service';
+import { ITodo } from '@app/shared/interfaces/todo.interface';
 
 @Injectable()
 export class DashboardCommandsEffects {
@@ -46,7 +47,7 @@ export class DashboardCommandsEffects {
         ofType(dashboardCommands.updateTodo),
         map((action) => action.payload),
         delay(500),
-        map((payload) => dashboardEvents.updateTodoSuccess({ todo: payload.todo })),
+        map((payload) => dashboardEvents.updateTodoSuccess(payload)),
         tap(() => this._vibrationService.vibrate(5)),
         catchError((error) => of(dashboardEvents.updateTodoError({ error }))),
     ));
@@ -63,7 +64,10 @@ export class DashboardCommandsEffects {
         ofType(dashboardCommands.createTodo),
         map((action) => action.payload),
         delay(500),
-        map((payload) => new Todo(payload.text)),
+        map((payload) => ({
+            id: uuid.v4(),
+            text: payload.text,
+        } as ITodo)),
         map((todo) => dashboardEvents.createTodoSuccess({ todo })),
         catchError((error) => of(dashboardEvents.createTodoError({ error }))),
     ));

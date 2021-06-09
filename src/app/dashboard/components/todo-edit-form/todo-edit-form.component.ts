@@ -50,11 +50,15 @@ export class TodoEditFormComponent implements OnInit {
     public onFormSubmit(): void {
         if (!this._todo) return;
 
-        this._store.dispatch(dashboardCommands.updateTodo({ todo: {
-            ...this._todo,
-            text: this.todoTextControl.value,
-            isDone: this.todoIsDoneControl.value,
-        }}));
+        this._store.dispatch(dashboardCommands.updateTodo({
+            update: {
+                id: this._todo.id,
+                changes: {
+                    text: this.todoTextControl.value,
+                    isDone: this.todoIsDoneControl.value,
+                },
+            },
+        }));
     }
 
     public onCheckboxClick(): void {
@@ -64,10 +68,12 @@ export class TodoEditFormComponent implements OnInit {
             isDone: !this.form.value.isDone,
         });
 
-        this._store.dispatch(dashboardCommands.updateTodo({ todo: {
-            ...this._todo,
-            isDone: !this._todo.isDone,
-        } }));
+        this._store.dispatch(dashboardCommands.updateTodo({
+            update: {
+                id: this._todo.id,
+                changes: { isDone: !this._todo.isDone, },
+            },
+        }));
 
         if (!this.todoIsDoneControl.value) return;
 

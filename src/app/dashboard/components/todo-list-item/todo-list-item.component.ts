@@ -38,10 +38,10 @@ export class TodoListItemComponent implements OnInit {
         if(!this.todo) return;
         event.stopPropagation();
         this._store.dispatch(dashboardCommands.updateTodo({
-            todo: {
-                ...this.todo,
-                isDone: !this.todo.isDone,
-            }
+            update: {
+                id: this.todo.id,
+                changes: { isDone: !this.todo.isDone, },
+            },
         }));
     }
 }

@@ -1,7 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 
 export const FEATURE_KEY = 'loading';
-export const FEATURE_ACTION_KEY = 'fxLoading';
 
 export interface LoadingState extends EntityState<string> { }
 

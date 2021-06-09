@@ -1,14 +1,21 @@
-import * as loadingActions from './loading.actions';
-
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action } from "@ngrx/store";
 import { initialState, LoadingState, loadingStateAdapter } from "./loading.state";
 
-const _reducer = createReducer(
-    initialState,
-    on(loadingActions.addLoadingAction, (state, action) => loadingStateAdapter.addOne(action.payload, state)),
-    on(loadingActions.removeLoadingAction, (state, action) => loadingStateAdapter.removeOne(action.payload, state)),
-);
+interface AsyncAction extends Action {
+    loading: boolean;
+    commandType: string;
+}
 
-export function loadingReducer(state: LoadingState | undefined, action: Action) {
-    return _reducer(state, action);
+export function loadingReducer(state: LoadingState = initialState, action: AsyncAction) {
+
+    if (action.loading === true) {
+        state = loadingStateAdapter.addOne(action.commandType, state);
+    }
+
+    if (action.loading === false) {
+        state = loadingStateAdapter.removeOne(action.commandType, state);
+    }
+
+    return state;
+
 }

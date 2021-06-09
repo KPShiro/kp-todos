@@ -11,6 +11,7 @@ import { TodoFacade } from '@app/dashboard/todo.facade';
 export class TodoListComponent implements OnInit {
 
     public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
+    public isPendingFetchTodos$: Observable<boolean> = this._todoFacade.isPendingFetchTodos$;
 
     public constructor(
       private readonly _todoFacade: TodoFacade,

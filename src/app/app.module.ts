@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { KpDialogModule } from './kp-dialog/kp-dialog.module';
+import { LoadingModule } from './loading/loading.module';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { KpDialogModule } from './kp-dialog/kp-dialog.module';
         }),
         KpDialogModule.forRoot(),
         ReactiveFormsModule,
+        LoadingModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ]

@@ -1,5 +1,6 @@
+import * as loadingSelectors from '@app/loading/state/loading.selectors';
+import * as todoSelectors from '@app/dashboard/state/todo.selectors';
 import * as todoCommands from '@app/dashboard/state/commands';
-import * as fromTodoState from '@app/dashboard/state/todo.selectors';
 
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
@@ -11,7 +12,10 @@ import { Update } from '@ngrx/entity';
 @Injectable()
 export class TodoFacade {
 
-    public readonly todos$: Observable<ITodo[]> = this._store.select(fromTodoState.getTodos);
+    public readonly todos$: Observable<ITodo[]> = this._store.select(todoSelectors.getTodos);
+    public readonly isPendingFetchTodos$: Observable<boolean> = this._store.select(loadingSelectors.getActionByType(
+        todoCommands.fetchTodos.type
+    ));
 
     public constructor(
         private readonly _store: Store<AppState>,

@@ -1,12 +1,5 @@
 @import 'core/theming';
 
-.todo-list-header {
-    display: flex;
-    align-items: center;
-    padding: map-get($spacers, 3);
-    border-bottom: 1px solid $input-border-color;
-}
-
 .app-todo-list-item + .app-todo-list-item {
-    border-top: 1px solid $input-border-color;
+    border-top: $border-width solid $input-border-color;
 }

@@ -1,8 +1,7 @@
-import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppState } from '@app/core/state/app.state';
+import { todoInitialState } from '@app/dashboard/todo-state/todo.state';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { TodoCreateFormComponent } from './todo-create-form.component';
 
@@ -11,7 +10,9 @@ describe('TodoCreateFormComponent', () => {
     let fixture: ComponentFixture<TodoCreateFormComponent>;
     let store: MockStore;
 
-    const initialState: AppState = {};
+    const initialState: AppState = {
+        todo: todoInitialState,
+    };
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -39,14 +40,6 @@ describe('TodoCreateFormComponent', () => {
             jest.spyOn(store, 'dispatch');
             jest.spyOn(component.form, 'reset');
             component.onFormSubmit();
-        });
-
-        it('should dispatch create dashboardAction', () => {
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: dashboardActions.create.type,
-                text: '',
-            });
         });
 
         it('should reset form', () => {

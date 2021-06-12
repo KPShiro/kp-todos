@@ -3,7 +3,13 @@ import { AppInitializer } from "./app-initializer/app-initializer";
 import { AppInitializerProvider } from "./app-initializer/app-initializer-provider";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
-import { VibrationService } from "./services/vibration.service";
+import { VibrationService } from "./services/vibration/vibration.service";
+import { EmptyStateComponent } from "./components/empty-state/empty-state.component";
+import { TodoService } from "./services/todo/todo.service";
+
+const coreComponents = [
+    EmptyStateComponent,
+];
 
 @NgModule({
     imports: [
@@ -13,6 +19,10 @@ import { VibrationService } from "./services/vibration.service";
     exports: [
         NgbModule,
         CommonModule,
+        ...coreComponents,
+    ],
+    declarations: [
+        ...coreComponents,
     ],
 })
 export class CoreModule {
@@ -23,6 +33,7 @@ export class CoreModule {
                 AppInitializer,
                 AppInitializerProvider,
                 VibrationService,
+                TodoService,
             ],
         };
     }

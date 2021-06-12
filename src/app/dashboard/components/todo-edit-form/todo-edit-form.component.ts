@@ -1,4 +1,4 @@
-import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
+import * as todoCommands from '@app/dashboard/todo-state/commands';
 
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -50,11 +50,15 @@ export class TodoEditFormComponent implements OnInit {
     public onFormSubmit(): void {
         if (!this._todo) return;
 
-        this._store.dispatch(dashboardActions.update({ todo: {
-            ...this._todo,
-            text: this.todoTextControl.value,
-            isDone: this.todoIsDoneControl.value,
-        }}));
+        this._store.dispatch(todoCommands.updateTodo({
+            update: {
+                id: this._todo.id,
+                changes: {
+                    text: this.todoTextControl.value,
+                    isDone: this.todoIsDoneControl.value,
+                },
+            },
+        }));
     }
 
     public onCheckboxClick(): void {
@@ -64,7 +68,12 @@ export class TodoEditFormComponent implements OnInit {
             isDone: !this.form.value.isDone,
         });
 
-        this._store.dispatch(dashboardActions.toggleTodoIsDone({ todo: this._todo }));
+        this._store.dispatch(todoCommands.updateTodo({
+            update: {
+                id: this._todo.id,
+                changes: { isDone: !this._todo.isDone, },
+            },
+        }));
 
         if (!this.todoIsDoneControl.value) return;
 
@@ -74,7 +83,7 @@ export class TodoEditFormComponent implements OnInit {
     public onRemoveActionClick(): void {
         if (!this._todo) return;
 
-        this._store.dispatch(dashboardActions.remove({ id: this._todo.id }));
+        this._store.dispatch(todoCommands.deleteTodo({ id: this._todo.id }));
         this._hostDialog.close();
     }
 }

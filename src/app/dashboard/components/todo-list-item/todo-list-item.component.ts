@@ -1,8 +1,4 @@
-import * as dashboardActions from '@app/dashboard/state/dashboard.actions';
-
-import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
-import { AppState } from '@app/core/state/app.state';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 
 @Component({
@@ -17,26 +13,18 @@ export class TodoListItemComponent implements OnInit {
     @HostBinding('class.done')
     private _doneClass: boolean = false;
 
-    @Input()
-    public todo?: ITodo;
+    @Output()
+    public checkboxClick: EventEmitter<boolean> = new EventEmitter();
 
-    public constructor(
-        private readonly _store: Store<AppState>,
-    ) { }
+    @Input()
+    public todo!: ITodo;
 
     public ngOnInit(): void {
-        this._doneClass = this.todo?.isDone ?? false;
-    }
-
-    @HostListener('click')
-    public onItemClick(): void {
-        if(!this.todo) return;
-        this._store.dispatch(dashboardActions.openTodoEditForm({ data: this.todo }));
+        this._doneClass = this.todo.isDone ?? false;
     }
 
     public onCheckClick(event: Event): void {
-        if(!this.todo) return;
         event.stopPropagation();
-        this._store.dispatch(dashboardActions.toggleTodoIsDone({ todo: this.todo }));
+        this.checkboxClick.emit(!this.todo.isDone);
     }
 }

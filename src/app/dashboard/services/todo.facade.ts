@@ -1,6 +1,6 @@
 import * as loadingSelectors from '@app/loading/state/loading.selectors';
-import * as todoSelectors from '@app/dashboard/state/todo.selectors';
-import * as todoCommands from '@app/dashboard/state/commands';
+import * as todoSelectors from '@app/dashboard/todo-state/todo.selectors';
+import * as todoCommands from '@app/dashboard/todo-state/commands';
 
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';

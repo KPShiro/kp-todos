@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { TodoFacade } from '@app/dashboard/todo.facade';
+import { TodoFacade } from '@app/dashboard/services/todo.facade';
 
 @Component({
     selector: 'app-todo-list',

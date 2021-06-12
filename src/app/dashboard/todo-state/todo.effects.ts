@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
-import * as todoCommands from '@app/dashboard/state/commands';
-import * as todoEvents from '@app/dashboard/state/events';
+import * as todoCommands from '@app/dashboard/todo-state/commands';
+import * as todoEvents from '@app/dashboard/todo-state/events';
 
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";

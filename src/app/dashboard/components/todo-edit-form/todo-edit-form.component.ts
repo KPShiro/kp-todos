@@ -1,4 +1,4 @@
-import * as dashboardCommands from '@app/dashboard/state/commands';
+import * as todoCommands from '@app/dashboard/todo-state/commands';
 
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -50,7 +50,7 @@ export class TodoEditFormComponent implements OnInit {
     public onFormSubmit(): void {
         if (!this._todo) return;
 
-        this._store.dispatch(dashboardCommands.updateTodo({
+        this._store.dispatch(todoCommands.updateTodo({
             update: {
                 id: this._todo.id,
                 changes: {
@@ -68,7 +68,7 @@ export class TodoEditFormComponent implements OnInit {
             isDone: !this.form.value.isDone,
         });
 
-        this._store.dispatch(dashboardCommands.updateTodo({
+        this._store.dispatch(todoCommands.updateTodo({
             update: {
                 id: this._todo.id,
                 changes: { isDone: !this._todo.isDone, },
@@ -83,7 +83,7 @@ export class TodoEditFormComponent implements OnInit {
     public onRemoveActionClick(): void {
         if (!this._todo) return;
 
-        this._store.dispatch(dashboardCommands.deleteTodo({ id: this._todo.id }));
+        this._store.dispatch(todoCommands.deleteTodo({ id: this._todo.id }));
         this._hostDialog.close();
     }
 }

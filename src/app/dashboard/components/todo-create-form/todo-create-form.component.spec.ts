@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppState } from '@app/core/state/app.state';
+import { todoInitialState } from '@app/dashboard/todo-state/todo.state';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { TodoCreateFormComponent } from './todo-create-form.component';
 
@@ -9,7 +10,9 @@ describe('TodoCreateFormComponent', () => {
     let fixture: ComponentFixture<TodoCreateFormComponent>;
     let store: MockStore;
 
-    const initialState: AppState = {};
+    const initialState: AppState = {
+        todo: todoInitialState,
+    };
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({

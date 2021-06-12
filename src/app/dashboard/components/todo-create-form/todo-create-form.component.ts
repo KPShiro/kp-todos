@@ -1,4 +1,4 @@
-import * as dashboardCommands from '@app/dashboard/state/commands';
+import * as todoCommands from '@app/dashboard/todo-state/commands';
 
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,7 +22,7 @@ export class TodoCreateFormComponent {
     ) { }
 
     public onFormSubmit(): void {
-        this._store.dispatch(dashboardCommands.createTodo({ text: this.form.value.text }));
+        this._store.dispatch(todoCommands.createTodo({ text: this.form.value.text }));
         this.form.reset();
     }
 }

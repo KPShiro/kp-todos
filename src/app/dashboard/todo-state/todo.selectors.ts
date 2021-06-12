@@ -12,3 +12,8 @@ export const getTodos = createSelector(
     selectFeature,
     entitiySelectors.selectAll,
 );
+
+export const getTodoById = (id: string) => createSelector(
+    getTodos,
+    (todos) => todos.find(x => x.id === id),
+);

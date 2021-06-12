@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TodoListComponent } from './todo-list.component';
 import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
 import { EmptyStateComponent } from '@core/components/empty-state/empty-state.component';
-import { TodoFacade } from '@app/dashboard/todo.facade';
+import { TodoFacade } from '@app/dashboard/services/todo.facade';
 import { Observable, of } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Update } from '@ngrx/entity';

@@ -13,6 +13,7 @@ import { TodoFacade } from '@app/dashboard/services/todo.facade';
 export class TodoListComponent implements OnInit {
 
     public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
+
     public fetchTodosPending$: Observable<boolean> = this._todoFacade.isActionPending$(todoCommands.fetchTodos);
     public fetchTodosError$: Observable<string | undefined> = this._todoFacade.getActionError$(todoCommands.fetchTodos);
 

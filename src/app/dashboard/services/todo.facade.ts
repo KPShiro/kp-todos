@@ -3,14 +3,14 @@ import * as todoSelectors from '@app/dashboard/todo-state/todo.selectors';
 import * as todoCommands from '@app/dashboard/todo-state/commands';
 
 import { Injectable } from "@angular/core";
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Action, Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/app.state';
 import { Update } from '@ngrx/entity';
 import { map, pluck, switchMap } from 'rxjs/operators';
-import { isNotNullOrUndefined } from '@app/shared/functions/rxjs-pipes';
 import { AsyncActionStatus } from '@app/loading/state/loading.reducer';
+import { utils } from '@app/shared/functions/utils';
 
 @Injectable({
     providedIn: 'root',
@@ -22,8 +22,7 @@ export class TodoFacade {
     public readonly selectedTodoId$: Observable<string | undefined> = this._store.select(todoSelectors.getSelectedTodoId);
 
     public readonly selectedTodo$: Observable<ITodo | undefined> = this.selectedTodoId$.pipe(
-        isNotNullOrUndefined(),
-        switchMap((id) => this._store.select(todoSelectors.getTodoById(id))),
+        switchMap((id) => utils.isDefAndNotNull(id) ? this._store.select(todoSelectors.getTodoById(id)) : of(undefined)),
     );
 
     public constructor(

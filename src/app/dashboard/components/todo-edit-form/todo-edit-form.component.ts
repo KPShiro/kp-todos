@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { KpDialogHost } from '@app/kp-dialog/models/kp-dialog-host';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { TodoFacade } from '@app/dashboard/services/todo.facade';
+import { utils } from '@app/shared/functions/utils';
 
 @Component({
     selector: 'app-todo-edit-form',
@@ -34,7 +35,7 @@ export class TodoEditFormComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        if(this._hostDialog.data === undefined || this._hostDialog.data === null) {
+        if(!utils.isDefAndNotNull(this._hostDialog.data)) {
             throw new Error('Provide Todo item');
         }
 

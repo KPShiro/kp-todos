@@ -1,15 +1,17 @@
 import * as uuid from 'uuid';
 import * as todoCommands from '@app/dashboard/todo-state/commands';
 import * as todoEvents from '@app/dashboard/todo-state/events';
+import * as todoSelectors from '@app/dashboard/todo-state/todo.selectors';
 
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import { of } from 'rxjs';
 import { VibrationService } from '@app/core/services/vibration/vibration.service';
 import { TodoService } from '@app/core/services/todo/todo.service';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { isNotNullOrUndefined } from '@app/shared/functions/rxjs-pipes';
+import { Store } from '@ngrx/store';
+import { AppState } from '@app/core/state/app.state';
 
 @Injectable()
 export class TodoCommandsEffects {
@@ -53,13 +55,18 @@ export class TodoCommandsEffects {
     selectTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
         ofType(todoCommands.selectTodo),
         map((action) => action.payload),
-        distinctUntilChanged((prev, curr) => prev.id === curr.id),
-        isNotNullOrUndefined(),
-        map((payload) => todoEvents.selectTodoSuccess(payload)),
-        catchError((error) => of(todoEvents.selectTodoError({ error }))),
+        withLatestFrom(this._store.select(todoSelectors.getSelectedTodoId)),
+        map(([ payload, selectedTodoId ]) => {
+            if (payload.id !== selectedTodoId) {
+                return todoEvents.todoSelected(payload);
+            }
+
+            return todoEvents.todoDeselected();
+        }),
     ));
 
     public constructor(
+        private readonly _store: Store<AppState>,
         private readonly _actions$: Actions,
         private readonly _vibrationService: VibrationService,
         private readonly _todoService: TodoService,

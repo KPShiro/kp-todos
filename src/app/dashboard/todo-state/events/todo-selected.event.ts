@@ -3,12 +3,12 @@ import * as todoCommands from '../commands';
 import { createEvent } from "@app/shared/functions/state-helpers";
 import { todoStateKey } from "../todo.selectors";
 
-export const selectTodoSuccess = createEvent<ISelectTodoSuccessEventParams>(
+export const todoSelected = createEvent<ITodoSelectedEventParams>(
     todoStateKey,
-    'Select todo success',
+    'Todo selected',
     todoCommands.selectTodo,
 );
 
-export interface ISelectTodoSuccessEventParams {
+export interface ITodoSelectedEventParams {
     id: string;
 }

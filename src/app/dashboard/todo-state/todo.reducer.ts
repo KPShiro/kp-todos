@@ -9,7 +9,8 @@ const _reducer = createReducer(
     on(todoEvents.updateTodoSuccess, (state, { payload }) => adapter.updateOne(payload.update, state)),
     on(todoEvents.deleteTodoSuccess, (state, { payload }) => adapter.removeOne(payload.id, state)),
     on(todoEvents.createTodoSuccess, (state, { payload }) => adapter.addOne(payload.todo, state)),
-    on(todoEvents.selectTodoSuccess, (state, { payload }) => ({ ...state, selectedId: payload.id })),
+    on(todoEvents.todoSelected, (state, { payload }) => ({ ...state, selectedId: payload.id })),
+    on(todoEvents.todoDeselected, (state) => ({ ...state, selectedId: undefined })),
 );
 
 export function todoReducer(state: TodoState | undefined, action: Action) {

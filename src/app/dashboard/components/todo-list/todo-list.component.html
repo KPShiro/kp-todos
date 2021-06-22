@@ -2,10 +2,10 @@
     <ng-container *ngIf="todos.length > 0; else emptyState">
         <div>
             <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"
-                (checkboxClick)="onTodoItemCheckboxClick(todo, $event)"></app-todo-list-item>
+                (checkboxClick)="onTodoItemCheckboxClick(todo, $event)" (click)="onTodoItemClick(todo)"></app-todo-list-item>
         </div>
         <div class="p-3">
-            <ng-container *ngIf="(isPendingFetchTodos$ | async); else enabledFetchTodos">
+            <ng-container *ngIf="(fetchTodosPending$ | async); else enabledFetchTodos">
                 <button type="button" class="btn btn-light text-muted" disabled>
                     <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
                     Fetch todos

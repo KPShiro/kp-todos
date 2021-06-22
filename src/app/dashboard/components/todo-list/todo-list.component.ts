@@ -1,3 +1,5 @@
+import * as todoCommands from '@app/dashboard/todo-state/commands';
+
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
@@ -11,7 +13,8 @@ import { TodoFacade } from '@app/dashboard/services/todo.facade';
 export class TodoListComponent implements OnInit {
 
     public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
-    public isPendingFetchTodos$: Observable<boolean> = this._todoFacade.isPendingFetchTodos$;
+    public fetchTodosPending$: Observable<boolean> = this._todoFacade.isActionPending$(todoCommands.fetchTodos);
+    public fetchTodosError$: Observable<string | undefined> = this._todoFacade.getActionError$(todoCommands.fetchTodos);
 
     public constructor(
       private readonly _todoFacade: TodoFacade,
@@ -30,6 +33,10 @@ export class TodoListComponent implements OnInit {
             id: todo.id,
             changes: { isDone }
         });
+    }
+
+    public onTodoItemClick(todo: ITodo): void {
+        this._todoFacade.selectTodo(todo.id);
     }
 
 }

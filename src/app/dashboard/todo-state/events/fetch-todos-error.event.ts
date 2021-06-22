@@ -1,10 +1,14 @@
 import * as todoCommands from '../commands';
 
 import { createEvent } from '@app/shared/functions/state-helpers';
-import { FEATURE_KEY } from "../todo.selectors";
+import { todoStateKey } from "../todo.selectors";
+import { AsyncActionStatus } from '@app/loading/state/loading.reducer';
 
 export const fetchTodosError = createEvent<IFetchTodosErrorEventParams>(
-    FEATURE_KEY, 'Fetch todos error', todoCommands.fetchTodos.type,
+    todoStateKey,
+    'Fetch todos error',
+    todoCommands.fetchTodos,
+    AsyncActionStatus.FAILURE
 );
 
 export interface IFetchTodosErrorEventParams {

@@ -1,12 +1,14 @@
-import { createActionName } from "@app/shared/functions/state-helpers";
+import * as todoCommands from '../commands';
+
+import { createEvent } from "@app/shared/functions/state-helpers";
 import { ITodo } from "@app/shared/interfaces/todo.interface";
 import { Update } from "@ngrx/entity";
-import { createAction } from "@ngrx/store";
-import { FEATURE_KEY } from "../todo.selectors";
+import { todoStateKey } from "../todo.selectors";
 
-export const updateTodoSuccess = createAction(
-    createActionName(FEATURE_KEY, 'Update todo success'),
-    (payload: IUpdateTodoSucessEventParams) => ({ payload }),
+export const updateTodoSuccess = createEvent<IUpdateTodoSucessEventParams>(
+    todoStateKey,
+    'Update todo success',
+    todoCommands.updateTodo,
 );
 
 export interface IUpdateTodoSucessEventParams {

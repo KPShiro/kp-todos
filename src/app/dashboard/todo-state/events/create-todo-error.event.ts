@@ -1,10 +1,14 @@
-import { createActionName } from "@app/shared/functions/state-helpers";
-import { createAction } from "@ngrx/store";
-import { FEATURE_KEY } from "../todo.selectors";
+import * as todoCommands from '../commands';
 
-export const createTodoError = createAction(
-    createActionName(FEATURE_KEY, 'Create todo error'),
-    (payload: ICreateTodoErrorEventParams) => ({ payload }),
+import { AsyncActionStatus } from "@app/loading/state/loading.reducer";
+import { createEvent } from "@app/shared/functions/state-helpers";
+import { todoStateKey } from "../todo.selectors";
+
+export const createTodoError = createEvent<ICreateTodoErrorEventParams>(
+    todoStateKey,
+    'Create todo error',
+    todoCommands.createTodo,
+    AsyncActionStatus.FAILURE,
 );
 
 export interface ICreateTodoErrorEventParams {

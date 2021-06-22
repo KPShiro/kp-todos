@@ -1,11 +1,13 @@
-import { createActionName } from "@app/shared/functions/state-helpers";
-import { ITodo } from "@app/shared/interfaces/todo.interface";
-import { createAction } from "@ngrx/store";
-import { FEATURE_KEY } from "../todo.selectors";
+import * as todoCommands from '../commands';
 
-export const createTodoSuccess = createAction(
-    createActionName(FEATURE_KEY, 'Create todo success'),
-    (payload: ICreateTodoSucessEventParams) => ({ payload }),
+import { createEvent } from "@app/shared/functions/state-helpers";
+import { ITodo } from "@app/shared/interfaces/todo.interface";
+import { todoStateKey } from "../todo.selectors";
+
+export const createTodoSuccess = createEvent<ICreateTodoSucessEventParams>(
+    todoStateKey,
+    'Create todo success',
+    todoCommands.createTodo,
 );
 
 export interface ICreateTodoSucessEventParams {

@@ -4,44 +4,24 @@ import * as todoEvents from '@app/dashboard/todo-state/events';
 
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
 import { of } from 'rxjs';
-import { KpDialogService } from '@app/kp-dialog/services/kp-dialog/kp-dialog.service';
-import { KpDialogType } from '@app/kp-dialog/enums/dialog-type.enum';
-import { TodoCreateFormComponent } from '@app/dashboard/components/todo-create-form/todo-create-form.component';
-import { TodoEditFormComponent } from '@app/dashboard/components/todo-edit-form/todo-edit-form.component';
 import { VibrationService } from '@app/core/services/vibration/vibration.service';
 import { TodoService } from '@app/core/services/todo/todo.service';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { isNotNullOrUndefined } from '@app/shared/functions/rxjs-pipes';
 
 @Injectable()
-export class TodoEffects {
+export class TodoCommandsEffects {
 
     fetchTodosCommandEffect$ = createEffect(() => this._actions$.pipe(
         ofType(todoCommands.fetchTodos),
+        debounceTime(500),
         switchMap(() => this._todoService.getTodos().pipe(
             map((todos) => todoEvents.fetchTodosSuccess({ todos })),
             catchError((error) => of(todoEvents.fetchTodosError({ error: error.message }))),
         )),
     ));
-
-    openTodoFormCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(todoCommands.openTodoForm),
-        map((action) => action.payload),
-        tap((payload) => {
-            if (payload === undefined || payload === null) {
-                this._dialogService.open(TodoCreateFormComponent, {
-                    type: KpDialogType.BOTTOMSHEET,
-                });
-            } else {
-                this._dialogService.open(TodoEditFormComponent, {
-                    type: KpDialogType.BOTTOMSHEET,
-                    data: payload.todo,
-                });
-            }
-        }),
-        tap(() => this._vibrationService.vibrate(5)),
-    ), { dispatch: false });
 
     updateTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
         ofType(todoCommands.updateTodo),
@@ -54,6 +34,7 @@ export class TodoEffects {
     deleteTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
         ofType(todoCommands.deleteTodo),
         map((action) => action.payload),
+        distinctUntilChanged((prev, curr) => prev.id === curr.id),
         map((payload) => todoEvents.deleteTodoSuccess({ id: payload.id })),
         catchError((error) => of(todoEvents.deleteTodoError({ error }))),
     ));
@@ -69,9 +50,17 @@ export class TodoEffects {
         catchError((error) => of(todoEvents.createTodoError({ error }))),
     ));
 
+    selectTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
+        ofType(todoCommands.selectTodo),
+        map((action) => action.payload),
+        distinctUntilChanged((prev, curr) => prev.id === curr.id),
+        isNotNullOrUndefined(),
+        map((payload) => todoEvents.selectTodoSuccess(payload)),
+        catchError((error) => of(todoEvents.selectTodoError({ error }))),
+    ));
+
     public constructor(
         private readonly _actions$: Actions,
-        private readonly _dialogService: KpDialogService,
         private readonly _vibrationService: VibrationService,
         private readonly _todoService: TodoService,
     ) { }

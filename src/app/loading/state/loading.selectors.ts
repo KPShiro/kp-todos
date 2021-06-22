@@ -10,15 +10,7 @@ export const getActionsArray = createSelector(
     entitiySelectors.selectAll,
 );
 
-export const getActionsMap = createSelector(
-    getActionsArray,
-    (array) => array.reduce((p, n) => {
-        p.set(n, true);
-        return p;
-    }, new Map()),
-);
-
 export const getActionByType = (type: string) => createSelector(
-    getActionsMap,
-    (map) => map.get(type),
+    getActionsArray,
+    (actions) => actions.find(action => action.commandType === type),
 );

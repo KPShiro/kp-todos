@@ -1,11 +1,11 @@
 import { createCommand } from "@app/shared/functions/state-helpers";
 import { todoStateKey } from "../todo.selectors";
 
-export const deleteTodo = createCommand<IDeleteTodoCommandParams>(
+export const selectTodo = createCommand<ISelectTodoCommandParams>(
     todoStateKey,
-    'Delete todo',
+    'Select todo'
 );
 
-export interface IDeleteTodoCommandParams {
+export interface ISelectTodoCommandParams {
     id: string;
 }

@@ -5,17 +5,26 @@ import * as todoCommands from '@app/dashboard/todo-state/commands';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/app.state';
 import { Update } from '@ngrx/entity';
+import { map, pluck, switchMap } from 'rxjs/operators';
+import { isNotNullOrUndefined } from '@app/shared/functions/rxjs-pipes';
+import { AsyncActionStatus } from '@app/loading/state/loading.reducer';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class TodoFacade {
 
     public readonly todos$: Observable<ITodo[]> = this._store.select(todoSelectors.getTodos);
-    public readonly isPendingFetchTodos$: Observable<boolean> = this._store.select(loadingSelectors.getActionByType(
-        todoCommands.fetchTodos.type
-    ));
+
+    public readonly selectedTodoId$: Observable<string | undefined> = this._store.select(todoSelectors.getSelectedTodoId);
+
+    public readonly selectedTodo$: Observable<ITodo | undefined> = this.selectedTodoId$.pipe(
+        isNotNullOrUndefined(),
+        switchMap((id) => this._store.select(todoSelectors.getTodoById(id))),
+    );
 
     public constructor(
         private readonly _store: Store<AppState>,
@@ -35,6 +44,22 @@ export class TodoFacade {
 
     public updateTodo(update: Update<ITodo>): void {
         this._store.dispatch(todoCommands.updateTodo({ update }));
+    }
+
+    public selectTodo(id: string): void {
+        this._store.dispatch(todoCommands.selectTodo({ id }));
+    }
+
+    public isActionPending$(action: Action): Observable<boolean> {
+        return this._store.select(loadingSelectors.getActionByType(action.type)).pipe(
+            map((action) => action?.status === AsyncActionStatus.LOADING),
+        );
+    }
+
+    public getActionError$(action: Action): Observable<string | undefined> {
+        return this._store.select(loadingSelectors.getActionByType(action.type)).pipe(
+            pluck('payload', 'error'),
+        );
     }
 
 }

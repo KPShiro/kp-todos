@@ -1,21 +1,36 @@
 import { Action } from "@ngrx/store";
 import { initialState, LoadingState, loadingStateAdapter } from "./loading.state";
 
-interface AsyncAction extends Action {
-    loading: boolean;
+export enum AsyncActionStatus {
+    LOADING = 'LOADING',
+    SUCCESS = 'SUCCESS',
+    FAILURE = 'FAILURE'
+}
+
+export interface AsyncAction extends Action {
+    status: AsyncActionStatus;
+    error: string | undefined;
     commandType: string;
 }
 
 export function loadingReducer(state: LoadingState = initialState, action: AsyncAction) {
-
-    if (action.loading === true) {
-        state = loadingStateAdapter.addOne(action.commandType, state);
+    if (action.status === AsyncActionStatus.LOADING) {
+        state = loadingStateAdapter.setOne(action, state);
     }
 
-    if (action.loading === false) {
+    if (action.status === AsyncActionStatus.SUCCESS) {
         state = loadingStateAdapter.removeOne(action.commandType, state);
     }
 
-    return state;
+    if (action.status === AsyncActionStatus.FAILURE) {
+        const { commandType, ...change } = action;
+        state = loadingStateAdapter.updateOne({
+            id: action.commandType,
+            changes: {
+                ...change,
+            },
+        }, state);
+    }
 
+    return state;
 }

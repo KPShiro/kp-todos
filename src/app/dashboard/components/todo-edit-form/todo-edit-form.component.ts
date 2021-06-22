@@ -1,11 +1,8 @@
-import * as todoCommands from '@app/dashboard/todo-state/commands';
-
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AppState } from '@app/core/state/app.state';
-import { Store } from '@ngrx/store';
 import { KpDialogHost } from '@app/kp-dialog/models/kp-dialog-host';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { TodoFacade } from '@app/dashboard/services/todo.facade';
 
 @Component({
     selector: 'app-todo-edit-form',
@@ -16,8 +13,8 @@ import { ITodo } from '@app/shared/interfaces/todo.interface';
 export class TodoEditFormComponent implements OnInit {
 
     public form: FormGroup = this._formBuilder.group({
-        text: [ '', Validators.required ],
-        isDone: [ false, Validators.required ],
+        text: [ '', [ Validators.required ] ],
+        isDone: [ false, [ Validators.required ] ],
     });
 
     public get todoTextControl(): FormControl {
@@ -28,18 +25,20 @@ export class TodoEditFormComponent implements OnInit {
         return this.form?.get('isDone') as FormControl;
     }
 
-    private readonly _todo: ITodo | undefined;
+    private _todo!: ITodo;
 
     public constructor(
-        private readonly _store: Store<AppState>,
         private readonly _formBuilder: FormBuilder,
         private readonly _hostDialog: KpDialogHost<ITodo>,
-    ) {
-        this._todo = this._hostDialog.data;
-    }
+        private readonly _todoFacade: TodoFacade,
+    ) { }
 
     public ngOnInit(): void {
-        if(!this._todo) return;
+        if(this._hostDialog.data === undefined || this._hostDialog.data === null) {
+            throw new Error('Provide Todo item');
+        }
+
+        this._todo = this._hostDialog.data;
 
         this.form.setValue({
             text: this._todo.text,
@@ -48,42 +47,33 @@ export class TodoEditFormComponent implements OnInit {
     }
 
     public onFormSubmit(): void {
-        if (!this._todo) return;
+        if(!this.form.dirty && !this.form.touched) {
+            return;
+        }
 
-        this._store.dispatch(todoCommands.updateTodo({
-            update: {
-                id: this._todo.id,
-                changes: {
-                    text: this.todoTextControl.value,
-                    isDone: this.todoIsDoneControl.value,
-                },
-            },
-        }));
+        this._todoFacade.updateTodo({
+            id: this._todo.id,
+            changes: {
+                text: this.todoTextControl.value,
+                isDone: this.todoIsDoneControl.value,
+            }
+        });
     }
 
     public onCheckboxClick(): void {
-        if (!this._todo) return;
-
         this.form.patchValue({
             isDone: !this.form.value.isDone,
         });
 
-        this._store.dispatch(todoCommands.updateTodo({
-            update: {
-                id: this._todo.id,
-                changes: { isDone: !this._todo.isDone, },
-            },
-        }));
-
-        if (!this.todoIsDoneControl.value) return;
-
-        this._hostDialog.close();
+        this._todoFacade.updateTodo({
+            id: this._todo.id,
+            changes: {
+                isDone: this.todoIsDoneControl.value,
+            }
+        });
     }
 
     public onRemoveActionClick(): void {
-        if (!this._todo) return;
-
-        this._store.dispatch(todoCommands.deleteTodo({ id: this._todo.id }));
-        this._hostDialog.close();
+        this._todoFacade.deleteTodo(this._todo.id);
     }
 }

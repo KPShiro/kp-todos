@@ -4,13 +4,13 @@ import { createEvent } from "@app/shared/functions/state-helpers";
 import { todoStateKey } from "../todo.selectors";
 import { AsyncActionStatus } from '@app/loading/state/loading.reducer';
 
-export const deleteTodoError = createEvent<IDeleteTodoErrorEventParams>(
+export const selectTodoError = createEvent<ISelectTodoErrorEventParams>(
     todoStateKey,
-    'Delete todo error',
-    todoCommands.deleteTodo,
-    AsyncActionStatus.FAILURE
+    'Select todo error',
+    todoCommands.selectTodo,
+    AsyncActionStatus.FAILURE,
 );
 
-export interface IDeleteTodoErrorEventParams {
+export interface ISelectTodoErrorEventParams {
     error: any;
 }

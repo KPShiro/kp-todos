@@ -49,6 +49,10 @@ export class TodoFacade {
         this._store.dispatch(todoCommands.selectTodo({ id }));
     }
 
+    public deselectTodo(): void {
+        this._store.dispatch(todoCommands.deselectTodo());
+    }
+
     public isActionPending$(action: Action): Observable<boolean> {
         return this._store.select(loadingSelectors.getActionByType(action.type)).pipe(
             map((action) => action?.status === AsyncActionStatus.LOADING),

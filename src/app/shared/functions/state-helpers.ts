@@ -1,7 +1,7 @@
 import { AsyncActionStatus } from "@app/loading/state/loading.reducer";
 import { Action, createAction } from "@ngrx/store";
 
-function createActionName(featureKey: string, name: string): string {
+export function createActionName(featureKey: string, name: string): string {
     return `[${featureKey}] ${name}`;
 }
 

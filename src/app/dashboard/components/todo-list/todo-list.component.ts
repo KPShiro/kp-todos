@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { TodoFacade } from '@app/dashboard/services/todo.facade';
+import { KpOverlayService } from '@app/kp-overlay/services/overlay.service';
+import { TodoEditFormComponent } from '../todo-edit-form/todo-edit-form.component';
 
 @Component({
     selector: 'app-todo-list',
@@ -19,6 +21,7 @@ export class TodoListComponent implements OnInit {
 
     public constructor(
       private readonly _todoFacade: TodoFacade,
+      private readonly _overlayService: KpOverlayService,
     ) { }
 
     public ngOnInit(): void {
@@ -38,6 +41,10 @@ export class TodoListComponent implements OnInit {
 
     public onTodoItemClick(todo: ITodo): void {
         this._todoFacade.selectTodo(todo.id);
+        const overlayRef = this._overlayService.openBottomSheet(TodoEditFormComponent, todo);
+        overlayRef.afterClosed$.subscribe(() => {
+            this._todoFacade.deselectTodo();
+        });
     }
 
 }

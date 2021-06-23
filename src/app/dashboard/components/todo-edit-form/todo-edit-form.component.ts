@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { KpDialogHost } from '@app/kp-dialog/models/kp-dialog-host';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { TodoFacade } from '@app/dashboard/services/todo.facade';
 import { utils } from '@app/shared/functions/utils';
+import { KpOverlayRef } from '@app/kp-overlay/models';
 
 @Component({
     selector: 'app-todo-edit-form',
@@ -30,16 +30,16 @@ export class TodoEditFormComponent implements OnInit {
 
     public constructor(
         private readonly _formBuilder: FormBuilder,
-        private readonly _hostDialog: KpDialogHost<ITodo>,
+        private readonly _overlayRef: KpOverlayRef<any, ITodo>,
         private readonly _todoFacade: TodoFacade,
     ) { }
 
     public ngOnInit(): void {
-        if(!utils.isDefAndNotNull(this._hostDialog.data)) {
+        if(!utils.isDefAndNotNull(this._overlayRef.data)) {
             throw new Error('Provide Todo item');
         }
 
-        this._todo = this._hostDialog.data;
+        this._todo = this._overlayRef.data;
 
         this.form.setValue({
             text: this._todo.text,
@@ -72,9 +72,14 @@ export class TodoEditFormComponent implements OnInit {
                 isDone: this.todoIsDoneControl.value,
             }
         });
+
+        if (this.todoIsDoneControl.value === true) {
+            this._overlayRef.close();
+        }
     }
 
     public onRemoveActionClick(): void {
         this._todoFacade.deleteTodo(this._todo.id);
+        this._overlayRef.close();
     }
 }

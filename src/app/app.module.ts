@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { KpDialogModule } from './kp-dialog/kp-dialog.module';
+import { KpOverlayModule } from './kp-overlay/kp-overlay.module';
 import { LoadingModule } from './loading/loading.module';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { LoadingModule } from './loading/loading.module';
             logOnly: environment.production,
         }),
         KpDialogModule.forRoot(),
+        KpOverlayModule.forRoot(),
         ReactiveFormsModule,
         LoadingModule,
     ],

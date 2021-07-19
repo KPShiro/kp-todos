@@ -5,10 +5,10 @@
 
 <ng-container *ngIf="(fetchTodosPending$ | async)">
     <div class="loading-state">
-        <div class="todo-list-item"></div>
-        <div class="todo-list-item"></div>
-        <div class="todo-list-item"></div>
-        <div class="todo-list-item"></div>
+        <app-todo-list-item-placeholder></app-todo-list-item-placeholder>
+        <app-todo-list-item-placeholder></app-todo-list-item-placeholder>
+        <app-todo-list-item-placeholder></app-todo-list-item-placeholder>
+        <app-todo-list-item-placeholder></app-todo-list-item-placeholder>
     </div>
 </ng-container>
 

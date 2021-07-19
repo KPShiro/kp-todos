@@ -24,7 +24,6 @@
         justify-content: center;
         height: 3.5 * $spacer;
         width: 3.5 * $spacer;
-        margin-right: $spacer;
         border-right: $border-width solid $border-color;
     }
 
@@ -39,6 +38,8 @@
     }
 
     .todo-item-text {
+        margin-left: $spacer;
+        margin-right: $spacer;
         flex: 1;
     }
 }

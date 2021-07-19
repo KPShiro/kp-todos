@@ -10,46 +10,6 @@
     margin-top: 0.25rem;
 }
 
-.loading-state {
-    .todo-list-item + .todo-list-item {
-        margin-top: 0.25rem;
-    }
-
-    .todo-list-item {
-        width: 100%;
-        height: 5rem;
-        background-color: color-neutral();
-        border-radius: 0.25rem;
-
-        animation-duration: 1s;
-        animation-fill-mode: forwards;
-        animation-iteration-count: infinite;
-        animation-name: placeHolderShimmer;
-        animation-timing-function: linear;
-        background: color-neutral();
-        background: linear-gradient(to right, color-neutral('20') 8%, color-neutral('30') 38%, color-neutral('20') 54%);
-        background-size: 512px 64px;
-        position: relative;
-    }
-
-    .todo-list-item:nth-child(2) {
-        opacity: 0.75;
-    }
-
-    .todo-list-item:nth-child(3) {
-        opacity: 0.5;
-    }
-
-    .todo-list-item:nth-child(4) {
-        opacity: 0.4;
-    }
-}
-
-@keyframes placeHolderShimmer{
-    0%{
-        background-position: -256px 0
-    }
-    100%{
-        background-position: 256px 0
-    }
+.loading-state > .app-todo-list-item-placeholder + .app-todo-list-item-placeholder {
+    margin-top: 0.25rem;
 }

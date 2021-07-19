@@ -13,6 +13,7 @@ import { TodoCommandsEffects } from './todo-state/todo-commands.effects';
 import { TodoCreateFormComponent } from './components/todo-create-form/todo-create-form.component';
 import { CoreModule } from '@app/core/core.module';
 import { DashboardComponent } from './dashboard.component';
+import { TodoListItemPlaceholderComponent } from './components/todo-list-item-placeholder/todo-list-item-placeholder.component';
 
 const ngbBootstrapModules: any = [];
 
@@ -28,6 +29,7 @@ const ngrxModules: any = [
         TodoEditFormComponent,
         TodoCreateFormComponent,
         DashboardComponent,
+        TodoListItemPlaceholderComponent,
     ],
     imports: [
         CoreModule,

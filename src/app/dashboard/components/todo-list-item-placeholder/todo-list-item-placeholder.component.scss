@@ -1,0 +1,56 @@
+@import 'core/theming';
+
+$fakeDataColor: color-neutral('30');
+
+:host {
+    & {
+        display: flex;
+        align-items: center;
+        background-color: color-neutral('10');
+        border: $border-width solid $border-color;
+        border-radius: 0.25rem;
+
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+        background: color-neutral();
+        background: linear-gradient(to right, color-neutral('10'), color-neutral('30'), color-neutral('10'));
+        background-size: 512px 64px;
+        position: relative;
+    }
+
+    .todo-item-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3.5 * $spacer;
+        width: 3.5 * $spacer;
+        border-right: $border-width solid $border-color;
+    }
+
+    .todo-item-status-icon {
+        height: map-get($spacers, 4);
+        width: map-get($spacers, 4);
+        background-color: $fakeDataColor;
+        border-radius: 50%;
+    }
+
+    .todo-item-text {
+        background-color: $fakeDataColor;
+        border-radius: 0.25rem;
+        margin: 0 $spacer;
+        height: 20px;
+        flex: 1;
+    }
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -256px 0;
+    }
+    100% {
+        background-position: 256px 0;
+    }
+}

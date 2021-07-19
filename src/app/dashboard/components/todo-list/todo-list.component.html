@@ -1,26 +1,19 @@
 <ng-container *ngIf="(todos$ | async); let todos">
-    <ng-container *ngIf="todos.length > 0; else emptyState">
-        <div>
-            <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"
-                (checkboxClick)="onTodoItemCheckboxClick(todo, $event)" (click)="onTodoItemClick(todo)"></app-todo-list-item>
-        </div>
-        <div class="p-3">
-            <ng-container *ngIf="(fetchTodosPending$ | async); else enabledFetchTodos">
-                <button type="button" class="btn btn-light text-muted" disabled>
-                    <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
-                    Fetch todos
-                </button>
-            </ng-container>
-            <ng-template #enabledFetchTodos>
-                <button type="button" class="btn btn-light text-muted" (click)="onFetchTodosClick()">
-                    <i class="uil uil-cloud-download mr-2"></i> Fetch todos
-                </button>
-            </ng-template>
-        </div>
-    </ng-container>
+    <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"
+        (checkboxClick)="onTodoItemCheckboxClick(todo, $event)" (click)="onTodoItemClick(todo)"></app-todo-list-item>
 </ng-container>
 
-<ng-template #emptyState>
+<ng-container *ngIf="(fetchTodosPending$ | async)">
+    <div class="loading-state">
+        <div class="todo-list-item"></div>
+        <div class="todo-list-item"></div>
+        <div class="todo-list-item"></div>
+        <div class="todo-list-item"></div>
+    </div>
+</ng-container>
+
+
+<ng-container *ngIf="(fetchTodosPending$ | async) === false && (todos$ | async)?.length === 0">
     <app-empty-state>
         <ng-container title>
             Lorem ipsum dolor sit amet
@@ -35,4 +28,4 @@
             </button>
         </ng-container>
     </app-empty-state>
-</ng-template>
+</ng-container>

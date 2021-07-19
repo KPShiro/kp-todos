@@ -54,8 +54,12 @@ export class TodoFacade {
     }
 
     public isActionPending$(action: Action): Observable<boolean> {
+        if(!utils.isDefAndNotNull(action)) {
+            return of(false);
+        }
+
         return this._store.select(loadingSelectors.getActionByType(action.type)).pipe(
-            map((action) => action?.status === AsyncActionStatus.LOADING),
+            map((action) => utils.isDefAndNotNull(action) ? action.status === AsyncActionStatus.LOADING : false),
         );
     }
 

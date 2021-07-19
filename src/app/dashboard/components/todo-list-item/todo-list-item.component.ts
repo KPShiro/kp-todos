@@ -7,8 +7,12 @@ import { ITodo } from '@app/shared/interfaces/todo.interface';
     styleUrls: [ './todo-list-item.component.scss' ],
 })
 export class TodoListItemComponent implements OnInit {
+
     @HostBinding('class.app-todo-list-item')
     private _addHostClass: boolean = true;
+
+    @HostBinding('class.user-select-none')
+    private _disableUserSelect: boolean = true;
 
     @HostBinding('class.done')
     private _doneClass: boolean = false;

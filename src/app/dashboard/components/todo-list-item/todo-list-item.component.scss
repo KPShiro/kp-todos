@@ -2,54 +2,64 @@
 
 :host {
     & {
-        display: block;
-        padding-left: $spacer;
-        user-select: none;
-    }
-
-    &:active {
-        background-color: color-neutral('20');
-    }
-
-    .todo-header {
         display: flex;
         align-items: center;
+        background-color: color-neutral('10');
+        border: $border-width solid $border-color;
+        border-radius: 0.25rem;
     }
 
-    .todo-status {
+    &:hover,
+    &:active {
+        border-color: color-neutral('50');
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .todo-item-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3.5 * $spacer;
+        width: 3.5 * $spacer;
+        margin-right: $spacer;
+        border-right: $border-width solid $border-color;
+    }
+
+    .todo-item-status-icon {
         display: flex;
         align-items: center;
         justify-content: center;
         height: map-get($spacers, 4);
         width: map-get($spacers, 4);
-
-        border: 1px solid $body-color;
+        border: $border-width solid $border-color;
         border-radius: 50%;
     }
 
-    .todo-status-icon {
-        font-size: 2rem;
-    }
-
-    .todo-form {
+    .todo-item-text {
         flex: 1;
-        display: flex;
-    }
-
-    .todo-text {
-        flex: 1;
-        padding: $spacer $spacer $spacer 0;
     }
 }
 
 :host.done {
-    .todo-status,
-    .todo-text {
-        border-color: $border-color;
-        color: color-neutral('50');
+    & {
+        background-color: color-neutral('20');
     }
 
-    .todo-text {
+    .todo-item-status,
+    .todo-item-text {
+        color: color-neutral('60');
+    }
+
+    .todo-item-status-icon {
+        background-color: color-neutral('80');
+        border-color: color-neutral('80');
+        color: $white;
+    }
+
+    .todo-item-text {
         text-decoration: line-through;
     }
 }

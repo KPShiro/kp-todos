@@ -46,7 +46,7 @@ describe('TodoListItemComponent', () => {
 
         it('host should not have \'done\' class', () => {
             const expectedClassList: string = fixture.nativeElement.classList.toString();
-            expect(expectedClassList).toEqual('app-todo-list-item');
+            expect(expectedClassList).toEqual(expect.stringContaining('app-todo-list-item'));
         });
     });
 

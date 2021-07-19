@@ -1,4 +1,6 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { KpOverlayRef } from '@app/kp-overlay/models';
 import { KpOverlayComponent } from './overlay.component';
 
 describe('KpOverlayComponent', () => {
@@ -7,7 +9,16 @@ describe('KpOverlayComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ KpOverlayComponent ]
+            imports: [
+                OverlayModule,
+            ],
+            declarations: [ KpOverlayComponent ],
+            providers: [
+                {
+                    provide: KpOverlayRef,
+                    useValue: { },
+                },
+            ],
         }).compileComponents();
     });
 

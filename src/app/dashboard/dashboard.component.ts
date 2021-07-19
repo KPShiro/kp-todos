@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 
 @Component({
     selector: 'app-dashboard',
@@ -7,6 +7,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
+
+    @HostBinding('class.full-page')
+    private readonly _fillWindow: boolean = true;
 
     public constructor() { }
 

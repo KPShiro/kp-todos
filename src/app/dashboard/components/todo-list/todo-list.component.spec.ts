@@ -10,6 +10,7 @@ import { Update } from '@ngrx/entity';
 import { KpOverlayService } from '@app/kp-overlay/services/overlay.service';
 import { map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
+import { TodoListItemPlaceholderComponent } from '../todo-list-item-placeholder/todo-list-item-placeholder.component';
 
 class TodoFacadeMock {
     public readonly todos$: Observable<ITodo[]> = of([
@@ -55,6 +56,7 @@ describe('TodoListComponent', () => {
             declarations: [
                 TodoListComponent,
                 TodoListItemComponent,
+                TodoListItemPlaceholderComponent,
                 EmptyStateComponent,
             ],
             providers: [

@@ -25,6 +25,8 @@ export class TodoFacade {
         switchMap((id) => utils.isDefAndNotNull(id) ? this._store.select(todoSelectors.getTodoById(id)) : of(undefined)),
     );
 
+    public readonly isFetchTodosPending$: Observable<boolean> = this._isActionPending(todoCommands.fetchTodos);
+
     public constructor(
         private readonly _store: Store<AppState>,
     ) { }
@@ -53,7 +55,7 @@ export class TodoFacade {
         this._store.dispatch(todoCommands.deselectTodo());
     }
 
-    public isActionPending$(action: Action): Observable<boolean> {
+    private _isActionPending(action: Action): Observable<boolean> {
         if(!utils.isDefAndNotNull(action)) {
             return of(false);
         }
@@ -63,7 +65,7 @@ export class TodoFacade {
         );
     }
 
-    public getActionError$(action: Action): Observable<string | undefined> {
+    private _getActionError(action: Action): Observable<string | undefined> {
         return this._store.select(loadingSelectors.getActionByType(action.type)).pipe(
             pluck('payload', 'error'),
         );

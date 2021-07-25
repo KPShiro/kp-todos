@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { TodoFacade } from './services/todo.facade';
 
 @Component({
     selector: 'app-dashboard',
@@ -6,11 +7,14 @@ import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
     styleUrls: [ './dashboard.component.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
-    @HostBinding('class.full-page')
-    private readonly _fillWindow: boolean = true;
+    public constructor(
+        private readonly _todoFacade: TodoFacade,
+    ) { }
 
-    public constructor() { }
+    public ngOnInit(): void {
+        this._todoFacade.fetchTodos();
+    }
 
 }

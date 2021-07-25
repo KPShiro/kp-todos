@@ -3,7 +3,7 @@
         (checkboxClick)="onTodoItemCheckboxClick(todo, $event)" (click)="onTodoItemClick(todo)"></app-todo-list-item>
 </ng-container>
 
-<ng-container *ngIf="(fetchTodosPending$ | async)">
+<ng-container *ngIf="(isFetchTodosPending$ | async)">
     <div class="loading-state">
         <app-todo-list-item-placeholder></app-todo-list-item-placeholder>
         <app-todo-list-item-placeholder></app-todo-list-item-placeholder>
@@ -13,7 +13,7 @@
 </ng-container>
 
 
-<ng-container *ngIf="(fetchTodosPending$ | async) === false && (todos$ | async)?.length === 0">
+<ng-container *ngIf="(isFetchTodosPending$ | async) === false && (todos$ | async)?.length === 0">
     <app-empty-state>
         <ng-container title>
             Lorem ipsum dolor sit amet

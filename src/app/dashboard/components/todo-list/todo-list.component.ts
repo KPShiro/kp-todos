@@ -1,5 +1,3 @@
-import * as todoCommands from '@app/dashboard/todo-state/commands';
-
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
@@ -15,7 +13,7 @@ import { TodoEditFormComponent } from '../todo-edit-form/todo-edit-form.componen
 export class TodoListComponent {
 
     public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
-    public fetchTodosPending$: Observable<boolean> = this._todoFacade.isActionPending$(todoCommands.fetchTodos);
+    public isFetchTodosPending$: Observable<boolean> = this._todoFacade.isFetchTodosPending$;
 
     public constructor(
       private readonly _todoFacade: TodoFacade,

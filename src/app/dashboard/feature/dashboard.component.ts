@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Observable } from 'rxjs';
-import { TodoFacade } from './services/todo.facade';
+import { TodoFacade } from '../services/todo.facade';
 
 @Component({
     selector: 'app-dashboard',

@@ -8,8 +8,6 @@ import { Observable, of } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Update } from '@ngrx/entity';
 import { KpOverlayService } from '@app/kp-overlay/services/overlay.service';
-import { map } from 'rxjs/operators';
-import { Action } from '@ngrx/store';
 import { TodoListItemPlaceholderComponent } from '../todo-list-item-placeholder/todo-list-item-placeholder.component';
 
 class TodoFacadeMock {
@@ -21,26 +19,8 @@ class TodoFacadeMock {
         }
     ]);
 
-    public readonly selectedTodoId$: Observable<string | undefined> = of('1');
-
-    public readonly selectedTodo$: Observable<ITodo | undefined> = this.todos$.pipe(
-        map(todos => todos[0]),
-    );
-
     public fetchTodos(): void { }
-    public createTodo(text: string): void { }
-    public deleteTodo(id: string): void { }
     public updateTodo(update: Update<ITodo>): void { }
-    public selectTodo(id: string): void { }
-    public deselectTodo(): void {}
-
-    public isActionPending$(action: Action): Observable<boolean> {
-        return of(false);
-    }
-
-    public getActionError$(action: Action): Observable<string | undefined> {
-        return of(undefined);
-    }
 }
 
 describe('TodoListComponent', () => {
@@ -88,14 +68,6 @@ describe('TodoListComponent', () => {
         component.todos$.subscribe((todos) => {
             expect(todos.length).toEqual(1);
             done();
-        });
-    });
-
-    describe('ngOnInit()', () => {
-        it('should call todoFacade.fetchTodos()', () => {
-            jest.spyOn(todoFacade, 'fetchTodos');
-            component.ngOnInit();
-            expect(todoFacade.fetchTodos).toHaveBeenCalledTimes(1);
         });
     });
 

@@ -1,36 +1,29 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { TodoFacade } from '@app/dashboard/services/todo.facade';
 
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
-    styleUrls: [ './todo-list.component.scss' ]
+    styleUrls: [ './todo-list.component.scss' ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent {
 
-    public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
-    public isFetchTodosPending$: Observable<boolean> = this._todoFacade.isFetchTodosPending$;
+    @Input()
+    public todos: ITodo[] = [];
 
-    public constructor(
-      private readonly _todoFacade: TodoFacade,
-    ) { }
+    @Output()
+    public todoClicked: EventEmitter<ITodo> = new EventEmitter();
 
-    public onFetchTodosClick(): void {
-        this._todoFacade.fetchTodos();
-    }
+    @Output()
+    public todoCheckboxClicked: EventEmitter<{ todo: ITodo, isDone: boolean }> = new EventEmitter();
 
     public onTodoItemCheckboxClick(todo: ITodo, isDone: boolean): void {
-        this._todoFacade.updateTodo({
-            id: todo.id,
-            changes: { isDone }
-        });
+        this.todoCheckboxClicked.emit({ todo, isDone });
     }
 
     public onTodoItemClick(todo: ITodo): void {
-        // TODO: Open EditTodo dialog
-        throw new Error('Not implemented');
+        this.todoClicked.emit(todo);
     }
 
 }

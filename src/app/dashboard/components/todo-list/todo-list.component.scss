@@ -3,13 +3,8 @@
 :host {
     display: flex;
     flex-direction: column;
-    flex: 1;
 }
 
 .app-todo-list-item + .app-todo-list-item {
-    margin-top: 0.25rem;
-}
-
-.loading-state > .app-todo-list-item-placeholder + .app-todo-list-item-placeholder {
-    margin-top: 0.25rem;
+    margin-top: map-get($spacers, 1);
 }

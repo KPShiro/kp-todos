@@ -1,0 +1,5 @@
+@import 'core/theming';
+
+.app-todo-list-item-placeholder + .app-todo-list-item-placeholder {
+    margin-top: map-get($spacers, 1);
+}

@@ -7,7 +7,7 @@ import { TodoFacade } from '@app/dashboard/services/todo.facade';
 import { Observable, of } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Update } from '@ngrx/entity';
-import { TodoListItemPlaceholderComponent } from '../todo-list-item-placeholder/todo-list-item-placeholder.component';
+import { TodoListItemPlaceholderComponent } from '../../ui/todo-list-item-placeholder/todo-list-item-placeholder.component';
 
 class TodoFacadeMock {
     public readonly todos$: Observable<ITodo[]> = of([

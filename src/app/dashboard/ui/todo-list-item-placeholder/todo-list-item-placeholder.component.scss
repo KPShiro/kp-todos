@@ -1,6 +1,7 @@
 @import 'core/theming';
 
-$fakeDataColor: color-neutral('30');
+$dataBackgroundColor: color-neutral('30');
+$statusIconSize: map-get($spacers, 4);
 
 :host {
     & {
@@ -8,7 +9,7 @@ $fakeDataColor: color-neutral('30');
         align-items: center;
         background-color: color-neutral('10');
         border: $border-width solid $border-color;
-        border-radius: 0.25rem;
+        border-radius: $border-radius;
 
         animation-duration: 1s;
         animation-fill-mode: forwards;
@@ -31,17 +32,17 @@ $fakeDataColor: color-neutral('30');
     }
 
     .todo-item-status-icon {
-        height: map-get($spacers, 4);
-        width: map-get($spacers, 4);
-        background-color: $fakeDataColor;
+        height: $statusIconSize;
+        width: $statusIconSize;
+        background-color: $dataBackgroundColor;
         border-radius: 50%;
     }
 
     .todo-item-text {
-        background-color: $fakeDataColor;
-        border-radius: 0.25rem;
+        background-color: $dataBackgroundColor;
+        border-radius: $border-radius;
         margin: 0 $spacer;
-        height: 20px;
+        height: 1.25rem;
         flex: 1;
     }
 }

@@ -13,7 +13,7 @@ $fakeDataColor: color-neutral('30');
         animation-duration: 1s;
         animation-fill-mode: forwards;
         animation-iteration-count: infinite;
-        animation-name: placeHolderShimmer;
+        animation-name: placeholderShimmer;
         animation-timing-function: linear;
         background: color-neutral();
         background: linear-gradient(to right, color-neutral('10'), color-neutral('30'), color-neutral('10'));
@@ -43,14 +43,5 @@ $fakeDataColor: color-neutral('30');
         margin: 0 $spacer;
         height: 20px;
         flex: 1;
-    }
-}
-
-@keyframes placeHolderShimmer {
-    0% {
-        background-position: -256px 0;
-    }
-    100% {
-        background-position: 256px 0;
     }
 }

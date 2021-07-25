@@ -1,4 +1,5 @@
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { utils } from '@app/shared/functions/utils';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 
 @Component({
@@ -24,6 +25,10 @@ export class TodoListItemComponent implements OnInit {
     public todo!: ITodo;
 
     public ngOnInit(): void {
+        if(!utils.isDefAndNotNull(this.todo)) {
+            throw Error('Please provide Todo item!');
+        }
+
         this._doneClass = this.todo.isDone ?? false;
     }
 

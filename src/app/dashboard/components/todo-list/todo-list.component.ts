@@ -1,6 +1,6 @@
 import * as todoCommands from '@app/dashboard/todo-state/commands';
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { TodoFacade } from '@app/dashboard/services/todo.facade';
@@ -12,21 +12,15 @@ import { TodoEditFormComponent } from '../todo-edit-form/todo-edit-form.componen
     templateUrl: './todo-list.component.html',
     styleUrls: [ './todo-list.component.scss' ]
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent {
 
     public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
-
     public fetchTodosPending$: Observable<boolean> = this._todoFacade.isActionPending$(todoCommands.fetchTodos);
-    public fetchTodosError$: Observable<string | undefined> = this._todoFacade.getActionError$(todoCommands.fetchTodos);
 
     public constructor(
       private readonly _todoFacade: TodoFacade,
       private readonly _overlayService: KpOverlayService,
     ) { }
-
-    public ngOnInit(): void {
-        this._todoFacade.fetchTodos();
-    }
 
     public onFetchTodosClick(): void {
         this._todoFacade.fetchTodos();

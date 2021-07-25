@@ -11,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { TodoCommandsEffects } from './todo-state/todo-commands.effects';
 import { CoreModule } from '@app/core/core.module';
 import { DashboardComponent } from './dashboard.component';
-import { TodoListItemPlaceholderComponent } from './ui/todo-list-item-placeholder/todo-list-item-placeholder.component';
+import { TodoListItemPlaceholderComponent } from './components/todo-list-item-placeholder/todo-list-item-placeholder.component';
 
 const ngbBootstrapModules: any = [];
 

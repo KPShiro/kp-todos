@@ -7,7 +7,6 @@ import { TodoFacade } from '@app/dashboard/services/todo.facade';
 import { Observable, of } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Update } from '@ngrx/entity';
-import { KpOverlayService } from '@app/kp-overlay/services/overlay.service';
 import { TodoListItemPlaceholderComponent } from '../todo-list-item-placeholder/todo-list-item-placeholder.component';
 
 class TodoFacadeMock {
@@ -43,10 +42,6 @@ describe('TodoListComponent', () => {
                 {
                     provide: TodoFacade,
                     useClass: TodoFacadeMock,
-                },
-                {
-                    provide: KpOverlayService,
-                    useValue: {},
                 },
             ]
         }).compileComponents();

@@ -1,5 +1,35 @@
 @import 'core/theming';
 
-.app-todo-list-item-placeholder + .app-todo-list-item-placeholder {
+.app-todo-list-item + .app-todo-list-item {
     margin-top: map-get($spacers, 1);
+}
+
+.page-header {
+    &-date {
+        color: color-neutral('80');
+        text-transform: uppercase;
+    }
+
+    &-title {
+        margin: map-get($spacers, 1) 0 map-get($spacers, 3) 0;
+        line-height: 1;
+    }
+
+    &.ghost &-date,
+    &.ghost &-title {
+        background: linear-gradient(to right, color-neutral('30') 30%, color-neutral('40'), color-neutral('30') 50%);
+        background-size: 400% 400%;
+	    animation: reverse gradientSlide 1.5s linear infinite;
+        border-radius: $border-radius;
+        color: transparent;
+    }
+}
+
+@keyframes gradientSlide {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 100% 0;
+	}
 }

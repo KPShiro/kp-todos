@@ -6,14 +6,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '@app/core/core.module';
 
-import { TodoListComponent, TodoListItemComponent } from './ui';
-import { DashboardComponent } from './feature';
-
 import { todoStateKey } from './todo-state/todo.selectors';
 import { todoReducer } from './todo-state/todo.reducer';
 import { TodoCommandsEffects } from './todo-state/todo-commands.effects';
 
-const ngbBootstrapModules: any = [];
+import { TodoListItemComponent } from './ui';
+import { DashboardComponent } from './feature';
 
 const ngrxModules: any = [
     StoreModule.forFeature(todoStateKey, todoReducer),
@@ -22,7 +20,6 @@ const ngrxModules: any = [
 
 @NgModule({
     declarations: [
-        TodoListComponent,
         TodoListItemComponent,
         DashboardComponent,
     ],
@@ -32,7 +29,6 @@ const ngrxModules: any = [
         DashboardRoutingModule,
         ReactiveFormsModule,
         ...ngrxModules,
-        ...ngbBootstrapModules,
     ],
     providers: [],
 })

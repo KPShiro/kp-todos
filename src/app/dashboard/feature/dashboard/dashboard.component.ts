@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { TodoFacade } from '@app/dashboard/domain/services';
+import { concatLatestFrom } from '@ngrx/effects';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,7 +13,11 @@ import { TodoFacade } from '@app/dashboard/domain/services';
 })
 export class DashboardComponent implements OnInit {
 
-    public todos$: Observable<ITodo[]> = this._todoFacade.todos$;
+    public todos$: Observable<ITodo[]> = this._todoFacade.todos$.pipe(
+        concatLatestFrom(() => this.isFetchTodosPending$),
+        map(([ todos, isFetching ]) => isFetching ? new Array(4).fill({}) : todos),
+    );
+
     public isFetchTodosPending$: Observable<boolean> = this._todoFacade.isFetchTodosPending$;
 
     public constructor(
@@ -26,10 +32,10 @@ export class DashboardComponent implements OnInit {
         throw new Error('Not implemented');
     }
 
-    public onTodoCheckboxClick(data: { todo: ITodo, isDone: boolean }): void {
+    public onTodoCheckboxClick(todo: ITodo, isDone: boolean): void {
         this._todoFacade.updateTodo({
-            id: data.todo.id,
-            changes: { isDone: data.isDone },
+            id: todo.id,
+            changes: { isDone },
         });
     }
 

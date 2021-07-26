@@ -36,7 +36,7 @@ export class TodoService {
 
     public getTodos(): Observable<ITodo[]> {
         return of(this.mockedData).pipe(
-            delay(1000),
+            delay(2000),
         );
     }
 

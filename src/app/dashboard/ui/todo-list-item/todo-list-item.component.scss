@@ -1,5 +1,9 @@
 @import 'core/theming';
 
+$checkboxSize: 1.5rem;
+$ghostItemColor1: color-neutral('40');
+$ghostItemColor2: color-neutral('30');
+
 :host {
     & {
         display: flex;
@@ -9,12 +13,12 @@
         border-radius: 0.25rem;
     }
 
-    &:hover,
-    &:active {
+    &:not(.ghost):hover,
+    &:not(.ghost):active {
         border-color: color-neutral('50');
     }
 
-    &:hover {
+    &:not(.ghost):hover {
         cursor: pointer;
     }
 
@@ -22,8 +26,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 3.5 * $spacer;
-        width: 3.5 * $spacer;
+        padding: map-get($spacers, 3);
         border-right: $border-width solid $border-color;
     }
 
@@ -31,8 +34,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: map-get($spacers, 4);
-        width: map-get($spacers, 4);
+        height: $checkboxSize;
+        width: $checkboxSize;
         border: $border-width solid $border-color;
         border-radius: 50%;
     }
@@ -63,4 +66,36 @@
     .todo-item-text {
         text-decoration: line-through;
     }
+}
+
+:host.ghost {
+    & {
+        border-color: transparent;
+        background: linear-gradient(to right, $ghostItemColor2 30%, $ghostItemColor1, $ghostItemColor2 50%);
+        background-size: 400% 400%;
+	    animation: reverse gradientSlide 1.5s linear infinite;
+    }
+
+    .todo-item-status {
+        border-right-color: $ghostItemColor1;
+    }
+
+    .todo-item-status-icon {
+        background-color: $ghostItemColor1;
+        border-color: transparent;
+    }
+
+    .todo-item-text {
+        background-color: $ghostItemColor1;
+        height: 1.5rem;
+    }
+}
+
+@keyframes gradientSlide {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 100% 0;
+	}
 }

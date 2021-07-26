@@ -6,8 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '@app/core/core.module';
 
-import { TodoListComponent, TodoListItemComponent, TodoListItemPlaceholderComponent } from './ui';
-import { DashboardComponent } from './feature/dashboard.component';
+import { TodoListComponent, TodoListItemComponent } from './ui';
+import { DashboardComponent } from './feature';
 
 import { todoStateKey } from './todo-state/todo.selectors';
 import { todoReducer } from './todo-state/todo.reducer';
@@ -25,7 +25,6 @@ const ngrxModules: any = [
         TodoListComponent,
         TodoListItemComponent,
         DashboardComponent,
-        TodoListItemPlaceholderComponent,
     ],
     imports: [
         CoreModule,

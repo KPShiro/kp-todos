@@ -1,11 +1,13 @@
+import { adapter as todoAdapter, todoInitialState } from '@app/dashboard/todo-state/todo.state';
+
 import { TestBed } from '@angular/core/testing';
 import { TodoFacade } from './todo-facade.service';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState } from '@app/core/state/app.state';
-import { todoInitialState } from '@app/dashboard/todo-state/todo.state';
 
 describe('TodoFacade', () => {
     let service: TodoFacade;
+    let store: MockStore;
 
     let initialState: AppState = {
         todo: todoInitialState,
@@ -21,9 +23,38 @@ describe('TodoFacade', () => {
 
     beforeEach(() => {
         service = TestBed.inject(TodoFacade);
+        store = TestBed.inject(MockStore);
     });
 
     it('should be created', () => {
         expect(service).toBeTruthy();
+        expect(store).toBeTruthy();
+    });
+
+    describe('todos$', () => {
+        it('should return empty array', (done: jest.DoneCallback) => {
+            service.todos$.subscribe(todos => {
+                expect(todos).toEqual([]);
+                done();
+            });
+        });
+
+        it('should return array of todos', (done: jest.DoneCallback) => {
+            store.setState({
+                todo: todoAdapter.setAll([
+                    {
+                        id: '1234',
+                        isDone: false,
+                        text: 'asdas',
+                    },
+                ], initialState.todo),
+            });
+
+            service.todos$.subscribe(todos => {
+                expect(todos.length).toEqual(1);
+                expect(todos[0].id).toEqual('1234');
+                done();
+            });
+        });
     });
 });

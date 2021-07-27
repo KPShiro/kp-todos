@@ -1,12 +1,7 @@
 <div class="p-3">
-    <button type="button" class="btn btn-outline-primary mb-3">
-        <i class="uil uil-arrow-left mr-2"></i>
-        Go back to lists
-    </button>
-
     <div class="page-header" [class.ghost]="(isFetchTodosPending$ | async)">
         <small class="page-header-date">10 June 2021 15:45:52</small>
-        <h3 class="page-header-title">My first release</h3>
+        <h1 class="page-header-title">My first release</h1>
     </div>
 
     <ng-container *ngIf="(todos$ | async) as todos">

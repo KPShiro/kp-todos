@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
 
     public todos$: Observable<ITodo[]> = this._todoFacade.todos$.pipe(
         concatLatestFrom(() => this.isFetchTodosPending$),
-        map(([ todos, isFetching ]) => isFetching ? new Array(4).fill({}) : todos),
+        map(([ todos, isFetching ]) => isFetching ? new Array(7).fill({}) : todos),
     );
 
     public isFetchTodosPending$: Observable<boolean> = this._todoFacade.isFetchTodosPending$;

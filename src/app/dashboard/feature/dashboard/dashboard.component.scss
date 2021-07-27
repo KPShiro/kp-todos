@@ -11,13 +11,13 @@
     }
 
     &-title {
-        margin: map-get($spacers, 1) 0 map-get($spacers, 3) 0;
-        line-height: 1;
+        margin: map-get($spacers, 1) 0 map-get($spacers, 4) 0;
+        line-height: 1.15;
     }
 
     &.ghost &-date,
     &.ghost &-title {
-        background: linear-gradient(to right, color-neutral('30') 30%, color-neutral('40'), color-neutral('30') 50%);
+        background: linear-gradient(to right, color-neutral('30') 30%, color-neutral('20'), color-neutral('30') 50%);
         background-size: 400% 400%;
 	    animation: reverse gradientSlide 1.5s linear infinite;
         border-radius: $border-radius;

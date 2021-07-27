@@ -71,7 +71,7 @@ $ghostItemColor2: color-neutral('30');
 :host.ghost {
     & {
         border-color: transparent;
-        background: linear-gradient(to right, $ghostItemColor2 30%, $ghostItemColor1, $ghostItemColor2 50%);
+        background: linear-gradient(to right, color-neutral('30') 30%, color-neutral('20'), color-neutral('30') 50%);
         background-size: 400% 400%;
 	    animation: reverse gradientSlide 1.5s linear infinite;
     }

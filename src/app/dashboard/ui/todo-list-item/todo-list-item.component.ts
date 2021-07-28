@@ -18,22 +18,30 @@ export class TodoListItemComponent implements OnInit {
     @HostBinding('class.done')
     private _doneClass: boolean = false;
 
+    @HostBinding('class.ghost')
+    private _skeletonAnimation: boolean = false;
+
     @Output()
     public checkboxClick: EventEmitter<boolean> = new EventEmitter();
 
     @Input()
-    public todo!: ITodo;
+    public todo: ITodo | undefined = undefined;
 
     public ngOnInit(): void {
         if(!utils.isDefAndNotNull(this.todo)) {
-            throw Error('Please provide Todo item!');
+            this._skeletonAnimation = true;
+            return;
         }
 
-        this._doneClass = this.todo.isDone ?? false;
+        this._doneClass = this.todo?.isDone ?? false;
     }
 
     public onCheckClick(event: Event): void {
+        if (!utils.isDefAndNotNull(this.todo)) {
+            return;
+        }
+
         event.stopPropagation();
-        this.checkboxClick.emit(!this.todo.isDone);
+        this.checkboxClick.emit(!this.todo?.isDone);
     }
 }

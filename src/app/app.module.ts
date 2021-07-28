@@ -6,11 +6,13 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { KpDialogModule } from './kp-dialog/kp-dialog.module';
 import { KpOverlayModule } from './kp-overlay/kp-overlay.module';
 import { LoadingModule } from './loading/loading.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +20,7 @@ import { LoadingModule } from './loading/loading.module';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         CoreModule.forRoot(),
         StoreModule.forRoot({}),

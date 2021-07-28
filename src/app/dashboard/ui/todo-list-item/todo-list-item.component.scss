@@ -1,8 +1,20 @@
 @import 'core/theming';
 
 $checkboxSize: 1.5rem;
-$ghostItemColor1: color-neutral('40');
-$ghostItemColor2: color-neutral('30');
+
+@mixin skeleton-gradient {
+    background: linear-gradient(to right, color-neutral('40') 0%, color-neutral('30') 15%, color-neutral('40') 30%);
+    background-size: 200%;
+}
+
+@keyframes shine {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
 
 :host {
     & {
@@ -71,31 +83,24 @@ $ghostItemColor2: color-neutral('30');
 :host.ghost {
     & {
         border-color: transparent;
-        background: linear-gradient(to right, color-neutral('30') 30%, color-neutral('20'), color-neutral('30') 50%);
-        background-size: 400% 400%;
-	    animation: reverse gradientSlide 1.5s linear infinite;
+        background-color: color-neutral('30');
     }
 
     .todo-item-status {
-        border-right-color: $ghostItemColor1;
+        border-right-color: color-neutral('10');
     }
 
     .todo-item-status-icon {
-        background-color: $ghostItemColor1;
         border-color: transparent;
     }
 
     .todo-item-text {
-        background-color: $ghostItemColor1;
         height: 1.5rem;
     }
-}
 
-@keyframes gradientSlide {
-	0% {
-		background-position: 0 0;
-	}
-	100% {
-		background-position: 100% 0;
-	}
+    .todo-item-text,
+    .todo-item-status-icon {
+        @include skeleton-gradient;
+        animation: reverse shine 1s linear infinite;
+    }
 }

@@ -1,8 +1,9 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
-import { AppInitializer } from "./app-initializer/app-initializer";
-import { AppInitializerProvider } from "./app-initializer/app-initializer-provider";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
+
+import { AppInitializer } from "./app-initializer/app-initializer";
+import { AppInitializerProvider } from "./app-initializer/app-initializer-provider";
 import { VibrationService } from "./services/vibration/vibration.service";
 import { EmptyStateComponent } from "./components/empty-state/empty-state.component";
 import { TodoService } from "./services/todo/todo.service";

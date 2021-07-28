@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +24,6 @@ const ngrxModules: any = [
     ],
     imports: [
         CoreModule,
-        CommonModule,
         DashboardRoutingModule,
         ReactiveFormsModule,
         ...ngrxModules,

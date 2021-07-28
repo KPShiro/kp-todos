@@ -1,21 +1,26 @@
-<div class="p-3">
-    <div class="page-header" [class.ghost]="(isFetchTodosPending$ | async)">
+<div class="p-3" *ngIf="{
+    isFetchTodosPending: (isFetchTodosPending$ | async),
+    todos: (todos$ | async)
+}; let data">
+    <button type="button" (click)="test()" class="btn btn-primary d-flex align-items-center mb-3" [disabled]="data.isFetchTodosPending">
+        <span *ngIf="data.isFetchTodosPending" class="spinner-border spinner-border-sm mr-3" role="status"
+            aria-hidden="true"></span>
+        Refresh data
+    </button>
+
+    <div class="page-header">
         <small class="page-header-date">10 June 2021 15:45:52</small>
         <h1 class="page-header-title">My first release</h1>
     </div>
 
-    <ng-container *ngIf="(todos$ | async) as todos">
-        <ng-container *ngIf="(isFetchTodosPending$ | async) === true">
-            <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo" class="ghost">
-            </app-todo-list-item>
-        </ng-container>
-        <ng-container *ngIf="(isFetchTodosPending$ | async) === false">
-            <app-todo-list-item *ngFor="let todo of todos; let i = index" [todo]="todo"
-                (checkboxClick)="onTodoCheckboxClick(todo, $event)" (click)="onTodoClick(todo)"></app-todo-list-item>
-        </ng-container>
-    </ng-container>
+    <div [@listAnimation]="data.isFetchTodosPending">
+        <app-todo-list-item *ngFor="let todo of data.todos" [todo]="todo"
+            (checkboxClick)="onTodoCheckboxClick(todo, $event, data.isFetchTodosPending)"
+            (click)="onTodoClick(todo, data.isFetchTodosPending)">
+        </app-todo-list-item>
+    </div>
 
-    <ng-container *ngIf="(isFetchTodosPending$ | async) === false && (todos$ | async)?.length === 0">
+    <ng-container *ngIf="!data.isFetchTodosPending && (todos$ | async)?.length === 0">
         <app-empty-state>
             <ng-container title>
                 Lorem ipsum dolor sit amet

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { LOADING_STATE_KEY, LoadingState, loadingStateAdapter } from "./loading.state";
+import { LOADING_STATE_KEY, LoadingState, loadingStateAdapter } from "./loading-state";
 
 const entitiySelectors = loadingStateAdapter.getSelectors();
 

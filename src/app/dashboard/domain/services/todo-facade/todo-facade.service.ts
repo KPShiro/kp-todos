@@ -1,4 +1,4 @@
-import * as loadingSelectors from '@app/ngrx/loading-state/loading.selectors';
+import * as loadingSelectors from '@app/ngrx/loading-state/loading-state-selectors';
 import * as fromTodoState from '@app/ngrx/todo-state/todo-state-selectors';
 import * as TodoActions from '@app/ngrx/todo-state/todo-state-actions';
 
@@ -6,11 +6,11 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Action, Store } from '@ngrx/store';
-import { AppState } from '@app/core/state/app.state';
 import { Update } from '@ngrx/entity';
 import { map, pluck, switchMap } from 'rxjs/operators';
-import { AsyncActionStatus } from '@app/ngrx/loading-state/loading.reducer';
 import { utils } from '@app/shared/functions/utils';
+import { AsyncActionStatus } from '@app/ngrx/loading-state/loading-state-utils';
+import { AppState } from '@app/ngrx/app-state/app-state';
 
 @Injectable({
     providedIn: 'root',

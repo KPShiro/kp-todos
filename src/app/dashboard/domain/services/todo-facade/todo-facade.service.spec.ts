@@ -1,21 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { TodoFacade } from './todo-facade.service';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { AppState } from '@app/core/state/app.state';
 import { initialTodoState, todoStateEntityAdapter } from '@app/ngrx/todo-state/todo-state';
 
 describe('TodoFacade', () => {
     let service: TodoFacade;
     let store: MockStore;
 
-    let initialState: AppState = {
-        todo: initialTodoState,
-    };
-
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             providers: [
-                provideMockStore({ initialState }),
+                provideMockStore({}),
             ]
         }).compileComponents();
     });
@@ -46,7 +41,7 @@ describe('TodoFacade', () => {
                         isDone: false,
                         text: 'asdas',
                     },
-                ], initialState.todo),
+                ], initialTodoState),
             });
 
             service.todos$.subscribe(todos => {

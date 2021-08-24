@@ -1,5 +1,16 @@
-import { AsyncActionStatus } from "@app/ngrx/loading-state/loading.reducer";
 import { Action, createAction } from "@ngrx/store";
+
+export enum AsyncActionStatus {
+    PENDING = 'PENDING',
+    SUCCESS = 'SUCCESS',
+    ERROR = 'ERROR'
+}
+
+export interface AsyncAction extends Action {
+    status: AsyncActionStatus;
+    error: string | undefined;
+    commandType: string;
+}
 
 export function createActionName(featureKey: string, name: string): string {
     return `[${featureKey}] ${name}`;

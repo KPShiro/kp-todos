@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
-import { AsyncAction } from "./loading.reducer";
+import { AsyncAction } from "./loading-state-utils";
 
 export const LOADING_STATE_KEY = 'loading';
 

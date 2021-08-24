@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { AppState } from "src/app/core/state/app.state";
+import { AppState } from "../app-state/app-state";
 import { TodoState, todoStateEntityAdapter, TODO_STATE_KEY } from "./todo-state";
 
 const entitiySelectors = todoStateEntityAdapter.getSelectors();

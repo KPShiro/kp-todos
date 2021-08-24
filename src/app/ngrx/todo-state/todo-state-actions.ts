@@ -1,7 +1,6 @@
-import { createNgrxAction } from "@app/shared/functions/state-helpers";
 import { ITodo } from "@app/shared/interfaces/todo.interface";
 import { Update } from "@ngrx/entity";
-import { AsyncActionStatus } from "../loading-state/loading.reducer";
+import { AsyncActionStatus, createNgrxAction } from "../loading-state/loading-state-utils";
 import { TODO_STATE_KEY } from "./todo-state";
 
 export const fetchTodos = createNgrxAction(

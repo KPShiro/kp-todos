@@ -5,14 +5,16 @@ export function createActionName(featureKey: string, name: string): string {
     return `[${featureKey}] ${name}`;
 }
 
-export function createEvent<P extends object>(featureName: string, name: string, originCommand?: Action, status: AsyncActionStatus = AsyncActionStatus.SUCCESS) {
-    const actionName: string = createActionName(featureName, name);
+export function createNgrxAction<T extends object>(featureName: string, actionName: string, status?: AsyncActionStatus, origin?: Action) {
+    const actionType: string = createActionName(featureName, actionName);
 
-    return createAction(actionName, (payload: P = Object.create({})) => ({ payload, commandType: originCommand?.type, status }));
-}
+    if (status === undefined || status === null) {
+        return createAction(actionType, (payload: T = Object.create({})) => ({ payload }));
+    }
 
-export function createCommand<P extends object>(featureName: string, name: string) {
-    const actionName: string = createActionName(featureName, name);
-
-    return createAction(actionName, (payload: P = Object.create({})) => ({ payload, commandType: actionName, status: AsyncActionStatus.LOADING }));
+    return createAction(actionType, (payload: T = Object.create({})) => ({
+        payload,
+        commandType: origin ? origin.type : actionType,
+        status,
+    }));
 }

@@ -1,16 +1,15 @@
-import { adapter as todoAdapter, todoInitialState } from '@app/dashboard/todo-state/todo.state';
-
 import { TestBed } from '@angular/core/testing';
 import { TodoFacade } from './todo-facade.service';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState } from '@app/core/state/app.state';
+import { initialTodoState, todoStateEntityAdapter } from '@app/ngrx/todo-state/todo-state';
 
 describe('TodoFacade', () => {
     let service: TodoFacade;
     let store: MockStore;
 
     let initialState: AppState = {
-        todo: todoInitialState,
+        todo: initialTodoState,
     };
 
     beforeEach(async () => {
@@ -41,7 +40,7 @@ describe('TodoFacade', () => {
 
         it('should return array of todos', (done: jest.DoneCallback) => {
             store.setState({
-                todo: todoAdapter.setAll([
+                todo: todoStateEntityAdapter.setAll([
                     {
                         id: '1234',
                         isDone: false,

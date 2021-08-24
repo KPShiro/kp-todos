@@ -1,6 +1,6 @@
 import * as loadingSelectors from '@app/ngrx/loading-state/loading.selectors';
-import * as todoSelectors from '@app/dashboard/todo-state/todo.selectors';
-import * as todoCommands from '@app/dashboard/todo-state/commands';
+import * as fromTodoState from '@app/ngrx/todo-state/todo-state-selectors';
+import * as TodoActions from '@app/ngrx/todo-state/todo-state-actions';
 
 import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
@@ -17,42 +17,42 @@ import { utils } from '@app/shared/functions/utils';
 })
 export class TodoFacade {
 
-    public readonly todos$: Observable<ITodo[]> = this._store.select(todoSelectors.getTodos);
+    public readonly todos$: Observable<ITodo[]> = this._store.select(fromTodoState.getTodos);
 
-    public readonly selectedTodoId$: Observable<string | undefined> = this._store.select(todoSelectors.getSelectedTodoId);
+    public readonly selectedTodoId$: Observable<string | undefined> = this._store.select(fromTodoState.getSelectedTodoId);
 
     public readonly selectedTodo$: Observable<ITodo | undefined> = this.selectedTodoId$.pipe(
-        switchMap((id) => utils.isDefAndNotNull(id) ? this._store.select(todoSelectors.getTodoById(id)) : of(undefined)),
+        switchMap((id) => utils.isDefAndNotNull(id) ? this._store.select(fromTodoState.getTodoById(id)) : of(undefined)),
     );
 
-    public readonly isFetchTodosPending$: Observable<boolean> = this._isActionPending(todoCommands.fetchTodos);
+    public readonly isFetchTodosPending$: Observable<boolean> = this._isActionPending(TodoActions.fetchTodos);
 
     public constructor(
         private readonly _store: Store<AppState>,
     ) { }
 
     public fetchTodos(): void {
-        this._store.dispatch(todoCommands.fetchTodos());
+        this._store.dispatch(TodoActions.fetchTodos());
     }
 
     public createTodo(text: string): void {
-        this._store.dispatch(todoCommands.createTodo({ text }));
+        this._store.dispatch(TodoActions.createTodo({ text }));
     }
 
     public deleteTodo(id: string): void {
-        this._store.dispatch(todoCommands.deleteTodo({ id }));
+        this._store.dispatch(TodoActions.deleteTodo({ id }));
     }
 
     public updateTodo(update: Update<ITodo>): void {
-        this._store.dispatch(todoCommands.updateTodo({ update }));
+        this._store.dispatch(TodoActions.updateTodo({ update }));
     }
 
     public selectTodo(id: string): void {
-        this._store.dispatch(todoCommands.selectTodo({ id }));
+        this._store.dispatch(TodoActions.selectTodo({ id }));
     }
 
     public deselectTodo(): void {
-        this._store.dispatch(todoCommands.deselectTodo());
+        this._store.dispatch(TodoActions.deselectTodo());
     }
 
     private _isActionPending(action: Action): Observable<boolean> {
@@ -61,7 +61,7 @@ export class TodoFacade {
         }
 
         return this._store.select(loadingSelectors.getActionByType(action.type)).pipe(
-            map((action) => utils.isDefAndNotNull(action) ? action.status === AsyncActionStatus.LOADING : false),
+            map((action) => utils.isDefAndNotNull(action) ? action.status === AsyncActionStatus.PENDING : false),
         );
     }
 

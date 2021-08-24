@@ -1,52 +1,51 @@
 import * as uuid from 'uuid';
-import * as todoCommands from '@app/dashboard/todo-state/commands';
-import * as todoEvents from '@app/dashboard/todo-state/events';
+import * as TodoActions from './todo-state-actions';
 
 import { Injectable } from "@angular/core";
+import { TodoService } from "@app/core/services/todo/todo.service";
+import { VibrationService } from "@app/core/services/vibration/vibration.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { of } from "rxjs";
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
-import { of } from 'rxjs';
-import { VibrationService } from '@app/core/services/vibration/vibration.service';
-import { TodoService } from '@app/core/services/todo/todo.service';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
 
 @Injectable()
-export class TodoCommandsEffects {
+export class TodoStateEffects {
 
     fetchTodosCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(todoCommands.fetchTodos),
+        ofType(TodoActions.fetchTodos),
         debounceTime(500),
         switchMap(() => this._todoService.getTodos().pipe(
-            map((todos) => todoEvents.fetchTodosSuccess({ todos })),
-            catchError((error) => of(todoEvents.fetchTodosError({ error: error.message }))),
+            map((todos) => TodoActions.fetchTodosSuccess({ todos })),
+            catchError((error) => of(TodoActions.fetchTodosError({ error: error.message }))),
         )),
     ));
 
     updateTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(todoCommands.updateTodo),
+        ofType(TodoActions.updateTodo),
         map((action) => action.payload),
-        map((payload) => todoEvents.updateTodoSuccess(payload)),
+        map((payload) => TodoActions.updateTodoSuccess(payload)),
         tap(() => this._vibrationService.vibrate(5)),
-        catchError((error) => of(todoEvents.updateTodoError({ error }))),
+        catchError((error) => of(TodoActions.updateTodoError({ error }))),
     ));
 
     deleteTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(todoCommands.deleteTodo),
+        ofType(TodoActions.deleteTodo),
         map((action) => action.payload),
         distinctUntilChanged((prev, curr) => prev.id === curr.id),
-        map((payload) => todoEvents.deleteTodoSuccess({ id: payload.id })),
-        catchError((error) => of(todoEvents.deleteTodoError({ error }))),
+        map((payload) => TodoActions.deleteTodoSuccess({ id: payload.id })),
+        catchError((error) => of(TodoActions.deleteTodoError({ error }))),
     ));
 
     createTodoCommandEffect$ = createEffect(() => this._actions$.pipe(
-        ofType(todoCommands.createTodo),
+        ofType(TodoActions.createTodo),
         map((action) => action.payload),
         map((payload) => ({
             id: uuid.v4(),
             text: payload.text,
         } as ITodo)),
-        map((todo) => todoEvents.createTodoSuccess({ todo })),
-        catchError((error) => of(todoEvents.createTodoError({ error }))),
+        map((todo) => TodoActions.createTodoSuccess({ todo })),
+        catchError((error) => of(TodoActions.createTodoError({ error }))),
     ));
 
     public constructor(

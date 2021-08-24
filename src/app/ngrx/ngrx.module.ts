@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { LoadingStateModule } from './loading-state/loading.module';
+import { TodoStateModule } from './todo-state/todo-state.module';
 
 @NgModule({
     imports: [
@@ -14,6 +15,7 @@ import { LoadingStateModule } from './loading-state/loading.module';
             logOnly: environment.production,
         }),
         LoadingStateModule,
+        TodoStateModule,
     ],
 })
 export class NgrxStateModule {}

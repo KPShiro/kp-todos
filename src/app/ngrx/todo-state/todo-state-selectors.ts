@@ -1,12 +1,10 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "src/app/core/state/app.state";
-import { TodoState, adapter } from "./todo.state";
+import { TodoState, todoStateEntityAdapter, TODO_STATE_KEY } from "./todo-state";
 
-const entitiySelectors = adapter.getSelectors();
+const entitiySelectors = todoStateEntityAdapter.getSelectors();
 
-export const todoStateKey = 'todo';
-
-export const selectFeature = createFeatureSelector<AppState, TodoState>(todoStateKey);
+export const selectFeature = createFeatureSelector<AppState, TodoState>(TODO_STATE_KEY);
 
 export const getTodos = createSelector(
     selectFeature,

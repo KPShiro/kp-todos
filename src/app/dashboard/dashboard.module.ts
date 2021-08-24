@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,8 +9,9 @@ import { todoStateKey } from './todo-state/todo.selectors';
 import { todoReducer } from './todo-state/todo.reducer';
 import { TodoCommandsEffects } from './todo-state/todo-commands.effects';
 
-import { TodoListItemComponent } from './ui';
-import { DashboardComponent } from './feature';
+import { TodoListItemComponent } from './ui/todo-list-item/todo-list-item.component';
+import { DashboardComponent } from './feature/dashboard/dashboard.component';
+import { TodoFacade } from './domain/services/todo-facade/todo-facade.service';
 
 const ngrxModules: any = [
     StoreModule.forFeature(todoStateKey, todoReducer),
@@ -30,4 +31,15 @@ const ngrxModules: any = [
     ],
     providers: [],
 })
-export class DashboardModule { }
+export class DashboardModule {
+
+    public static forRoot(): ModuleWithProviders<DashboardModule> {
+        return {
+            ngModule: DashboardModule,
+            providers: [
+                TodoFacade,
+            ],
+        };
+    }
+
+}

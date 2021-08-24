@@ -8,7 +8,7 @@ import { ITodo } from '@app/shared/interfaces/todo.interface';
 import { Action, Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/app.state';
 import { Update } from '@ngrx/entity';
-import { map, pluck, startWith, switchMap, tap } from 'rxjs/operators';
+import { map, pluck, switchMap } from 'rxjs/operators';
 import { AsyncActionStatus } from '@app/loading/state/loading.reducer';
 import { utils } from '@app/shared/functions/utils';
 

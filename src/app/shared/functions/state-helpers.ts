@@ -1,4 +1,4 @@
-import { AsyncActionStatus } from "@app/loading/state/loading.reducer";
+import { AsyncActionStatus } from "@app/ngrx/loading-state/loading.reducer";
 import { Action, createAction } from "@ngrx/store";
 
 export function createActionName(featureKey: string, name: string): string {

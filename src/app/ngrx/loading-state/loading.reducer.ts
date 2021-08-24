@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { initialState, LoadingState, loadingStateAdapter } from "./loading.state";
+import { initialLoadingState, LoadingState, loadingStateAdapter } from "./loading.state";
 
 export enum AsyncActionStatus {
     LOADING = 'LOADING',
@@ -13,7 +13,7 @@ export interface AsyncAction extends Action {
     commandType: string;
 }
 
-export function loadingReducer(state: LoadingState = initialState, action: AsyncAction) {
+export function loadingStateReducer(state: LoadingState = initialLoadingState, action: AsyncAction) {
     if (action.status === AsyncActionStatus.LOADING) {
         state = loadingStateAdapter.setOne(action, state);
     }

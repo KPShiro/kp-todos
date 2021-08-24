@@ -1,4 +1,4 @@
-import * as loadingSelectors from '@app/loading/state/loading.selectors';
+import * as loadingSelectors from '@app/ngrx/loading-state/loading.selectors';
 import * as todoSelectors from '@app/dashboard/todo-state/todo.selectors';
 import * as todoCommands from '@app/dashboard/todo-state/commands';
 
@@ -9,7 +9,7 @@ import { Action, Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/app.state';
 import { Update } from '@ngrx/entity';
 import { map, pluck, switchMap } from 'rxjs/operators';
-import { AsyncActionStatus } from '@app/loading/state/loading.reducer';
+import { AsyncActionStatus } from '@app/ngrx/loading-state/loading.reducer';
 import { utils } from '@app/shared/functions/utils';
 
 @Injectable({

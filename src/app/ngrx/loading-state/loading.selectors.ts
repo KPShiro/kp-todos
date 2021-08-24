@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { FEATURE_KEY, LoadingState, loadingStateAdapter } from "./loading.state";
+import { LOADING_STATE_KEY, LoadingState, loadingStateAdapter } from "./loading.state";
 
 const entitiySelectors = loadingStateAdapter.getSelectors();
 
-const getFeature = createFeatureSelector<LoadingState>(FEATURE_KEY);
+const getFeature = createFeatureSelector<LoadingState>(LOADING_STATE_KEY);
 
 export const getActionsArray = createSelector(
     getFeature,

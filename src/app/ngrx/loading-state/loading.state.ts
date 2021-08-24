@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { AsyncAction } from "./loading.reducer";
 
-export const FEATURE_KEY = 'loading';
+export const LOADING_STATE_KEY = 'loading';
 
 export interface LoadingState extends EntityState<AsyncAction> { }
 
@@ -9,4 +9,4 @@ export const loadingStateAdapter: EntityAdapter<AsyncAction> = createEntityAdapt
     selectId: (action: AsyncAction) => action.commandType,
 });
 
-export const initialState: LoadingState = loadingStateAdapter.getInitialState({ });
+export const initialLoadingState: LoadingState = loadingStateAdapter.getInitialState({ });

@@ -2,15 +2,20 @@ import { TestBed } from '@angular/core/testing';
 import { TodoFacade } from './todo-facade.service';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { initialTodoState, todoStateEntityAdapter } from '@app/ngrx/todo-state/todo-state';
+import { AppState } from '@app/ngrx/app-state/app-state';
 
 describe('TodoFacade', () => {
     let service: TodoFacade;
     let store: MockStore;
 
+    let initialState: AppState = {
+        todo: initialTodoState,
+    };
+
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             providers: [
-                provideMockStore({}),
+                provideMockStore({ initialState }),
             ]
         }).compileComponents();
     });

@@ -1,9 +1,16 @@
 @import 'core/theming';
 
-$checkboxSize: 1.5rem;
+$checkbox-size: 1.5rem;
+$border: $border-width solid $border-color;
+$skeleton-base-color: theme-color-level('dark', -2);
 
 @mixin skeleton-gradient {
-    background: linear-gradient(to right, color-neutral('40') 0%, color-neutral('30') 15%, color-neutral('40') 30%);
+    background: linear-gradient(
+        to right,
+        $skeleton-base-color 0%,
+        lighten($skeleton-base-color, 8%) 15%,
+        $skeleton-base-color 30%
+    );
     background-size: 200%;
 }
 
@@ -20,14 +27,13 @@ $checkboxSize: 1.5rem;
     & {
         display: flex;
         align-items: center;
-        background-color: color-neutral('10');
-        border: $border-width solid $border-color;
-        border-radius: 0.25rem;
+        border: $border;
+        border-radius: $border-radius;
     }
 
     &:not(.ghost):hover,
     &:not(.ghost):active {
-        border-color: color-neutral('50');
+        border-color: lighten($border-color, 12%);
     }
 
     &:not(.ghost):hover {
@@ -39,21 +45,19 @@ $checkboxSize: 1.5rem;
         align-items: center;
         justify-content: center;
         padding: map-get($spacers, 3);
-        border-right: $border-width solid $border-color;
     }
 
     .todo-item-status-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: $checkboxSize;
-        width: $checkboxSize;
-        border: $border-width solid $border-color;
+        height: $checkbox-size;
+        width: $checkbox-size;
+        border: $border;
         border-radius: 50%;
     }
 
     .todo-item-text {
-        margin-left: $spacer;
         margin-right: $spacer;
         flex: 1;
     }
@@ -61,18 +65,18 @@ $checkboxSize: 1.5rem;
 
 :host.done {
     & {
-        background-color: color-neutral('20');
+        background-color: theme-color-level('dark', -2);
+        border-color: theme-color-level('dark', -2);
     }
 
     .todo-item-status,
     .todo-item-text {
-        color: color-neutral('60');
+        color: darken($body-color, 32%);
     }
 
     .todo-item-status-icon {
-        background-color: color-neutral('80');
-        border-color: color-neutral('80');
-        color: $white;
+        background-color: theme-color-level('dark', -3);
+        border-color: theme-color-level('dark', -3);
     }
 
     .todo-item-text {
@@ -81,26 +85,22 @@ $checkboxSize: 1.5rem;
 }
 
 :host.ghost {
-    & {
-        border-color: transparent;
-        background-color: color-neutral('30');
-    }
-
-    .todo-item-status {
-        border-right-color: color-neutral('10');
-    }
-
     .todo-item-status-icon {
         border-color: transparent;
     }
 
     .todo-item-text {
         height: 1.5rem;
+        border-radius: $border-radius;
     }
 
-    .todo-item-text,
+    .todo-item-text {
+        @include skeleton-gradient;
+        animation: reverse shine 1.4s linear infinite;
+    }
+
     .todo-item-status-icon {
         @include skeleton-gradient;
-        animation: reverse shine 1s linear infinite;
+        animation: reverse shine 1.4s linear infinite;
     }
 }

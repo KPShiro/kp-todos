@@ -1,26 +1,34 @@
-<div class="p-3" *ngIf="{
+<div class="page-header">
+    <div class="page-header-text">My Todos</div>
+    <div class="page-header-actions">
+        <button type="button" class="btn btn-sm">
+            <i class="uil uil-search"></i>
+        </button>
+        <button type="button" class="btn btn-sm">
+            <i class="uil uil-ellipsis-v"></i>
+        </button>
+    </div>
+</div>
+
+<div *ngIf="{
     isFetchTodosPending: (isFetchTodosPending$ | async),
-    todos: (todos$ | async)
-}; let data">
-    <button type="button" (click)="test()" class="btn btn-primary d-flex align-items-center mb-3" [disabled]="data.isFetchTodosPending">
-        <span *ngIf="data.isFetchTodosPending" class="spinner-border spinner-border-sm mr-3" role="status"
-            aria-hidden="true"></span>
-        Refresh data
-    </button>
-
-    <div class="page-header">
-        <small class="page-header-date">10 June 2021 15:45:52</small>
-        <h1 class="page-header-title">My first release</h1>
+    todosGroupedByDate: (todosGroupedByDate$ | async)
+}; let data" class="page-content" [@todoGroupAnimation]="data.isFetchTodosPending">
+    <div class="todo-list" *ngFor="let group of data.todosGroupedByDate">
+        <div class="todo-list-title">
+            <span class="text">Last week</span>
+            <span class="dot"></span>
+            <span class="date">{{ group.key | date }}</span>
+        </div>
+        <div class="todo-list-items">
+            <app-todo-list-item *ngFor="let todo of group.value" [todo]="todo"
+                (checkboxClick)="onTodoCheckboxClick(todo, $event, data.isFetchTodosPending)"
+                (click)="onTodoClick(todo, data.isFetchTodosPending)">
+            </app-todo-list-item>
+        </div>
     </div>
 
-    <div [@listAnimation]="data.isFetchTodosPending">
-        <app-todo-list-item *ngFor="let todo of data.todos" [todo]="todo"
-            (checkboxClick)="onTodoCheckboxClick(todo, $event, data.isFetchTodosPending)"
-            (click)="onTodoClick(todo, data.isFetchTodosPending)">
-        </app-todo-list-item>
-    </div>
-
-    <ng-container *ngIf="!data.isFetchTodosPending && (todos$ | async)?.length === 0">
+    <ng-container *ngIf="!data.isFetchTodosPending && data.todosGroupedByDate?.length === 0">
         <app-empty-state>
             <ng-container title>
                 Lorem ipsum dolor sit amet

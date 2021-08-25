@@ -1,23 +1,47 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { listAnimation } from '@app/shared/util/animations';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TodoFacade } from '@app/dashboard/domain/services/todo-facade/todo-facade.service';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { KeyValue } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: [ './dashboard.component.scss' ],
-    animations: [ listAnimation() ],
+    animations: [
+        trigger('todoGroupAnimation', [
+            transition('* => *', [
+                query(':enter', [
+                    style({
+                        transform: 'translateX(-20%)',
+                        opacity: 0,
+                    }),
+                    stagger(200, [
+                        animate('0.5s', style({
+                            transform: 'translateX(0)',
+                            opacity: 1,
+                        })),
+                    ]),
+                ], { optional: true })
+            ])
+        ])
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
 
     public isFetchTodosPending$: Observable<boolean> = this._todoFacade.isFetchTodosPending$;
 
-    public todos$: Observable<ITodo[]> = this.isFetchTodosPending$.pipe(
-        switchMap((isFetchingTodos) => isFetchingTodos ? of(new Array(5).fill(null)) : this._todoFacade.todos$),
+    public todosGroupedByDate$: Observable<KeyValue<string, ITodo[]>[]> = combineLatest([
+        this._todoFacade.todosGroupedByDate$,
+        this.isFetchTodosPending$,
+    ]).pipe(
+        map(([ groupedTodos, isFetchingTodos ]) => isFetchingTodos ? new Array(2).fill({
+            key: new Date().toISOString(),
+            value: new Array(3).fill(null),
+        }) : groupedTodos),
     );
 
     public constructor(
@@ -26,6 +50,7 @@ export class DashboardComponent implements OnInit {
 
     public ngOnInit(): void {
         this._todoFacade.fetchTodos();
+        this._todoFacade.todosGroupedByDate$.subscribe();
     }
 
     public test(): void {

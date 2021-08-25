@@ -11,6 +11,7 @@ import { map, pluck, switchMap } from 'rxjs/operators';
 import { utils } from '@app/shared/functions/utils';
 import { AsyncActionStatus } from '@app/ngrx/loading-state/loading-state-utils';
 import { AppState } from '@app/ngrx/app-state/app-state';
+import { KeyValue } from '@angular/common';
 
 @Injectable({
     providedIn: 'root',
@@ -18,6 +19,20 @@ import { AppState } from '@app/ngrx/app-state/app-state';
 export class TodoFacade {
 
     public readonly todos$: Observable<ITodo[]> = this._store.select(fromTodoState.getTodos);
+
+    public readonly todosGroupedByDate$: Observable<KeyValue<string, ITodo[]>[]> = this.todos$.pipe(
+        map(todos => {
+            const groupedTodos: KeyValue<string, ITodo[]>[] = [];
+            const uniqueDates = new Set<string>();
+            todos.forEach(x => uniqueDates.add(x.date));
+
+            [ ...uniqueDates ].forEach(date => {
+                groupedTodos.push({ key: date, value: todos.filter(t => t.date === date) });
+            });
+
+            return groupedTodos;
+        }),
+    );
 
     public readonly selectedTodoId$: Observable<string | undefined> = this._store.select(fromTodoState.getSelectedTodoId);
 

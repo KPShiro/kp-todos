@@ -11,8 +11,8 @@ $primary: color-blue();
 $success: color-green();
 $warning: color-yellow();
 $danger: color-red();
-$light: color-neutral();
-$dark: color-neutral('800');
+$light: #f0f0f0; // color-neutral();
+$dark: #121212; // color-neutral('800');
 
 $theme-colors: (
     'primary': $primary,
@@ -33,12 +33,12 @@ $enable-responsive-font-sizes: true;
 
 // Body
 
-$body-bg: color-neutral('10');
-$body-color: $dark;
+$body-bg: $dark;
+$body-color: $light;
 
 // Components
 
-$border-color: color-neutral('40');
+$border-color: theme-color-level('dark', -3);
 
 // Typography
 

@@ -1,48 +1,81 @@
-<div class="page-header">
-    <div class="page-header-text">My Todos</div>
-    <div class="page-header-actions">
-        <button type="button" class="btn btn-sm">
-            <i class="uil uil-search"></i>
-        </button>
-        <button type="button" class="btn btn-sm">
-            <i class="uil uil-ellipsis-v"></i>
-        </button>
-    </div>
-</div>
-
 <div *ngIf="{
     isFetchTodosPending: (isFetchTodosPending$ | async),
-    todosGroupedByDate: (todosGroupedByDate$ | async)
-}; let data" class="page-content" [@todoGroupAnimation]="data.isFetchTodosPending">
-    <div class="todo-list" *ngFor="let group of data.todosGroupedByDate">
-        <div class="todo-list-title">
-            <span class="text">Last week</span>
-            <span class="dot"></span>
-            <span class="date">{{ group.key | date }}</span>
+    showOnlyCompletedTodos: (showOnlyCompletedTodos$ | async),
+    todos: (todos$ | async)
+}; let data" class="page-wrapper">
+    <div class="page-header">
+        <div class="page-header-text">
+            {{ pageTitle$ | async }}
         </div>
-        <div class="todo-list-items">
-            <app-todo-list-item *ngFor="let todo of group.value" [todo]="todo"
-                (checkboxClick)="onTodoCheckboxClick(todo, $event, data.isFetchTodosPending)"
-                (click)="onTodoClick(todo, data.isFetchTodosPending)">
-            </app-todo-list-item>
+        <div class="page-header-actions">
+            <button type="button" class="btn btn-sm">
+                <i class="uil uil-search"></i>
+            </button>
+            <div ngbDropdown class="d-inline-block bg-dark">
+                <button class="btn btn-sm" id="dropdownBasic1" ngbDropdownToggle>
+                    <i class="uil uil-ellipsis-v"></i>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem>
+                        Sort tasks
+                    </button>
+                    <button ngbDropdownItem>
+                        Filter tasks
+                    </button>
+                    <button ngbDropdownItem (click)="toggleProgressedTodos()">
+                        Show completed tasks
+                    </button>
+                    <button ngbDropdownItem>
+                        <i class="uil uil-grids mr-2"></i>
+                        Kanban view
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <ng-container *ngIf="!data.isFetchTodosPending && data.todosGroupedByDate?.length === 0">
-        <app-empty-state>
-            <ng-container title>
-                Lorem ipsum dolor sit amet
-            </ng-container>
-            <ng-container description>
-                Consectetur adipisicing elit. Maxime doloremque facilis alias magnam, voluptates
-                quod nihil? Nesciunt rerum unde dignissimos ad facere, vel nostrum qui. Nostrum fugit earum cum!
-                Ipsam!
-            </ng-container>
-            <ng-container actions>
-                <button type="button" class="btn btn-primary" disabled>
-                    <i class="uil uil-plus"></i> Add new task
-                </button>
-            </ng-container>
-        </app-empty-state>
-    </ng-container>
+    <div class="page-content" [@todoGroupAnimation]="data.isFetchTodosPending">
+        <div class="todo-list" *ngFor="let group of data.todos">
+            <div class="todo-list-title">
+                <span class="text">Last week</span>
+                <span class="dot"></span>
+                <span class="date">{{ group.key | date }}</span>
+            </div>
+            <div class="todo-list-items">
+                <app-todo-list-item *ngFor="let todo of group.value" [todo]="todo"
+                    (checkboxClick)="onTodoCheckboxClick(todo, $event, data.isFetchTodosPending)"
+                    (click)="onTodoClick(todo, data.isFetchTodosPending)">
+                </app-todo-list-item>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!data.isFetchTodosPending && !data.showOnlyCompletedTodos && data.todos?.length === 0">
+            <app-empty-state class="h-100">
+                <ng-container image>
+                    <img src="assets/images/Achievement_Flatline.svg" alt="Chill" class="img-fluid">
+                </ng-container>
+                <ng-container title>
+                    Everything is done!
+                </ng-container>
+                <ng-container description>
+                    Looks like you have all planned as it should be.
+                    Select "+" to add a new task.
+                </ng-container>
+            </app-empty-state>
+        </ng-container>
+
+        <ng-container *ngIf="!data.isFetchTodosPending && data.showOnlyCompletedTodos && data.todos?.length === 0">
+            <app-empty-state class="h-100">
+                <ng-container image>
+                    <img src="assets/images/Cocktail_Flatline.svg" alt="Chill" class="img-fluid">
+                </ng-container>
+                <ng-container title>
+                    Oops, nothing here...
+                </ng-container>
+                <ng-container description>
+                    Try closing more tasks to keep your day optimized.
+                </ng-container>
+            </app-empty-state>
+        </ng-container>
+    </div>
 </div>

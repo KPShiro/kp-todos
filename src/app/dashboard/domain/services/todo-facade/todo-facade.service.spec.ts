@@ -32,7 +32,7 @@ describe('TodoFacade', () => {
 
     describe('todos$', () => {
         it('should return empty array', (done: jest.DoneCallback) => {
-            service.todos$.subscribe(todos => {
+            service.allTodos$.subscribe(todos => {
                 expect(todos).toEqual([]);
                 done();
             });
@@ -45,11 +45,12 @@ describe('TodoFacade', () => {
                         id: '1234',
                         isDone: false,
                         text: 'asdas',
+                        date: new Date().toISOString(),
                     },
                 ], initialTodoState),
             });
 
-            service.todos$.subscribe(todos => {
+            service.allTodos$.subscribe(todos => {
                 expect(todos.length).toEqual(1);
                 expect(todos[0].id).toEqual('1234');
                 done();

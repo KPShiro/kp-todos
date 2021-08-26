@@ -1,10 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ITodo } from '@app/shared/interfaces/todo.interface';
-import { combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TodoFacade } from '@app/dashboard/domain/services/todo-facade/todo-facade.service';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { KeyValue } from '@angular/common';
+import { utils } from '@app/shared/functions/utils';
 
 @Component({
     selector: 'app-dashboard',
@@ -32,16 +33,27 @@ import { KeyValue } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
 
+    private completedTasksPageTitle: string = 'Completed Todos';
+    private inProgressTasksPageTitle: string = 'My Todos';
+
+    private _showOnlyCompletedTodosSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.inProgressTasksPageTitle);
+
+    public showOnlyCompletedTodos$: Observable<boolean> = this._showOnlyCompletedTodosSubject.asObservable();
+    public pageTitle$: Observable<string> = this._pageTitleSubject.asObservable();
+
     public isFetchTodosPending$: Observable<boolean> = this._todoFacade.isFetchTodosPending$;
 
-    public todosGroupedByDate$: Observable<KeyValue<string, ITodo[]>[]> = combineLatest([
-        this._todoFacade.todosGroupedByDate$,
+    public todos$: Observable<KeyValue<string, ITodo[]>[]> = combineLatest([
+        this._todoFacade.todos$,
+        this._showOnlyCompletedTodosSubject.asObservable(),
         this.isFetchTodosPending$,
     ]).pipe(
-        map(([ groupedTodos, isFetchingTodos ]) => isFetchingTodos ? new Array(2).fill({
+        map(([ todos, showOnlyCompleted, isPending ]) => isPending ? undefined : todos.filter(x => x.isDone === showOnlyCompleted)),
+        map(todos => utils.isDefAndNotNull(todos) ? this._todoFacade.groupTodosByDate(todos) : new Array(3).fill({
             key: new Date().toISOString(),
-            value: new Array(3).fill(null),
-        }) : groupedTodos),
+            value: new Array(2).fill(null),
+        })),
     );
 
     public constructor(
@@ -50,11 +62,16 @@ export class DashboardComponent implements OnInit {
 
     public ngOnInit(): void {
         this._todoFacade.fetchTodos();
-        this._todoFacade.todosGroupedByDate$.subscribe();
     }
 
-    public test(): void {
-        this._todoFacade.fetchTodos();
+    public toggleProgressedTodos(): void {
+        if(this._showOnlyCompletedTodosSubject.value) {
+            this._showOnlyCompletedTodosSubject.next(false);
+            this._pageTitleSubject.next(this.inProgressTasksPageTitle);
+        } else {
+            this._showOnlyCompletedTodosSubject.next(true);
+            this._pageTitleSubject.next(this.completedTasksPageTitle);
+        }
     }
 
     public onTodoClick(todo: ITodo, isDisabled: boolean | null = false): void {

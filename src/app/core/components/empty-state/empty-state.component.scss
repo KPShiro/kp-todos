@@ -12,11 +12,12 @@
 .app-empty-state {
     &-image {
         width: 256px;
-        margin-bottom: map-get($spacers, 4);
+        margin-bottom: map-get($spacers, 1);
     }
 
     &-title {
         margin-bottom: map-get($spacers, 1);
+        font-weight: 400;
     }
 
     &-description {

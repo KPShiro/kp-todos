@@ -12,10 +12,10 @@
                 <i class="uil uil-search"></i>
             </button>
             <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-sm" id="dropdownBasic1" ngbDropdownToggle>
+                <button class="btn btn-sm" ngbDropdownToggle>
                     <i class="uil uil-ellipsis-v"></i>
                 </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <div ngbDropdownMenu>
                     <button type="button" ngbDropdownItem class="d-flex justify-content-between">
                         Sort tasks
                         <i class="uil uil-angle-right"></i>
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="page-content" [@todoGroupAnimation]="data.isFetchTodosPending">
+    <div class="page-content">
         <div class="todo-list" *ngFor="let group of data.todos">
             <div class="todo-list-title">
                 <span class="text">Last week</span>

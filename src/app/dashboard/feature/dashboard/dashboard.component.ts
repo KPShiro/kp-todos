@@ -3,7 +3,6 @@ import { ITodo } from '@app/core/domain/interfaces/todo.interface';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TodoFacade } from '@app/dashboard/domain/services/todo-facade/todo-facade.service';
-import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { KeyValue } from '@angular/common';
 import { utils } from '@app/core/domain/functions/utils';
 
@@ -11,24 +10,6 @@ import { utils } from '@app/core/domain/functions/utils';
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: [ './dashboard.component.scss' ],
-    animations: [
-        trigger('todoGroupAnimation', [
-            transition('* => *', [
-                query(':enter', [
-                    style({
-                        transform: 'translateX(-20%)',
-                        opacity: 0,
-                    }),
-                    stagger(200, [
-                        animate('0.5s', style({
-                            transform: 'translateX(0)',
-                            opacity: 1,
-                        })),
-                    ]),
-                ], { optional: true })
-            ])
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {

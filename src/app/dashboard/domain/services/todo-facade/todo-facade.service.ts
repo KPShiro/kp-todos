@@ -4,11 +4,11 @@ import * as TodoActions from '@app/ngrx/todo-state/todo-state-actions';
 
 import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
-import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { ITodo } from '@app/core/domain/interfaces/todo.interface';
 import { Action, Store } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { map, pluck } from 'rxjs/operators';
-import { utils } from '@app/shared/functions/utils';
+import { utils } from '@app/core/domain/functions/utils';
 import { AsyncActionStatus } from '@app/ngrx/loading-state/loading-state-utils';
 import { AppState } from '@app/ngrx/app-state/app-state';
 import { KeyValue } from '@angular/common';

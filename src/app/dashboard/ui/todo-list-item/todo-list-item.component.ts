@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { utils } from '@app/shared/functions/utils';
-import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { utils } from '@app/core/domain/functions/utils';
+import { ITodo } from '@app/core/domain/interfaces/todo.interface';
 
 @Component({
     selector: 'app-todo-list-item',

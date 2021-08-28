@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { ITodo } from '@app/core/domain/interfaces/todo.interface';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TodoFacade } from '@app/dashboard/domain/services/todo-facade/todo-facade.service';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { KeyValue } from '@angular/common';
-import { utils } from '@app/shared/functions/utils';
+import { utils } from '@app/core/domain/functions/utils';
 
 @Component({
     selector: 'app-dashboard',

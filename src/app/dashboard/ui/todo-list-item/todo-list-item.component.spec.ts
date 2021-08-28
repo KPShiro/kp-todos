@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TodoListItemComponent } from './todo-list-item.component';
-import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { ITodo } from '@app/core/domain/interfaces/todo.interface';
 
 describe('TodoListItemComponent', () => {
     let fixture: ComponentFixture<TodoListItemComponent>;
@@ -9,6 +9,7 @@ describe('TodoListItemComponent', () => {
     const mockedTodoItem: ITodo = {
         id: '0',
         isDone: false,
+        date: new Date().toISOString(),
         text: 'Lorem ipsum',
     };
 

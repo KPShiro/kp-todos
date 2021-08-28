@@ -1,4 +1,4 @@
-import { ITodo } from "@app/shared/interfaces/todo.interface";
+import { ITodo } from "@app/core/domain/interfaces/todo.interface";
 import { Update } from "@ngrx/entity";
 import { AsyncActionStatus, createNgrxAction } from "../loading-state/loading-state-utils";
 import { TODO_STATE_KEY } from "./todo-state";

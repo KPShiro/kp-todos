@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { ITodo } from '@app/core/domain/interfaces/todo.interface';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 

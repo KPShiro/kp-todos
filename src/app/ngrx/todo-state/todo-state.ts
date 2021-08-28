@@ -1,4 +1,4 @@
-import { ITodo } from "@app/shared/interfaces/todo.interface";
+import { ITodo } from "@app/core/domain/interfaces/todo.interface";
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 
 export const TODO_STATE_KEY = 'todo';

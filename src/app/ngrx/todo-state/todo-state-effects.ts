@@ -2,12 +2,12 @@ import * as uuid from 'uuid';
 import * as TodoActions from './todo-state-actions';
 
 import { Injectable } from "@angular/core";
-import { TodoService } from "@app/core/services/todo/todo.service";
-import { VibrationService } from "@app/core/services/vibration/vibration.service";
+import { TodoService } from "@app/core/domain/services/todo/todo.service";
+import { VibrationService } from "@app/core/domain/services/vibration/vibration.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
-import { ITodo } from '@app/shared/interfaces/todo.interface';
+import { ITodo } from '@app/core/domain/interfaces/todo.interface';
 
 @Injectable()
 export class TodoStateEffects {

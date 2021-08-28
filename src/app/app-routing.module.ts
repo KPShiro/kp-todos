@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundErrorComponent } from '@core/components/not-found-error/not-found-error.component';
+import { NotFoundErrorComponent } from '@app/core/feature/not-found-error/not-found-error.component';
 
 const routes: Routes = [
     { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },

@@ -11,21 +11,31 @@
             <button type="button" class="btn btn-sm">
                 <i class="uil uil-search"></i>
             </button>
-            <div ngbDropdown class="d-inline-block bg-dark">
+            <div ngbDropdown class="d-inline-block">
                 <button class="btn btn-sm" id="dropdownBasic1" ngbDropdownToggle>
                     <i class="uil uil-ellipsis-v"></i>
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem>
+                    <button type="button" ngbDropdownItem class="d-flex justify-content-between">
                         Sort tasks
+                        <i class="uil uil-angle-right"></i>
                     </button>
-                    <button ngbDropdownItem>
+                    <button type="button" ngbDropdownItem class="d-flex justify-content-between">
                         Filter tasks
+                        <i class="uil uil-angle-right ml"></i>
                     </button>
-                    <button ngbDropdownItem (click)="toggleProgressedTodos()">
-                        Show completed tasks
+                    <div class="dropdown-divider"></div>
+                    <button type="button" ngbDropdownItem (click)="toggleProgressedTodos()">
+                        <ng-container *ngIf="!data.showOnlyCompletedTodos">
+                            <i class="uil uil-check-square mr-2"></i>
+                            Completed tasks
+                        </ng-container>
+                        <ng-container *ngIf="data.showOnlyCompletedTodos">
+                            <i class="uil uil-times-square mr-2"></i>
+                            Unfinished tasks
+                        </ng-container>
                     </button>
-                    <button ngbDropdownItem>
+                    <button type="button" ngbDropdownItem>
                         <i class="uil uil-grids mr-2"></i>
                         Kanban view
                     </button>

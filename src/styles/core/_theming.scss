@@ -138,10 +138,10 @@ $dropdown-divider-bg: $dropdown-border-color;
 
 $dropdown-link-color: $body-color;
 $dropdown-link-hover-color: $dropdown-link-color;
-$dropdown-link-hover-bg: color-neutral('20');
+$dropdown-link-hover-bg: theme-color-level('dark', -2);
 
 $dropdown-link-active-color: $dropdown-link-color;
-$dropdown-link-active-bg: color-neutral();
+$dropdown-link-active-bg: theme-color-level('dark', -3);
 
 $dropdown-link-disabled-color: color-neutral('50');
 

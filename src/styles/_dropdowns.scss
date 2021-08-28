@@ -1,0 +1,22 @@
+@import 'core/theming';
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu {
+    background-color: theme-color-level('dark', -1);
+    box-shadow: 0 0 1rem 0 transparentize(theme-color('dark'), 0.64);
+    animation: dropdownEnter ease-in-out 0.25s;
+    overflow: hidden;
+}
+
+@keyframes dropdownEnter {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

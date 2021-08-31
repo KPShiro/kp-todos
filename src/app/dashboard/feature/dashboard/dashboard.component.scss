@@ -12,10 +12,6 @@ $spacing: map-get($spacers, 3);
     flex-direction: column;
 }
 
-.app-todo-list-item + .app-todo-list-item {
-    margin-top: map-get($spacers, 2);
-}
-
 .page-wrapper {
     flex: 1;
     display: flex;
@@ -53,25 +49,6 @@ $spacing: map-get($spacers, 3);
     min-height: 0;
 }
 
-.todo-list {
-    & + & {
-        margin-top: $spacing * 2;
-    }
-
-    &-title {
-        display: flex;
-        align-items: center;
-        font-size: 0.75rem;
-        font-weight: 600;
-        margin-bottom: map-get($spacers, 3);
-    }
-
-    &-title .dot {
-        display: inline-block;
-        margin: 0 0.5rem;
-        width: 0.25rem;
-        height: 0.25rem;
-        border-radius: 50%;
-        background-color: $body-color;
-    }
+.app-todo-list-group + .app-todo-list-group {
+    margin-top: $spacing * 2;
 }

@@ -1,10 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ITodo } from '@app/core/domain/interfaces/todo.interface';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TodoFacade } from '@app/dashboard/domain/services/todo-facade/todo-facade.service';
-import { KeyValue } from '@angular/common';
-import { utils } from '@app/core/domain/functions/utils';
+import { ITodoListGroup } from '@app/dashboard/domain/interfaces/todo-list-group.interface';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,24 +16,25 @@ export class DashboardComponent implements OnInit {
     private completedTasksPageTitle: string = 'Completed Todos';
     private inProgressTasksPageTitle: string = 'My Todos';
 
-    private _showOnlyCompletedTodosSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _showCompletedTodosSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.inProgressTasksPageTitle);
 
-    public showOnlyCompletedTodos$: Observable<boolean> = this._showOnlyCompletedTodosSubject.asObservable();
+    public showCompletedTodos$: Observable<boolean> = this._showCompletedTodosSubject.asObservable();
     public pageTitle$: Observable<string> = this._pageTitleSubject.asObservable();
 
     public isFetchTodosPending$: Observable<boolean> = this._todoFacade.isFetchTodosPending$;
 
-    public todos$: Observable<KeyValue<string, ITodo[]>[]> = combineLatest([
+    public fakeTodoGroups$: Observable<ITodoListGroup[]> = of(new Array(3).fill({
+        date: new Date(1900, 1, 1).toISOString(),
+        todos: new Array(2).fill(undefined),
+    } as ITodoListGroup));
+
+    public todoGroups$: Observable<ITodoListGroup[]> = combineLatest([
         this._todoFacade.todos$,
-        this._showOnlyCompletedTodosSubject.asObservable(),
-        this.isFetchTodosPending$,
+        this.showCompletedTodos$,
     ]).pipe(
-        map(([ todos, showOnlyCompleted, isPending ]) => isPending ? undefined : todos.filter(x => x.isDone === showOnlyCompleted)),
-        map(todos => utils.isDefAndNotNull(todos) ? this._todoFacade.groupTodosByDate(todos) : new Array(3).fill({
-            key: new Date().toISOString(),
-            value: new Array(2).fill(null),
-        })),
+        map(([ todos, showCompleted ]) => todos.filter(todo => todo.isDone === showCompleted)),
+        map(todos => this._todoFacade.groupTodosByDate(todos)),
     );
 
     public constructor(
@@ -46,31 +46,23 @@ export class DashboardComponent implements OnInit {
     }
 
     public toggleProgressedTodos(): void {
-        if(this._showOnlyCompletedTodosSubject.value) {
-            this._showOnlyCompletedTodosSubject.next(false);
+        if(this._showCompletedTodosSubject.value) {
+            this._showCompletedTodosSubject.next(false);
             this._pageTitleSubject.next(this.inProgressTasksPageTitle);
         } else {
-            this._showOnlyCompletedTodosSubject.next(true);
+            this._showCompletedTodosSubject.next(true);
             this._pageTitleSubject.next(this.completedTasksPageTitle);
         }
     }
 
-    public onTodoClick(todo: ITodo, isDisabled: boolean | null = false): void {
-        if (isDisabled) {
-            return;
-        }
-
+    public onTodoClick(todo: ITodo): void {
         throw new Error('Not implemented');
     }
 
-    public onTodoCheckboxClick(todo: ITodo, isDone: boolean, isDisabled: boolean | null = false): void {
-        if (isDisabled) {
-            return;
-        }
-
+    public onTodoToggle(todo: ITodo): void {
         this._todoFacade.updateTodo({
             id: todo.id,
-            changes: { isDone },
+            changes: { isDone: !todo.isDone },
         });
     }
 

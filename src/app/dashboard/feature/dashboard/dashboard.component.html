@@ -1,7 +1,7 @@
 <div *ngIf="{
     isFetchTodosPending: (isFetchTodosPending$ | async),
-    showOnlyCompletedTodos: (showOnlyCompletedTodos$ | async),
-    todos: (todos$ | async)
+    showCompletedTodos: (showCompletedTodos$ | async),
+    todoGroups: (todoGroups$ | async)
 }; let data" class="page-wrapper">
     <div class="page-header">
         <div class="page-header-text">
@@ -23,11 +23,11 @@
                     </button>
                     <div class="dropdown-divider"></div>
                     <button type="button" ngbDropdownItem (click)="toggleProgressedTodos()">
-                        <ng-container *ngIf="!data.showOnlyCompletedTodos">
+                        <ng-container *ngIf="!data.showCompletedTodos">
                             <i class="uil uil-check-square mr-2"></i>
                             Completed tasks
                         </ng-container>
-                        <ng-container *ngIf="data.showOnlyCompletedTodos">
+                        <ng-container *ngIf="data.showCompletedTodos">
                             <i class="uil uil-times-square mr-2"></i>
                             Unfinished tasks
                         </ng-container>
@@ -42,21 +42,17 @@
     </div>
 
     <div class="page-content">
-        <div class="todo-list" *ngFor="let group of data.todos">
-            <div class="todo-list-title">
-                <span class="text">Last week</span>
-                <span class="dot"></span>
-                <span class="date">{{ group.key | date }}</span>
-            </div>
-            <div class="todo-list-items">
-                <app-todo-list-item *ngFor="let todo of group.value" [todo]="todo"
-                    (checkboxClick)="onTodoCheckboxClick(todo, $event, data.isFetchTodosPending)"
-                    (click)="onTodoClick(todo, data.isFetchTodosPending)">
-                </app-todo-list-item>
-            </div>
-        </div>
+        <app-todo-list-group *ngFor="let todoGroup of data.todoGroups" [data]="todoGroup"
+            (todoClick)="onTodoClick($event)" (todoToggle)="onTodoToggle($event)">
+        </app-todo-list-group>
 
-        <ng-container *ngIf="!data.isFetchTodosPending && !data.showOnlyCompletedTodos && data.todos?.length === 0">
+        <ng-container *ngIf="data.isFetchTodosPending">
+            <app-todo-list-group *ngFor="let todoGroup of (fakeTodoGroups$ | async)" [data]="todoGroup"
+                [isLoading]="true">
+            </app-todo-list-group>
+        </ng-container>
+
+        <ng-container *ngIf="!data.isFetchTodosPending && !data.showCompletedTodos && data.todoGroups?.length === 0">
             <app-empty-state class="h-100">
                 <ng-container image>
                     <img src="assets/images/Achievement_Flatline.svg" alt="Chill" class="img-fluid">
@@ -71,7 +67,7 @@
             </app-empty-state>
         </ng-container>
 
-        <ng-container *ngIf="!data.isFetchTodosPending && data.showOnlyCompletedTodos && data.todos?.length === 0">
+        <ng-container *ngIf="!data.isFetchTodosPending && data.showCompletedTodos && data.todoGroups?.length === 0">
             <app-empty-state class="h-100">
                 <ng-container image>
                     <img src="assets/images/Cocktail_Flatline.svg" alt="Chill" class="img-fluid">

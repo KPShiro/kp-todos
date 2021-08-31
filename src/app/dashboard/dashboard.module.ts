@@ -3,14 +3,16 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '@app/core/core.module';
 
-import { TodoListItemComponent } from './ui/todo-list-item/todo-list-item.component';
+import { TodoListGroupItemComponent } from './ui/todo-list-group-item/todo-list-group-item.component';
 import { DashboardComponent } from './feature/dashboard/dashboard.component';
 import { TodoFacade } from './domain/services/todo-facade/todo-facade.service';
+import { TodoListGroupComponent } from './ui/todo-list-group/todo-list-group.component';
 
 @NgModule({
     declarations: [
-        TodoListItemComponent,
+        TodoListGroupItemComponent,
         DashboardComponent,
+        TodoListGroupComponent,
     ],
     imports: [
         CoreModule,

@@ -7,9 +7,14 @@ import { AppInitializerProvider } from "./domain/services/app-initializer/app-in
 import { VibrationService } from "./domain/services/vibration/vibration.service";
 import { EmptyStateComponent } from "./ui/empty-state/empty-state.component";
 import { TodoService } from "./domain/services/todo/todo.service";
+import { LastUpdateDatePipe } from './domain/pipes/lastUpdateDate/last-update-date-pipe.pipe';
 
 const coreComponents = [
     EmptyStateComponent,
+];
+
+const corePipes = [
+    LastUpdateDatePipe,
 ];
 
 @NgModule({
@@ -21,9 +26,11 @@ const coreComponents = [
         NgbModule,
         CommonModule,
         ...coreComponents,
+        ...corePipes,
     ],
     declarations: [
         ...coreComponents,
+        ...corePipes,
     ],
 })
 export class CoreModule {

@@ -1,0 +1,91 @@
+@import 'core/theming';
+
+$checkbox-size: 1.5rem;
+$border: $border-width solid $border-color;
+
+$completed-item-color: darken($body-color, 32%);
+$completed-item-bg-color: theme-color-level('dark', -2);
+$completed-item-checkbox-bg-color: theme-color-level('dark', -3);
+
+:host {
+    & {
+        display: flex;
+        align-items: center;
+        border: $border;
+        border-radius: $border-radius;
+    }
+
+    &:not(.ghost):hover,
+    &:not(.ghost):active {
+        border-color: lighten($border-color, 12%);
+    }
+
+    &:not(.ghost):hover {
+        cursor: pointer;
+    }
+
+    .app-todo-list-group-item {
+        &-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: map-get($spacers, 3);
+        }
+
+        &-checkbox-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: $checkbox-size;
+            width: $checkbox-size;
+            border: $border;
+            border-radius: 50%;
+        }
+
+        &-text {
+            margin-right: $spacer;
+            flex: 1;
+        }
+    }
+}
+
+:host.completed {
+    & {
+        background-color: $completed-item-bg-color;
+        border-color: $completed-item-bg-color;
+    }
+
+    .app-todo-list-group-item {
+        &-checkbox,
+        &-text {
+            color: $completed-item-color;
+        }
+
+        &-checkbox-icon {
+            background-color: $completed-item-checkbox-bg-color;
+            border-color: $completed-item-checkbox-bg-color;
+        }
+
+        &-text {
+            text-decoration: line-through;
+        }
+    }
+}
+
+:host.loading {
+    .app-todo-list-group-item {
+        &-checkbox-icon {
+            border-color: transparent;
+        }
+
+        &-text {
+            height: $checkbox-size;
+            border-radius: $border-radius;
+        }
+
+        &-text,
+        &-checkbox-icon {
+            background-color: $completed-item-checkbox-bg-color;
+        }
+    }
+}

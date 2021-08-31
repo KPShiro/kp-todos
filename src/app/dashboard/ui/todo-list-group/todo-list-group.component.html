@@ -1,0 +1,9 @@
+<div class="app-todo-list-group-header">
+    <span class="text">{{ data?.date | lastUpdateDate }}</span>
+    <span class="dot"></span>
+    <span class="date">{{ data?.date | date }}</span>
+</div>
+<div class="app-todo-list-group-content">
+    <app-todo-list-group-item *ngFor="let todo of data?.todos" [todo]="todo" (checkboxClick)="todoToggle.emit(todo)"
+        (click)="todoClick.emit(todo)" [isLoading]="isLoading"></app-todo-list-group-item>
+</div>

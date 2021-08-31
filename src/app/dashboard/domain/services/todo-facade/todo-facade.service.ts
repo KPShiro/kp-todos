@@ -11,7 +11,7 @@ import { map, pluck } from 'rxjs/operators';
 import { utils } from '@app/core/domain/functions/utils';
 import { AsyncActionStatus } from '@app/ngrx/loading-state/loading-state-utils';
 import { AppState } from '@app/ngrx/app-state/app-state';
-import { KeyValue } from '@angular/common';
+import { ITodoListGroup } from '@app/dashboard/domain/interfaces/todo-list-group.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -50,14 +50,14 @@ export class TodoFacade {
         this._store.dispatch(TodoActions.deselectTodo());
     }
 
-    public groupTodosByDate(todos: ITodo[]): KeyValue<string, ITodo[]>[] {
-        const groupedTodos: KeyValue<string, ITodo[]>[] = [];
+    public groupTodosByDate(todos: ITodo[]): ITodoListGroup[] {
+        const groupedTodos: ITodoListGroup[] = [];
         const uniqueDates = new Set<string>();
 
         todos.forEach(x => uniqueDates.add(x.date));
 
         [ ...uniqueDates ].forEach(date => {
-            groupedTodos.push({ key: date, value: todos.filter(t => t.date === date) });
+            groupedTodos.push({ date, todos: todos.filter(t => t.date === date) });
         });
 
         return groupedTodos;

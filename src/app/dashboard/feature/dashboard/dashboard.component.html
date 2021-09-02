@@ -43,14 +43,9 @@
 
     <div class="page-content">
         <app-todo-list-group *ngFor="let todoGroup of data.todoGroups" [data]="todoGroup"
-            (todoClick)="onTodoClick($event)" (todoToggle)="onTodoToggle($event)">
+            [isLoading]="todoGroup.todos[0] === undefined" (todoClick)="onTodoClick($event)"
+            (todoToggle)="onTodoToggle($event)">
         </app-todo-list-group>
-
-        <ng-container *ngIf="data.isFetchTodosPending">
-            <app-todo-list-group *ngFor="let todoGroup of (fakeTodoGroups$ | async)" [data]="todoGroup"
-                [isLoading]="true">
-            </app-todo-list-group>
-        </ng-container>
 
         <ng-container *ngIf="!data.isFetchTodosPending && !data.showCompletedTodos && data.todoGroups?.length === 0">
             <app-empty-state class="h-100">

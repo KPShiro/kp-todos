@@ -37,14 +37,16 @@ export class DashboardComponent implements OnInit {
         this.showCompletedTodos$,
     ]).pipe(
         map(([ todos, isFetchTodosPending, showCompleted ]) => {
-            const groupedTodos: any[] = this._todoFacade.groupTodosByDate(
+            const groupedTodos: ITodoListGroup[] = this._todoFacade.groupTodosByDate(
                 todos.filter(todo => todo.isDone === showCompleted)
             );
 
-            return isFetchTodosPending ? new Array(3).fill({
+            const groupedFakeTodos: ITodoListGroup[] = new Array(3).fill({
                 date: new Date(1900, 1, 1).toISOString(),
                 todos: new Array(3).fill(undefined),
-            } as ITodoListGroup) : groupedTodos;
+            });
+
+            return isFetchTodosPending ? groupedFakeTodos : groupedTodos;
         }),
     );
 

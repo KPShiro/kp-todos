@@ -1,0 +1,79 @@
+<div *ngIf="{
+    isFetchTodosPending: (isFetchTodosPending$ | async),
+    showCompletedTodos: (showCompletedTodos$ | async),
+    todoGroups: (todoGroups$ | async)
+}; let data" class="page-wrapper">
+    <div class="page-header">
+        <div class="page-header-text">
+            {{ pageTitle$ | async }}
+        </div>
+        <div class="page-header-actions">
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-sm" ngbDropdownToggle>
+                    <i class="uil uil-ellipsis-v"></i>
+                </button>
+                <div ngbDropdownMenu>
+                    <button type="button" disabled ngbDropdownItem class="d-flex justify-content-between">
+                        Sort tasks
+                        <i class="uil uil-angle-right"></i>
+                    </button>
+                    <button type="button" disabled ngbDropdownItem class="d-flex justify-content-between">
+                        Filter tasks
+                        <i class="uil uil-angle-right ml"></i>
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <button type="button" ngbDropdownItem (click)="toggleProgressedTodos()">
+                        <ng-container *ngIf="!data.showCompletedTodos">
+                            <i class="uil uil-check-square mr-2"></i>
+                            Completed tasks
+                        </ng-container>
+                        <ng-container *ngIf="data.showCompletedTodos">
+                            <i class="uil uil-times-square mr-2"></i>
+                            Unfinished tasks
+                        </ng-container>
+                    </button>
+                    <button type="button" disabled ngbDropdownItem>
+                        <i class="uil uil-grids mr-2"></i>
+                        Kanban view
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <app-todo-list-group *ngFor="let todoGroup of data.todoGroups" [data]="todoGroup"
+            [isLoading]="todoGroup.todos[0] === undefined" (todoClick)="onTodoClick($event)"
+            (todoToggle)="onTodoToggle($event)">
+        </app-todo-list-group>
+
+        <ng-container *ngIf="!data.isFetchTodosPending && !data.showCompletedTodos && data.todoGroups?.length === 0">
+            <app-empty-state class="h-100">
+                <ng-container image>
+                    <img src="assets/images/Achievement_Flatline.svg" alt="Chill" class="img-fluid">
+                </ng-container>
+                <ng-container title>
+                    Everything is done!
+                </ng-container>
+                <ng-container description>
+                    Looks like you have all planned as it should be.
+                    Select "+" to add a new task.
+                </ng-container>
+            </app-empty-state>
+        </ng-container>
+
+        <ng-container *ngIf="!data.isFetchTodosPending && data.showCompletedTodos && data.todoGroups?.length === 0">
+            <app-empty-state class="h-100">
+                <ng-container image>
+                    <img src="assets/images/Cocktail_Flatline.svg" alt="Chill" class="img-fluid">
+                </ng-container>
+                <ng-container title>
+                    Oops, nothing here...
+                </ng-container>
+                <ng-container description>
+                    Try closing more tasks to keep your day optimized.
+                </ng-container>
+            </app-empty-state>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<span class="app-todo-list-group-item-checkbox" (click)="onCheckboxClick($event)">
+    <div class="app-todo-list-group-item-checkbox-icon">
+        <i class="uil uil-check" *ngIf="isCompleted"></i>
+    </div>
+</span>
+
+<div class="app-todo-list-group-item-text">
+    {{ todo?.text }}
+</div>

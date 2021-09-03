@@ -1,14 +1,20 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
-import { AppInitializer } from "./app-initializer/app-initializer";
-import { AppInitializerProvider } from "./app-initializer/app-initializer-provider";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
-import { VibrationService } from "./services/vibration/vibration.service";
-import { EmptyStateComponent } from "./components/empty-state/empty-state.component";
-import { TodoService } from "./services/todo/todo.service";
+
+import { AppInitializer } from "./domain/services/app-initializer/app-initializer";
+import { AppInitializerProvider } from "./domain/services/app-initializer/app-initializer-provider";
+import { VibrationService } from "./domain/services/vibration/vibration.service";
+import { EmptyStateComponent } from "./ui/empty-state/empty-state.component";
+import { TodoService } from "./domain/services/todo/todo.service";
+import { LastUpdateDatePipe } from './domain/pipes/lastUpdateDate/last-update-date-pipe.pipe';
 
 const coreComponents = [
     EmptyStateComponent,
+];
+
+const corePipes = [
+    LastUpdateDatePipe,
 ];
 
 @NgModule({
@@ -20,9 +26,11 @@ const coreComponents = [
         NgbModule,
         CommonModule,
         ...coreComponents,
+        ...corePipes,
     ],
     declarations: [
         ...coreComponents,
+        ...corePipes,
     ],
 })
 export class CoreModule {

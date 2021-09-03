@@ -2,6 +2,13 @@
 @import 'core/theming';
 @import '~bootstrap/scss/bootstrap';
 
+// Angular CDK
+@import '~@angular/cdk/overlay-prebuilt.css';
+
 // Others
 @import 'core/fonts';
+@import 'core/animations';
 @import 'error-pages';
+@import 'overlays';
+@import 'typography';
+@import 'dropdowns';

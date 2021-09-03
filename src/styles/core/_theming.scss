@@ -11,8 +11,8 @@ $primary: color-blue();
 $success: color-green();
 $warning: color-yellow();
 $danger: color-red();
-$light: color-neutral();
-$dark: color-neutral('800');
+$light: #f0f0f0; // color-neutral();
+$dark: #121212; // color-neutral('800');
 
 $theme-colors: (
     'primary': $primary,
@@ -33,12 +33,12 @@ $enable-responsive-font-sizes: true;
 
 // Body
 
-$body-bg: color-neutral('10');
-$body-color: $dark;
+$body-bg: $dark;
+$body-color: $light;
 
 // Components
 
-$border-color: color-neutral('40');
+$border-color: theme-color-level('dark', -3);
 
 // Typography
 
@@ -138,12 +138,12 @@ $dropdown-divider-bg: $dropdown-border-color;
 
 $dropdown-link-color: $body-color;
 $dropdown-link-hover-color: $dropdown-link-color;
-$dropdown-link-hover-bg: color-neutral('20');
+$dropdown-link-hover-bg: theme-color-level('dark', -2);
 
 $dropdown-link-active-color: $dropdown-link-color;
-$dropdown-link-active-bg: color-neutral();
+$dropdown-link-active-bg: theme-color-level('dark', -3);
 
-$dropdown-link-disabled-color: color-neutral('50');
+$dropdown-link-disabled-color: theme-color-level('dark', -4);
 
 $dropdown-item-padding-y: $input-btn-padding-y;
 $dropdown-item-padding-x: $input-btn-padding-x;

@@ -15,8 +15,8 @@ export class KpDialogService {
         private readonly _injector: Injector,
     ) { }
 
-    public open<DataType = any, ComponentType = any>(componentType: Type<ComponentType>, config: IKpDialogConfig<DataType> = DEFAULT_KP_DIALOG_CONFIG): KpDialogRef {
-        const dialogHost: KpDialogHost = new KpDialogHost<DataType>(config.data);
+    public open<DataType = any, ComponentType = any>(componentType: Type<ComponentType>, data: DataType | undefined = undefined, config: IKpDialogConfig = DEFAULT_KP_DIALOG_CONFIG): KpDialogRef {
+        const dialogHost: KpDialogHost = new KpDialogHost<DataType>(data);
         const dialogComponent: ComponentRef<ComponentType> = this._createDialogComponent(componentType, dialogHost);
         const dialogRef: KpDialogRef = this._spawnDialog(dialogComponent, config);
 

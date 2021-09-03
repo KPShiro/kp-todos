@@ -1,0 +1,51 @@
+@import 'core/theming';
+
+$header-font-size: 0.75rem;
+$header-dot-size: $header-font-size / 3;
+
+$loading-base-color: theme-color-level('dark', -3);
+
+:host {
+    & {
+        display: block;
+    }
+
+    .app-todo-list-group {
+        &-header {
+            display: flex;
+            align-items: center;
+            font-size: $header-font-size;
+            font-weight: 600;
+            margin-bottom: map-get($spacers, 3);
+        }
+
+        &-header .dot {
+            display: inline-block;
+            margin: 0 $header-dot-size * 2;
+            width: $header-dot-size;
+            height: $header-dot-size;
+            border-radius: 50%;
+            background-color: $body-color;
+        }
+
+        &-content > .app-todo-list-group-item + .app-todo-list-group-item {
+            margin-top: map-get($spacers, 2);
+        }
+    }
+}
+
+:host.loading {
+    &:nth-child(2) {
+        opacity: 0.5;
+    }
+
+    &:nth-child(3) {
+        opacity: 0.2;
+    }
+
+    .app-todo-list-group-header > * {
+        border-radius: $border-radius;
+        background-color: $loading-base-color;
+        color: $loading-base-color;
+    }
+}

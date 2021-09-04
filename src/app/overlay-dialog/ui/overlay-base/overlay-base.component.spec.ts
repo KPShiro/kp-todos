@@ -1,21 +1,21 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KpOverlayRef } from '@app/kp-overlay/models';
-import { KpOverlayComponent } from './overlay.component';
+import { OverlayDialogRef } from '@app/overlay-dialog/domain/models';
+import { OverlayBaseComponent } from './overlay-base.component';
 
-describe('KpOverlayComponent', () => {
-    let component: KpOverlayComponent;
-    let fixture: ComponentFixture<KpOverlayComponent>;
+describe('OverlayBaseComponent', () => {
+    let component: OverlayBaseComponent;
+    let fixture: ComponentFixture<OverlayBaseComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
                 OverlayModule,
             ],
-            declarations: [ KpOverlayComponent ],
+            declarations: [ OverlayBaseComponent ],
             providers: [
                 {
-                    provide: KpOverlayRef,
+                    provide: OverlayDialogRef,
                     useValue: { },
                 },
             ],
@@ -23,7 +23,7 @@ describe('KpOverlayComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(KpOverlayComponent);
+        fixture = TestBed.createComponent(OverlayBaseComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

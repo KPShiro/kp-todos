@@ -7,6 +7,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { NgrxStateModule } from './ngrx/ngrx.module';
 
 import { AppComponent } from './app.component';
+import { OverlayDialogModule } from './overlay-dialog/overlay-dialog.module';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { AppComponent } from './app.component';
         AppRoutingModule,
         CoreModule.forRoot(),
         DashboardModule.forRoot(),
+        OverlayDialogModule.forRoot(),
     ],
     providers: [],
     bootstrap: [ AppComponent ]

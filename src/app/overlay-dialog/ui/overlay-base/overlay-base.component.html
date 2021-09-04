@@ -1,15 +1,15 @@
 <ng-container [ngSwitch]="contentType">
-    <ng-container *ngSwitchCase="'string'">
-        <div class="box">
+    <ng-container *ngSwitchCase="'STRING'">
+        <div class="app-overlay-base-box">
             <div [innerHTML]="content"></div>
         </div>
     </ng-container>
 
-    <ng-container *ngSwitchCase="'template'">
+    <ng-container *ngSwitchCase="'TEMPLATE'">
         <ng-container *ngTemplateOutlet="$any(content); context: context"></ng-container>
     </ng-container>
 
-    <ng-container *ngSwitchCase="'component'">
+    <ng-container *ngSwitchCase="'COMPONENT'">
         <ng-container *ngComponentOutlet="$any(content)"></ng-container>
     </ng-container>
 </ng-container>

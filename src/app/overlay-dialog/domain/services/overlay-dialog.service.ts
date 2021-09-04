@@ -29,8 +29,8 @@ export class OverlayDialogService {
     public openDialog<R = any, T = any>(content: string | TemplateRef<any> | Type<any>, data?: T): OverlayDialogRef<R> {
         const config = new OverlayConfig({
             hasBackdrop: true,
-            panelClass: [ 'kp-dialog' ],
-            backdropClass: 'kp-overlay-backdrop',
+            panelClass: [ 'app-overlay-dialog' ],
+            backdropClass: 'app-overlay-dialog-backdrop',
             positionStrategy: this._overlay.position()
                 .global()
                 .centerVertically()
@@ -43,8 +43,8 @@ export class OverlayDialogService {
     public openBottomSheet<R = any, T = any>(content: string | TemplateRef<any> | Type<any>, data?: T): OverlayDialogRef<R> {
         const config = new OverlayConfig({
             hasBackdrop: true,
-            panelClass: [ 'kp-bottomSheet' ],
-            backdropClass: 'kp-overlay-backdrop',
+            panelClass: [ 'app-overlay-dialog-bottom-sheet' ],
+            backdropClass: 'app-overlay-dialog-backdrop',
             positionStrategy: this._overlay.position()
                 .global()
                 .bottom()

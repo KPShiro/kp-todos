@@ -145,8 +145,8 @@ $dropdown-link-active-bg: theme-color-level('dark', -3);
 
 $dropdown-link-disabled-color: theme-color-level('dark', -4);
 
-$dropdown-item-padding-y: $input-btn-padding-y;
-$dropdown-item-padding-x: $input-btn-padding-x;
+$dropdown-item-padding-y: 0.75rem;
+$dropdown-item-padding-x: 1.125rem;
 
 $dropdown-header-color: color-neutral('80');
 $dropdown-header-padding: $dropdown-item-padding-y $dropdown-item-padding-x;

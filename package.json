@@ -3,9 +3,9 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "node server.js",
         "build": "ng build",
-        "build:prod": "ng build --prod",
+        "build:prod": "ng build --aot --prod",
         "test": "jest",
         "test:prod": "jest --coverage",
         "test:coverage": "jest --coverage",
@@ -31,6 +31,8 @@
         "@ngrx/store": "^11.1.0",
         "@ngrx/store-devtools": "^11.1.0",
         "bootstrap": "^4.5.0",
+        "express": "^4.17.1",
+        "path": "^0.12.7",
         "rxjs": "~6.6.0",
         "tslib": "^2.0.0",
         "zone.js": "~0.11.3"

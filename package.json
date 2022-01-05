@@ -4,10 +4,10 @@
     "scripts": {
         "ng": "ng",
         "start": "node server.js",
-        "build": "ng build",
-        "build:prod": "ng build --aot --prod",
+        "start:dev": "ng serve --host 192.168.0.108",
+        "build": "ng build --aot --prod",
+        "build:dev": "ng build",
         "test": "jest",
-        "test:prod": "jest --coverage",
         "test:coverage": "jest --coverage",
         "lint": "ng lint",
         "e2e": "ng e2e"
